@@ -18,8 +18,6 @@ const Header = () => {
                                 <a className="nav-link active" aria-current="page" href="#">Sachentransporte</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">AGB´s</a>
-                            </li><li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="#">Kontakt</a>
                             </li>
                         </ul>
@@ -29,7 +27,7 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-        </header>
+        </header >
     );
 };
 
