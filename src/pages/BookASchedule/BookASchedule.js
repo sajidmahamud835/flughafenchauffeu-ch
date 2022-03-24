@@ -1,9 +1,10 @@
 import React from 'react';
+import BookingProcess from '../../componants/BookingProcess/BookingProcess';
 
 const BookASchedule = () => {
     return (
         <div>
-            <h1>Comming soon!</h1>
+            <BookingProcess />
         </div>
     );
 };
