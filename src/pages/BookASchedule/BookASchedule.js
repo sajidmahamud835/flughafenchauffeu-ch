@@ -1,9 +1,13 @@
 import React from 'react';
+import Search from '../../componants/Search/Search';
+import { SearchProvider } from '../../store/SearchContext';
 
 const BookASchedule = () => {
     return (
         <div>
-            <h1>Comming soon!</h1>
+            <SearchProvider>
+                <Search />
+            </SearchProvider>
         </div>
     );
 };
