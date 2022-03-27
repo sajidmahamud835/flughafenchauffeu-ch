@@ -134,12 +134,36 @@ const BookingProcess = () => {
                     },
                     {
                         id: 3,
-                        name: "email",
-                        type: "email",
-                        placeholder: "Your Email Address",
-                        errorMessage: "It should be a valid email address!",
-                        label: "Email",
-                        required: true,
+                        name: "address",
+                        type: "text",
+                        placeholder: "Your Street Address",
+                        errorMessage: "It should be address!",
+                        label: "Street Address",
+
+                    },
+                    {
+                        id: 3,
+                        name: "city",
+                        type: "text",
+                        placeholder: "Your City",
+                        errorMessage: "Please enter a valid postal code!",
+                        label: "City",
+                    },
+                    {
+                        id: 3,
+                        name: "postal_code",
+                        type: "text",
+                        placeholder: "Postal code",
+                        errorMessage: "Please enter a valid postal code!",
+                        label: "Postal code",
+                    },
+                    {
+                        id: 3,
+                        name: "country",
+                        type: "text",
+                        placeholder: "Your Country",
+                        errorMessage: "Please enter a valid postal code!",
+                        label: "Country",
                     },
                     {
                         id: 4,
@@ -149,6 +173,15 @@ const BookingProcess = () => {
                         label: "Phone Nubmer",
                         required: true,
                     },
+                    {
+                        id: 3,
+                        name: "email",
+                        type: "email",
+                        placeholder: "Your Email Address",
+                        errorMessage: "It should be a valid email address!",
+                        label: "Email",
+                        required: true,
+                    }
                 ],
                 values: {
                     total_people: "",
