@@ -1,76 +1,65 @@
 import React, { useState } from 'react';
 import FormInput from './FormInput/FormInput';
 import "./BookingForm.css"
+import AddOrRemoveBtn from './AddOrRemoveBtn/AddOrRemoveBtn';
 
-const BookingForm = () => {
-    const [values, setValues] = useState({
-        input_1: "",
-        input_2: "",
-        input_3: "",
-        input_4: "",
-        input_5: "",
-    });
+const BookingForm = (props) => {
 
-
-    const inputs = [
-        {
-            id: 1,
-            name: "input_1",
-            type: "text",
-            placeholder: "Input 1",
-            errorMessage:
-                "Please enter the destination you want to go.",
-            label: "Input 1",
-            required: true,
-        },
-        {
-            id: 1,
-            name: "input_2",
-            type: "text",
-            placeholder: "Input 1",
-            errorMessage:
-                "Please enter the destination you want to go.",
-            label: "Input 1",
-            required: true,
-        },
-        {
-            id: 1,
-            name: "input_3",
-            type: "text",
-            placeholder: "Input 1",
-            errorMessage:
-                "Please enter the destination you want to go.",
-            label: "Input 1",
-            required: true,
-        }
-    ]
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+    const [values, setValues] = useState(props.values);
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
+
+    const numOfDest = props.inputs.length;
+    if (numOfDest === 6) {
+        document.getElementById('add').style.display = 'none';
+    }
+    const newDestination = {
+        id: numOfDest + 1,
+        name: "destination_0" + numOfDest,
+        type: "text",
+        placeholder: "Destination 0" + numOfDest,
+        errorMessage:
+            "Please enter the destination you want to go.",
+        label: "Destination 0" + numOfDest,
+    }
+
     return (
-        <div className='booking-form'>
-            <form onSubmit={handleSubmit} className="shadow px-5 py-3">
-                <h2 className='text-center text-dark'>Pick Up Information</h2>
-                {inputs.map((input) => (
-                    <FormInput
-                        key={input.id}
-                        {...input}
-                        value={values[input.name]}
-                        onChange={onChange}
-                    />
-                ))}
-                <button className='btn btn-primary'>Submit</button>
-            </form>
-        </div>
+        <div>
+            <h5 className='text-center text-dark'>{props.title}</h5>
+            <div className='mb-2 row'>
+                <div className='col-10'>
+                    {props.inputs.map((input) => (
+                        <FormInput
+                            key={input.id}
+                            {...input}
+                            value={values[input.name]}
+                            onChange={onChange}
+                        />
+                    ))}
+                </div>
+                <AddOrRemoveBtn
+                    key={props.id}
+                    addInput={props.addInput}
+                    newDestination={newDestination}
+                    inputs={props.inputs}
+                    display={props.display}
+                />
+            </div>
+        </div >
     );
 };
 
 export default BookingForm;
+
+/* const [values, setValues] = useState({
+    input_1: "",
+    input_2: "",
+    input_3: "",
+    input_4: "",
+    input_5: "",
+}); */
 
 /*
    

@@ -5,8 +5,8 @@
 }
 
 input{
-    padding: 10px;
-    margin: 7px 0px;
+    padding: 7px;
+    margin: 5px 0px;
     border-radius: 5px;
     border: 1px solid gray;
 }
@@ -18,9 +18,6 @@ label{
 }
 
 span{
-    font-size: 12px;
-    padding: 3px;
-    color: red;
     display: none;
 }
 
