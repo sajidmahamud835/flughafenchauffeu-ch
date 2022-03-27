@@ -4,7 +4,7 @@ import './Footer.css';
 const Footer = () => {
     return (
         <footer className='bg-light'>
-            <ul className='d-flex flex-wrap justify-content-center align-items-center py-4 container'>
+            <ul className='d-flex flex-wrap justify-content-center align-items-center py-4 mb-0 container'>
                 <li className='me-2'>
                     <img src='/logo.png' alt='logo' height='36' />
                 </li>
