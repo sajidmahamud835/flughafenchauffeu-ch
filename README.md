@@ -3,8 +3,10 @@ A flight booking website. Ordered on Freelaner.com by Christian T.
 
 Website Preview Link: [https://flughafenchauffeur-ch.web.app/](https://flughafenchauffeur-ch.web.app/) (Please click ignore if you see an alert message in Chrome browser.)
 
-[View This Project on Freelancer.com](https://www.freelancer.com/projects/php/one-webpage-where-customers-can)
+[View This Project on Freelancer.com](https://www.freelancer.com/projects/php/one-webpage-where-customers-can) |
 [Hire Me On Freelancer](https://www.freelancer.com/hireme/sajidmahamud835)
+
+![image](https://cloud.githubusercontent.com/assets/9053854/24495974/fbf2e0cc-1547-11e7-846c-25b5fac7f6b1.png)
 
 ## Technology Used
 - HTML5
