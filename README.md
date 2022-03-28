@@ -2,6 +2,19 @@
 A flight booking website. Ordered on Freelaner.com by Christian T.
 
 Website Preview Link: [https://flughafenchauffeur-ch.web.app/](https://flughafenchauffeur-ch.web.app/) (Please click ignore if you see an alert message in Chrome browser.)
+
+[View This Project on Freelancer.com](https://www.freelancer.com/projects/php/one-webpage-where-customers-can)
+[Hire Me On Freelancer](https://www.freelancer.com/hireme/sajidmahamud835)
+
+## Technology Used
+- HTML5
+- CSS3
+- Bootstrap5
+- JavaScript ES6
+- React JS
+- React Router
+
+
 ## Client's Requirement
 - Customers can enter where they want to be picked up and where they want to go.
 - Customer can choose up to 5 destinations to stop.
