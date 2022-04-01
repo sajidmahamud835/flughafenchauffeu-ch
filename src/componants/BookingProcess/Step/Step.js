@@ -2,12 +2,9 @@ import React from 'react';
 import BookingForm from '../../layouts/BookingForm/BookingForm';
 
 const Step = (props) => {
-    const { handleSubmit, forms, step, setStep, btnBackStyle } = props;
+    const { forms, step } = props;
     return (
-
-        <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow-sm rounded">
-            <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
-
+        <div>
             {
                 forms[step].map((form) => (
                     <BookingForm
@@ -20,11 +17,7 @@ const Step = (props) => {
                     />
                 ))
             }
-
-            <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
-            <button onClick={() => setStep(step + 1)} className='btn btn-primary m-2 px-4'>Next</button>
-        </form>
-
+        </div>
     );
 };
 
