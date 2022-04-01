@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BookingForm from '../layouts/BookingForm/BookingForm';
+import Step from './Step/Step';
 
 const BookingProcess = () => {
 
@@ -209,25 +209,14 @@ const BookingProcess = () => {
     }
     return (
         <section id='booking_from' className='p-3'>
-            <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow-sm rounded">
-                <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
-
-                {
-                    forms[step].map((form) => (
-                        <BookingForm
-                            key={form.id}
-                            title={form.title}
-                            inputs={form.inputs}
-                            addInput={form.addInput}
-                            values={form.values}
-                            display={form.button_display}
-                        />
-                    ))
-                }
-
-                <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
-                <button onClick={() => setStep(step + 1)} className='btn btn-primary m-2 px-4'>Next</button>
-            </form>
+            <Step
+                key={step}
+                handleSubmit={handleSubmit}
+                forms={forms}
+                step={step}
+                setStep={setStep}
+                btnBackStyle={btnBackStyle}
+            />
 
             <div class="card w-100 box px-5 py-3 m-2 mt-4 shadow-sm border-0 rounded text-white bg-primary">
                 <div class="card-body">
