@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Step from './Step/Step';
+import Step1 from './Step1/Step1';
+import Step2 from './Step2/Step2';
 
 const BookingProcess = () => {
 
@@ -26,8 +27,181 @@ const BookingProcess = () => {
 
     }])
 
-
     const forms = [
+        {
+            key: 0,
+            section: [
+                {
+                    id: 1,
+                    title: "Select Locations",
+                    description: "Please select whare do you want to get picked up from",
+                    inputs: destinations,
+                    addInput: setDestination,
+                    values: {
+                        start_address: "",
+                        destination_01: "",
+                        destination_02: "",
+                        destination_03: "",
+                        destination_04: "",
+                        destination_05: "",
+                    },
+                    button_display: true
+                },
+                {
+                    id: 2,
+                    title: "Trip Information",
+                    inputs: [
+                        {
+                            id: 1,
+                            name: "time_pickup",
+                            type: "time",
+                            placeholder: "Time We Pick You",
+                            label: "Time We Pick You",
+                        },
+                        {
+                            id: 2,
+                            name: "date_pickup",
+                            type: "date",
+                            placeholder: "Date We Pick You",
+                            label: "Date We Pick You",
+                        },
+                        {
+                            id: 3,
+                            name: "flight_number",
+                            type: "text",
+                            placeholder: "Your Flight Number",
+                            errorMessage:
+                                "Please enter your first name!",
+                            label: "Flight Number",
+                            pattern: "^[A-Za-z0-9]{3,16}$",
+                            required: true,
+                        },
+                        {
+                            id: 4,
+                            name: "total_people",
+                            type: "number",
+                            placeholder: "Number of People",
+                            errorMessage:
+                                "Please enter the destination you want to go.",
+                            label: "People",
+                            required: true,
+                        },
+                        {
+                            id: 5,
+                            name: "luggage_weight",
+                            type: "text",
+                            placeholder: "Luggage Weight ",
+                            errorMessage:
+                                "Please enter the destination you want to go.",
+                            label: "Luggage Weight",
+                            required: true,
+                        }
+                    ],
+                    values: {
+                        time_pickup: "",
+                        date_pickup: "",
+                        flight_number: "",
+                        total_people: "",
+                        luggage_weight: "",
+                    }
+                }
+            ]
+
+        },
+        {
+            key: 1,
+            section: [
+                {
+                    id: 2,
+                    title: "Guest Information",
+                    inputs: [
+                        {
+                            id: 1,
+                            name: "first_name",
+                            type: "text",
+                            placeholder: "Your First Name",
+                            errorMessage:
+                                "Please enter your first name!",
+                            label: "First Name",
+                            pattern: "^[A-Za-z0-9]{3,16}$",
+                            required: true,
+                        },
+                        {
+                            id: 2,
+                            name: "last_name",
+                            type: "text",
+                            placeholder: "Your Last Name",
+                            errorMessage:
+                                "Please enter your last name!",
+                            label: "Last Name",
+                            pattern: "^[A-Za-z0-9]{3,16}$",
+                            required: true,
+                        },
+                        {
+                            id: 3,
+                            name: "address",
+                            type: "text",
+                            placeholder: "Your Street Address",
+                            errorMessage: "It should be address!",
+                            label: "Street Address",
+
+                        },
+                        {
+                            id: 3,
+                            name: "city",
+                            type: "text",
+                            placeholder: "Your City",
+                            errorMessage: "Please enter a valid postal code!",
+                            label: "City",
+                        },
+                        {
+                            id: 3,
+                            name: "postal_code",
+                            type: "text",
+                            placeholder: "Postal code",
+                            errorMessage: "Please enter a valid postal code!",
+                            label: "Postal code",
+                        },
+                        {
+                            id: 3,
+                            name: "country",
+                            type: "text",
+                            placeholder: "Your Country",
+                            errorMessage: "Please enter a valid postal code!",
+                            label: "Country",
+                        },
+                        {
+                            id: 4,
+                            name: "phone",
+                            type: "phone",
+                            placeholder: "Your Phone Number",
+                            label: "Phone Nubmer",
+                            required: true,
+                        },
+                        {
+                            id: 3,
+                            name: "email",
+                            type: "email",
+                            placeholder: "Your Email Address",
+                            errorMessage: "It should be a valid email address!",
+                            label: "Email",
+                            required: true,
+                        }
+                    ],
+                    values: {
+                        total_people: "",
+                        input_2: "",
+                        input_3: "",
+                        input_4: "",
+                        input_5: "",
+                    }
+                }
+            ]
+
+        },
+
+    ]
+    const formss = [
         [
             {
                 id: 1,
@@ -207,20 +381,35 @@ const BookingProcess = () => {
         btnBackStyle = {
         }
     }
+
+    let display1 = { display: 'none' };
+    let display2 = { display: 'none' };
+    if (step === 0) {
+        display1 = {};
+    }
+    else if (step === 1) {
+        display2 = {};
+    }
+
     return (
         <section id='booking_from' className='p-3'>
 
             <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow-sm rounded">
                 <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
-
-                <Step
-                    key={step}
-                    handleSubmit={handleSubmit}
-                    forms={forms}
-                    step={step}
-                    setStep={setStep}
-                    btnBackStyle={btnBackStyle}
-                />
+                <div style={display1}>
+                    <Step1
+                        key={step}
+                        handleSubmit={handleSubmit}
+                        forms={forms}
+                    />
+                </div>
+                <div style={display2}>
+                    <Step2
+                        key={step}
+                        handleSubmit={handleSubmit}
+                        forms={forms}
+                    />
+                </div>
 
                 <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
                 <button onClick={() => setStep(step + 1)} className='btn btn-primary m-2 px-4'>Next</button>

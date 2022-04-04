@@ -1,12 +1,11 @@
 import React from 'react';
 import BookingForm from '../../layouts/BookingForm/BookingForm';
-
-const Step = (props) => {
-    const { forms, step } = props;
+const Step1 = (props) => {
+    const { forms } = props;
     return (
         <div>
             {
-                forms[step].map((form) => (
+                forms[0].section.map((form) => (
                     <BookingForm
                         key={form.id}
                         title={form.title}
@@ -21,4 +20,4 @@ const Step = (props) => {
     );
 };
 
-export default Step;
+export default Step1;
