@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormInput from './FormInput/FormInput';
 import "./BookingForm.css"
 import AddOrRemoveBtn from './AddOrRemoveBtn/AddOrRemoveBtn';
@@ -9,7 +9,12 @@ const BookingForm = (props) => {
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
+        console.log(values);
     };
+
+    useEffect(() => {
+        console.log(values);
+    }, [values]);
 
     const numOfDest = props.inputs.length;
     if (numOfDest === 6) {
