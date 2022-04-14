@@ -6,7 +6,7 @@ Website Preview Link: [https://flughafenchauffeur-ch.web.app/](https://flughafen
 [View This Project on Freelancer.com](https://www.freelancer.com/projects/php/one-webpage-where-customers-can) |
 [Hire Me On Freelancer](https://www.freelancer.com/hireme/sajidmahamud835)
 
-![image](https://raw.githubusercontent.com/sajidmahamud835/flughafenchauffeu-ch/main/screenshot01.png?token=GHSAT0AAAAAABSAORNBOHXAEFBF7K7B7PMSYSB3QQA)
+![image](https://github.com/sajidmahamud835/flughafenchauffeu-ch/raw/main/screenshot01.png)
 
 ## Technology Used
 - HTML5
