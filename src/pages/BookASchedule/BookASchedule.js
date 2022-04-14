@@ -5,13 +5,13 @@ import BookingProcess from '../../componants/BookingProcess/BookingProcess';
 const BookASchedule = () => {
     return (
         <div className='container'>
-            <div class="row">
+            <div className="row">
 
-                <div class="col-lg-7">
+                <div className="col-lg-7">
                     <BookingProcess />
                 </div>
 
-                <div class="col-lg-5">
+                <div className="col-lg-5">
                     <BookingCostCalculator />
                 </div>
 

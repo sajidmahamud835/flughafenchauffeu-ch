@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import FormInput from './FormInput/FormInput';
 import "./BookingForm.css"
 import AddOrRemoveBtn from './AddOrRemoveBtn/AddOrRemoveBtn';
@@ -6,18 +6,10 @@ import { FormContext } from '../../../App';
 
 const BookingForm = (props) => {
 
-    const formContextData = useContext(FormContext);
-    console.log(formContextData);
-
-    const [values, setValues] = useState(props.values);
+    const { values, setValues } = useContext(FormContext);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
-        console.log(values);
     };
-
-    useEffect(() => {
-        console.log(values);
-    }, [values]);
 
     const numOfDest = props.inputs.length;
     if (numOfDest === 6) {
