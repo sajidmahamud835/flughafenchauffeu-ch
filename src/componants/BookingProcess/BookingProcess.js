@@ -37,14 +37,6 @@ const BookingProcess = () => {
                     description: "Please select whare do you want to get picked up from",
                     inputs: destinations,
                     addInput: setDestination,
-                    values: {
-                        start_address: "",
-                        destination_01: "",
-                        destination_02: "",
-                        destination_03: "",
-                        destination_04: "",
-                        destination_05: "",
-                    },
                     button_display: true
                 },
                 {
@@ -96,14 +88,7 @@ const BookingProcess = () => {
                             label: "Luggage Weight",
                             required: true,
                         }
-                    ],
-                    values: {
-                        time_pickup: "",
-                        date_pickup: "",
-                        flight_number: "",
-                        total_people: "",
-                        luggage_weight: "",
-                    }
+                    ]
                 }
             ]
 
@@ -187,14 +172,7 @@ const BookingProcess = () => {
                             label: "Email",
                             required: true,
                         }
-                    ],
-                    values: {
-                        total_people: "",
-                        input_2: "",
-                        input_3: "",
-                        input_4: "",
-                        input_5: "",
-                    }
+                    ]
                 }
             ]
 
