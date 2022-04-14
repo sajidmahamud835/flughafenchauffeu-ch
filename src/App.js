@@ -13,7 +13,7 @@ function App() {
     time_pickup: "",
     date_pickup: "",
     flight_number: "",
-    total_people: "",
+    total_people: 1,
     luggage_weight: "",
     first_name: "",
     last_name: "",
