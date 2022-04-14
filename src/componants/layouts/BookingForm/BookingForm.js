@@ -13,10 +13,6 @@ const BookingForm = (props) => {
         console.log(values);
     };
 
-    useEffect(() => {
-        console.log(values);
-    }, [values]);
-
     const numOfDest = props.inputs.length;
     if (numOfDest === 6) {
         document.getElementById('add').style.display = 'none';

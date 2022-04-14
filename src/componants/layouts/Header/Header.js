@@ -22,7 +22,7 @@ const Header = () => {
                             </li>
                         </ul>
                         <div className="mx-3">
-                            <button class="btn btn-danger rounded-pill px-3" type="submit">Anfrage</button>
+                            <button className="btn btn-danger rounded-pill px-3" type="submit">Anfrage</button>
                         </div>
                     </div>
                 </div>

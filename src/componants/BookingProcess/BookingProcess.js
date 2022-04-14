@@ -97,7 +97,7 @@ const BookingProcess = () => {
             key: 1,
             section: [
                 {
-                    id: 2,
+                    id: 1,
                     title: "Guest Information",
                     inputs: [
                         {
@@ -132,7 +132,7 @@ const BookingProcess = () => {
 
                         },
                         {
-                            id: 3,
+                            id: 4,
                             name: "city",
                             type: "text",
                             placeholder: "Your City",
@@ -140,7 +140,7 @@ const BookingProcess = () => {
                             label: "City",
                         },
                         {
-                            id: 3,
+                            id: 5,
                             name: "postal_code",
                             type: "text",
                             placeholder: "Postal code",
@@ -148,7 +148,7 @@ const BookingProcess = () => {
                             label: "Postal code",
                         },
                         {
-                            id: 3,
+                            id: 6,
                             name: "country",
                             type: "text",
                             placeholder: "Your Country",
@@ -156,7 +156,7 @@ const BookingProcess = () => {
                             label: "Country",
                         },
                         {
-                            id: 4,
+                            id: 7,
                             name: "phone",
                             type: "phone",
                             placeholder: "Your Phone Number",
@@ -164,7 +164,7 @@ const BookingProcess = () => {
                             required: true,
                         },
                         {
-                            id: 3,
+                            id: 8,
                             name: "email",
                             type: "email",
                             placeholder: "Your Email Address",
@@ -210,14 +210,14 @@ const BookingProcess = () => {
                 <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
                 <div style={display1}>
                     <Step1
-                        key={step}
+                        key={forms[step].key}
                         handleSubmit={handleSubmit}
                         forms={forms}
                     />
                 </div>
                 <div style={display2}>
                     <Step2
-                        key={step}
+                        key={forms[step].key}
                         handleSubmit={handleSubmit}
                         forms={forms}
                     />
@@ -228,12 +228,12 @@ const BookingProcess = () => {
             </form>
 
 
-            <div class="card w-100 box px-5 py-3 m-2 mt-4 shadow-sm border-0 rounded text-white bg-primary">
-                <div class="card-body">
-                    <h5 class="card-title">Need Help?</h5>
-                    <p class="card-text">We are here to help you. Please call us at +41 78 676 63 69.</p>
-                    <a href="tel:41786766369" class="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+            <div className="card w-100 box px-5 py-3 m-2 mt-4 shadow-sm border-0 rounded text-white bg-primary">
+                <div className="card-body">
+                    <h5 className="card-title">Need Help?</h5>
+                    <p className="card-text">We are here to help you. Please call us at +41 78 676 63 69.</p>
+                    <a href="tel:41786766369" className="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-telephone-fill" viewBox="0 0 16 16">
+                        <path fillRule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
                     </svg> Call Now</a>
                 </div>
             </div>
