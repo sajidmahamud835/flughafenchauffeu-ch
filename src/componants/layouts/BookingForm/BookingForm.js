@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import FormInput from './FormInput/FormInput';
 import "./BookingForm.css"
 import AddOrRemoveBtn from './AddOrRemoveBtn/AddOrRemoveBtn';
@@ -7,10 +7,8 @@ import { FormContext } from '../../../App';
 const BookingForm = (props) => {
 
     const { values, setValues } = useContext(FormContext);
-
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
-        console.log(values);
     };
 
     const numOfDest = props.inputs.length;
