@@ -193,6 +193,22 @@ const BookingProcess = () => {
         btnBackStyle = {
         }
     }
+    let btnNextStyle;
+    let btnSubmitStyle = {
+        display: "none"
+    };
+
+    if (step > 0) {
+        btnNextStyle = {
+            display: "none"
+        }
+        btnSubmitStyle = {
+
+        };
+    } else {
+        btnNextStyle = {
+        }
+    }
 
     let display1 = { display: 'none' };
     let display2 = { display: 'none' };
@@ -224,7 +240,8 @@ const BookingProcess = () => {
                 </div>
 
                 <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
-                <button onClick={() => setStep(step + 1)} className='btn btn-primary m-2 px-4'>Next</button>
+                <button onClick={() => setStep(step + 1)} style={btnNextStyle} className='btn btn-primary m-2 px-4'>Next</button>
+                <button onClick={() => setStep(step + 1)} style={btnSubmitStyle} className='btn btn-primary m-2 px-4'>Submit</button>
             </form>
 
 
