@@ -17,51 +17,31 @@ async function run() {
   try {
     await client.connect(`${process.env.DB_USER}`);
     const database = client.db();
-    const servicesCollection = database.collection('services');
-    const ordersCollection = database.collection('orders');
+    const bookingsCollection = database.collection('bookings')
 
     // // Post api
-    app.post('/services', async (req, res) => {
-      const service = req.body;
-      console.log('hitted!', service);
+    app.post('/bookings', async (req, res) => {
+      const booking = req.body;
+      console.log('Recived booking data form forntend', booking);
 
-      const result = await servicesCollection.insertOne(service);
-      console.log(result);
-      res.json(result);
-    });
-
-    app.post('/orders', async (req, res) => {
-      const order = req.body;
-      console.log('hitted!', order);
-
-      const result = await ordersCollection.insertOne(order);
+      const result = await bookingsCollection.insertOne(booking);
       console.log(result);
       res.json(result);
     });
 
     // Get products api
-    app.get('/services', async (req, res) => {
-      const cursor = servicesCollection.find({});
-      const services = await cursor.toArray();
+    app.get('/bookings', async (req, res) => {
+      const cursor = bookingsCollection.find({});
+      const bookings = await cursor.toArray();
       const count = await cursor.count();
       res.send({
         count,
-        services
-      });
-    })
-
-    app.get('/orders', async (req, res) => {
-      const cursor = ordersCollection.find({});
-      const orders = await cursor.toArray();
-      const count = await cursor.count();
-      res.send({
-        count,
-        orders
+        bookings
       });
     })
 
     //UPDATE API
-    app.put('/orders/:id', async (req, res) => {
+    app.put('/bookings/:id', async (req, res) => {
       const id = req.params.id;
       const updatedData = req.body;
       const filter = { _id: ObjectId(id) };
@@ -71,25 +51,19 @@ async function run() {
           status: updatedData.status
         },
       };
-      const result = await ordersCollection.updateOne(filter, updateDoc, options)
-      console.log('updating user', id)
+      const result = await bookingsCollection.updateOne(filter, updateDoc, options)
+      console.log('updating entry', id)
       res.json(result);
     })
 
     // Delete api
-    app.delete('/services/:id', async (req, res) => {
+    app.delete('/bookings/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
-      const result = await servicesCollection.deleteOne(query);
+      const result = await bookingsCollection.deleteOne(query);
       res.json(result);
     })
 
-    app.delete('/orders/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const result = await ordersCollection.deleteOne(query);
-      res.json(result);
-    })
   }
   finally {
     // await client.close();
@@ -99,7 +73,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('The server for flughafenchauffeur.ch is running.');
 })
 
 app.listen(port, () => {
