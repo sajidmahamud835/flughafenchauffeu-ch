@@ -1,8 +1,13 @@
 import { createContext, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Main from './componants/layouts/Main/Main';
+import Admin from './pages/admin/Admin/Admin';
 import Home from './pages/Home/Home';
+import NotFound from './pages/NotFound/NotFound';
 export const FormContext = createContext("form");
 function App() {
+
   const [values, setValues] = useState({
     start_address: "",
     destination_01: "",
@@ -31,7 +36,13 @@ function App() {
       setValues: setValues
     }}>
       <div>
-        <Home />
+        <Routes>
+          <Route path='/' element={<Home />} >
+            <Route path='' element={<Main />} />
+            <Route path='admin' element={<Admin />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
+        </Routes>
       </div>
     </FormContext.Provider>
   );

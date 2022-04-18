@@ -9,8 +9,8 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fphq6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}?retryWrites=true&w=majority`;
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 async function run() {
@@ -29,7 +29,7 @@ async function run() {
       res.json(result);
     });
 
-    // Get products api
+    // Get bookings api
     app.get('/bookings', async (req, res) => {
       const cursor = bookingsCollection.find({});
       const bookings = await cursor.toArray();
