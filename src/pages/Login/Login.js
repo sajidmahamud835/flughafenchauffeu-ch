@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const Navigate = useNavigate()
+    // const location = useLocation()
+
+    // const url = location.state?.from || "/home"
+    const url = "/admin"
     const handelEmailChange = (e) => setEmail(e.target.value);
     const handelPasswordChange = (e) => setPassword(e.target.value);
 
     const handelLogin = (e) => {
         e.preventDefault();
-        console.log(email, password)
+        console.log(url, email, password)
 
     }
 
