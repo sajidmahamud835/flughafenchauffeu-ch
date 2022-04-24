@@ -54,7 +54,7 @@ const Login = () => {
     if (user) {
         toast("Logged In");
         if (true) {
-            //navigate("/admin", { replace: true });
+            navigate("/admin", { replace: true });
             console.log(user)
         } else {
             navigate(from, { replace: true });
