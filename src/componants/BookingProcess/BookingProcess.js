@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import Step1 from './Step1/Step1';
 import Step2 from './Step2/Step2';
+import { FormContext } from '../../App';
 
 const BookingProcess = () => {
 
@@ -180,8 +182,38 @@ const BookingProcess = () => {
 
     ];
 
+    const { values, setValues } = useContext(FormContext);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        console.log(values);
+        axios.post('http://localhost:5000/bookings', values)
+            .then(res => {
+                console.log(res);
+                setValues({
+                    start_address: "",
+                    destination_01: "",
+                    destination_02: "",
+                    destination_03: "",
+                    destination_04: "",
+                    destination_05: "",
+                    time_pickup: "",
+                    date_pickup: "",
+                    flight_number: "",
+                    total_people: 1,
+                    luggage_weight: "",
+                    first_name: "",
+                    last_name: "",
+                    address: "",
+                    city: "",
+                    postal_code: "",
+                    country: "",
+                    phone: "",
+                    email: "",
+                })
+            })
+
     };
 
     let btnBackStyle
@@ -227,21 +259,19 @@ const BookingProcess = () => {
                 <div style={display1}>
                     <Step1
                         key={forms[step].key}
-                        handleSubmit={handleSubmit}
                         forms={forms}
                     />
                 </div>
                 <div style={display2}>
                     <Step2
                         key={forms[step].key}
-                        handleSubmit={handleSubmit}
                         forms={forms}
                     />
                 </div>
 
                 <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
                 <button onClick={() => setStep(step + 1)} style={btnNextStyle} className='btn btn-primary m-2 px-4'>Next</button>
-                <button onClick={() => setStep(step + 1)} style={btnSubmitStyle} className='btn btn-primary m-2 px-4'>Submit</button>
+                <input style={btnSubmitStyle} className='btn btn-primary m-2 px-4' type="submit"></input>
             </form>
 
 

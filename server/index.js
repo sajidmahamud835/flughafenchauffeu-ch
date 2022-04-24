@@ -9,13 +9,18 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}?retryWrites=true&w=majority`;
+const dbUser = `${process.env.DB_USER}`;
+const dbPass = `${process.env.DB_PASS}`;
+const dbServer = `${process.env.DB_SERVER}`;
+const db = dbUser;
+const url = `mongodb+srv://${dbUser}:${dbPass}@${dbServer}/${db}?retryWrites=true&w=majority`;
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
+console.log("User Name:", dbUser, "& Server URL:", dbServer);
 
 async function run() {
   try {
-    await client.connect(`${process.env.DB_USER}`);
+    await client.connect();
     const database = client.db();
     const bookingsCollection = database.collection('bookings')
 
@@ -24,6 +29,36 @@ async function run() {
       const booking = req.body;
       console.log('Recived booking data form forntend', booking);
 
+      const result = await bookingsCollection.insertOne(booking);
+      console.log(result);
+      res.json(result);
+    });
+
+    //post demo data
+    app.get('/demo/post', async (req, res) => {
+      const booking =
+      {
+        address: "C and B Road",
+        city: "Barishal",
+        country: "Bangladesh",
+        date_pickup: "2022-04-24",
+        destination_01: "Brown Compound Road",
+        destination_02: "",
+        destination_03: "",
+        destination_04: "",
+        destination_05: "",
+        email: "sajidmahamud835@gmail.com",
+        first_name: "Sajid",
+        flight_number: "123213",
+        last_name: "Mahamud",
+        luggage_weight: "32432",
+        phone: "01304854562",
+        postal_code: "8200",
+        start_address: "C and B Road",
+        time_pickup: "22:14",
+        total_people: "10",
+      };
+      console.log('Pushing demo data to database', booking);
       const result = await bookingsCollection.insertOne(booking);
       console.log(result);
       res.json(result);
