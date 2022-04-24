@@ -1,52 +1,107 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+import React, { useRef, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '../../componants/LoadingSpinner/LoadingSpinner';
+import FirebaseApp from '../../firebase/FirebaseApp';
+
+
+const auth = getAuth(FirebaseApp);
 
 const Login = () => {
+    const [validated, setValidated] = useState(false);
+    const emailRef = useRef('');
+    const passwordRef = useRef('');
+    const [errorText, setErrorText] = useState('');
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        signInError,
+    ] = useSignInWithEmailAndPassword(auth);
+    let navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // reset password
+    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
 
-    const Navigate = useNavigate()
-    // const location = useLocation()
-
-    // const url = location.state?.from || "/home"
-    const url = "/admin"
-    const handelEmailChange = (e) => setEmail(e.target.value);
-    const handelPasswordChange = (e) => setPassword(e.target.value);
-
-    const handelLogin = (e) => {
-        e.preventDefault();
-        console.log(url, email, password)
-
+    if (loading) {
+        <LoadingSpinner />;
     }
 
+    // BigB0ss135@#
+
+    const handleSignup = (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        setValidated(true);
+        setErrorText('');
+
+        signInWithEmailAndPassword(email, password);
+    };
+    if (user) {
+        toast("Logged In");
+        if (true) {
+            //navigate("/admin", { replace: true });
+            console.log(user)
+        } else {
+            navigate(from, { replace: true });
+        }
+    }
+    if (sending) {
+        <LoadingSpinner />;
+    }
+    const handleResetPassword = async () => {
+        const email = emailRef.current.value;
+
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast('Email Sended');
+            setErrorText('');
+        }
+        else {
+            setErrorText('Please enter your email address');
+        }
+    };
     return (
-        <div className='container w-50'>
-            <form className='m-5 p-3 shadow'>
-                <h2 className='text-center pb-3'>Login</h2>
-                <div className="form-outline mb-4">
-                    <label className="form-label" for="user_email">Email address</label>
-                    <input onChange={handelEmailChange} type="email" id="user_email" className="form-control" />
-                </div>
+        <div className='mx-auto my-5 px-4 py-5 shadow rounded' style={{ maxWidth: '500px' }}>
+            <h3 className='text-center'>Login</h3>
+            <Form noValidate validated={validated} onSubmit={handleSignup}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control required ref={emailRef} type="email" placeholder="Enter email" />
+                    <Form.Control.Feedback type="invalid">
+                        Please provide a valid email address.
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-                <div className="form-outline mb-4">
-                    <label className="form-label" for="user_pass">Password</label>
-                    <input onChange={handelPasswordChange} type="password" id="user_pass" className="form-control" />
-                </div>
-
-
-                <div className="row mb-4">
-                    <div className="col d-flex justify-content-center">
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="user_checkbox" />
-                            <label className="form-check-label" for="user_checkbox"> Remember me </label>
-                        </div>
-                    </div>
-                </div>
-
-
-                <button onClick={handelLogin} type="button" className="btn btn-primary btn-block mb-4">Sign in</button>
-            </form>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control required ref={passwordRef} type="password" placeholder="Password" />
+                    <Form.Control.Feedback type="invalid">
+                        Please provide a valid 6-digit password.
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <p className='mt-3'> <small onClick={handleResetPassword} className='text-primary' style={{ cursor: 'pointer' }}>Reset Password</small></p>
+                {errorText && <p className="alert alert-danger" role="alert">Error: {errorText}</p>}
+                {signInError && <p className="alert alert-danger" role="alert">Error: {signInError?.message}</p>}
+                <Button variant="primary" type="submit">
+                    Login
+                </Button>
+            </Form>
+            <ToastContainer />
         </div>
     );
 };

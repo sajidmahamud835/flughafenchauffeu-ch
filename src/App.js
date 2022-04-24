@@ -4,6 +4,7 @@ import './App.css';
 import Main from './componants/layouts/Main/Main';
 import Admin from './pages/admin/Admin/Admin';
 import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
 export const FormContext = createContext("form");
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path='/' element={<Home />} >
             <Route path='' element={<Main />} />
             <Route path='admin' element={<Admin />} />
+            <Route path='admin/login' element={<Login />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
