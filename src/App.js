@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Main from './componants/layouts/Main/Main';
 import Admin from './pages/admin/Admin/Admin';
+import AllBookings from './pages/admin/AllBookings/AllBookings';
+import Settings from './pages/admin/Settings/Settings';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
@@ -30,8 +32,8 @@ function App() {
             <Route path='admin' element={<Admin />} />
             <Route path='admin/login' element={<Login />} />
             <Route path='thank-you' element={<ThankYou />} />
-            <Route path='admin/bookings' element={<ThankYou />} />
-            <Route path='admin/settings' element={<ThankYou />} />
+            <Route path='admin/bookings' element={<AllBookings />} />
+            <Route path='admin/settings' element={<Settings />} />
             <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>

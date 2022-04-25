@@ -42,8 +42,8 @@ const Header = () => {
                             </li>}
                         </ul>
                         <div className="mx-3">
-                            {user && <button className="btn btn-success rounded-pill px-3 me-2" type="submit">Dashboard</button>}
-                            {!user && <button className="btn btn-danger rounded-pill px-3" type="submit">Anfrage</button>}
+                            {user && <Link to='/admin' className="btn btn-success rounded-pill px-3 me-2" type="submit">Dashboard</Link>}
+                            {!user && <Link to="/" className="btn btn-danger rounded-pill px-3" type="submit">Anfrage</Link>}
                         </div>
                     </div>
                 </div>

@@ -6,9 +6,8 @@ import { toast } from 'react-toastify';
 import FirebaseApp from '../../../firebase/FirebaseApp';
 import Login from '../../Login/Login';
 
-const auth = getAuth(FirebaseApp);
-
 const Admin = () => {
+    const auth = getAuth(FirebaseApp);
     const [user, loading, error] = useAuthState(auth);
     let navigate = useNavigate();
 
