@@ -1,29 +1,22 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Main from './componants/layouts/Main/Main';
+import Admin from './pages/admin/Admin/Admin';
 import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import NotFound from './pages/NotFound/NotFound';
+import ThankYou from './pages/ThankYou/ThankYou';
 export const FormContext = createContext("form");
 function App() {
-  const [values, setValues] = useState({
-    start_address: "",
-    destination_01: "",
-    destination_02: "",
-    destination_03: "",
-    destination_04: "",
-    destination_05: "",
-    time_pickup: "",
-    date_pickup: "",
-    flight_number: "",
-    total_people: 1,
-    luggage_weight: "",
-    first_name: "",
-    last_name: "",
-    address: "",
-    city: "",
-    postal_code: "",
-    country: "",
-    phone: "",
-    email: "",
-  });
+
+  const [values, setValues] = useState({});
+
+  useEffect(() =>
+    fetch('http://localhost:5000/default-values')
+      .then(res => res.json())
+      .then(data => setValues(data))
+    , [])
 
   return (
     <FormContext.Provider value={{
@@ -31,7 +24,17 @@ function App() {
       setValues: setValues
     }}>
       <div>
-        <Home />
+        <Routes>
+          <Route path='/' element={<Home />} >
+            <Route path='' element={<Main />} />
+            <Route path='admin' element={<Admin />} />
+            <Route path='admin/login' element={<Login />} />
+            <Route path='thank-you' element={<ThankYou />} />
+            <Route path='admin/bookings' element={<ThankYou />} />
+            <Route path='admin/settings' element={<ThankYou />} />
+            <Route path='*' element={<NotFound />} />
+          </Route>
+        </Routes>
       </div>
     </FormContext.Provider>
   );

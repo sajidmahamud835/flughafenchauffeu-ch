@@ -9,13 +9,18 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fphq6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const dbUser = `${process.env.DB_USER}`;
+const dbPass = `${process.env.DB_PASS}`;
+const dbServer = `${process.env.DB_SERVER}`;
+const db = dbUser;
+const url = `mongodb+srv://${dbUser}:${dbPass}@${dbServer}/${db}?retryWrites=true&w=majority`;
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
+console.log("User Name:", dbUser, "& Server URL:", dbServer);
 
 async function run() {
   try {
-    await client.connect(`${process.env.DB_USER}`);
+    await client.connect();
     const database = client.db();
     const bookingsCollection = database.collection('bookings')
 
@@ -29,15 +34,14 @@ async function run() {
       res.json(result);
     });
 
-    // Get products api
-    app.get('/bookings', async (req, res) => {
-      const cursor = bookingsCollection.find({});
+
+    // Get default-values
+    app.get('/default-values', async (req, res) => {
+      const cursor = database.collection('default_values').find({});
       const bookings = await cursor.toArray();
-      const count = await cursor.count();
-      res.send({
-        count,
-        bookings
-      });
+      let values = bookings[0]
+      delete values['_id'];
+      res.send(values);
     })
 
     //UPDATE API
@@ -63,6 +67,18 @@ async function run() {
       const result = await bookingsCollection.deleteOne(query);
       res.json(result);
     })
+
+    // get bookings 
+    app.get('/bookings', async (req, res) => {
+      const cursor = bookingsCollection.find({});
+      const bookings = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        bookings
+      });
+    })
+
 
   }
   finally {
