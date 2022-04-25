@@ -52,9 +52,10 @@ async function run() {
       const options = { upsert: true };
       const updateDoc = {
         $set: {
-          status: updatedData.status
+          status: updatedData.status.status
         },
       };
+      console.log(updateDoc)
       const result = await bookingsCollection.updateOne(filter, updateDoc, options)
       console.log('updating entry', id)
       res.json(result);
