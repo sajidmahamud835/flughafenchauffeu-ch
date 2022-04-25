@@ -1,0 +1,12 @@
+#booking-list .container {
+    padding: 2rem 0rem;
+}
+
+#booking-list h4 {
+    margin: 2rem 0rem 1rem;
+}
+
+#booking-list .table-image td,
+th {
+    vertical-align: middle;
+}

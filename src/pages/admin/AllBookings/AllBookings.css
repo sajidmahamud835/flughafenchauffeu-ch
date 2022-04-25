@@ -1,0 +1,18 @@
+#all-bookings .container {
+    padding: 2rem 0rem;
+}
+
+#all-bookings h4 {
+    margin: 2rem 0rem 1rem;
+}
+
+#all-bookings .table-image td,
+#all-bookings th {
+    vertical-align: middle;
+}
+
+.table-wrapper {
+    max-height: 80vh;
+    overflow: auto;
+    display: inline-block;
+}
