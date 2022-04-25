@@ -3,6 +3,7 @@ import axios from 'axios';
 import Step1 from './Step1/Step1';
 import Step2 from './Step2/Step2';
 import { FormContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 const BookingProcess = () => {
 
@@ -183,6 +184,7 @@ const BookingProcess = () => {
     ];
 
     const { values, setValues } = useContext(FormContext);
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -212,6 +214,7 @@ const BookingProcess = () => {
                     phone: "",
                     email: "",
                 })
+                navigate("/thank-you", { replace: true });
             })
 
     };
