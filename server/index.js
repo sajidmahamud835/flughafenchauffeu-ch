@@ -34,45 +34,14 @@ async function run() {
       res.json(result);
     });
 
-    //post demo data
-    app.get('/demo/post', async (req, res) => {
-      const booking =
-      {
-        address: "C and B Road",
-        city: "Barishal",
-        country: "Bangladesh",
-        date_pickup: "2022-04-24",
-        destination_01: "Brown Compound Road",
-        destination_02: "",
-        destination_03: "",
-        destination_04: "",
-        destination_05: "",
-        email: "sajidmahamud835@gmail.com",
-        first_name: "Sajid",
-        flight_number: "123213",
-        last_name: "Mahamud",
-        luggage_weight: "32432",
-        phone: "01304854562",
-        postal_code: "8200",
-        start_address: "C and B Road",
-        time_pickup: "22:14",
-        total_people: "10",
-      };
-      console.log('Pushing demo data to database', booking);
-      const result = await bookingsCollection.insertOne(booking);
-      console.log(result);
-      res.json(result);
-    });
 
-    // Get bookings api
-    app.get('/bookings', async (req, res) => {
-      const cursor = bookingsCollection.find({});
+    // Get default-values
+    app.get('/default-values', async (req, res) => {
+      const cursor = database.collection('default_values').find({});
       const bookings = await cursor.toArray();
-      const count = await cursor.count();
-      res.send({
-        count,
-        bookings
-      });
+      let values = bookings[0]
+      delete values['_id'];
+      res.send(values);
     })
 
     //UPDATE API
@@ -98,6 +67,18 @@ async function run() {
       const result = await bookingsCollection.deleteOne(query);
       res.json(result);
     })
+
+    // get bookings 
+    app.get('/bookings', async (req, res) => {
+      const cursor = bookingsCollection.find({});
+      const bookings = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        bookings
+      });
+    })
+
 
   }
   finally {
