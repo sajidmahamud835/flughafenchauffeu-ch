@@ -144,40 +144,44 @@ const BookingProcess = () => {
 
     };
 
-    let btnBackStyle
-    if (step === 0) {
-        btnBackStyle = {
-            display: "none"
-        }
-    } else {
-        btnBackStyle = {
-        }
-    }
-    let btnNextStyle;
-    let btnSubmitStyle = {
-        display: "none"
-    };
+    // Back Button
+    const [btnBackStyle, setBtnBackStyle] = useState({ display: "none" });
 
-    if (step > 0) {
-        btnNextStyle = {
-            display: "none"
+    useEffect(() => {
+        if (step === 0) {
+            setBtnBackStyle({ display: "none" });
+        } else {
+            setBtnBackStyle({});
         }
-        btnSubmitStyle = {
+    }, [step]);
 
-        };
-    } else {
-        btnNextStyle = {
+    //Next or Submit Button
+    const [btnNextStyle, setBtnNextStyle] = useState({ display: "none" });
+    const [btnSubmitStyle, setBtnSubmitStyle] = useState({ display: "none" });
+    useEffect(() => {
+        if (step > 0) {
+            setBtnNextStyle({ display: "none" });
+            setBtnSubmitStyle({});
+        } else {
+            setBtnNextStyle({});
+            setBtnSubmitStyle({ display: "none" });
         }
-    }
+    }, [step]);
 
-    let display1 = { display: 'none' };
-    let display2 = { display: 'none' };
-    if (step === 0) {
-        display1 = {};
-    }
-    else if (step === 1) {
-        display2 = {};
-    }
+    const [display1, setDisplay1] = useState({ display: 'none' });
+    const [display2, setDisplay2] = useState({ display: 'none' });
+
+    //Step display or hide
+    useEffect(() => {
+        if (step === 0) {
+            setDisplay1({});
+            setDisplay2({ display: 'none' });
+        }
+        else if (step === 1) {
+            setDisplay1({ display: 'none' });
+            setDisplay2({});
+        }
+    }, [step])
 
     return (
         <section id='booking_from' className='p-3'>
