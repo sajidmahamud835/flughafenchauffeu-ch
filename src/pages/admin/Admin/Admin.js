@@ -4,7 +4,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FirebaseApp from '../../../firebase/FirebaseApp';
-import Login from '../../Login/Login';
 
 const Admin = () => {
     const auth = getAuth(FirebaseApp);
@@ -27,7 +26,7 @@ const Admin = () => {
 
     return (
         <div>
-            <h1>This is Admin route.</h1>
+            <h1>Admin Dashboard</h1>
         </div>
     );
 };

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../../App';
-
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('');
     const { values } = useContext(FormContext);
