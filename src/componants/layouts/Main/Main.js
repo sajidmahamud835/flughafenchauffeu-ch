@@ -1,9 +1,10 @@
 import React from 'react';
-import BookASchedule from '../../../pages/BookASchedule/BookASchedule';
+import { Outlet } from 'react-router-dom';
+
 const Main = () => {
     return (
         <main>
-            <BookASchedule />
+            <Outlet />
         </main>
     );
 };

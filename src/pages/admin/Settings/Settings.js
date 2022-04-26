@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -24,9 +24,22 @@ const Settings = () => {
             }
         }
     });
+
+    const [sectionOne, setSectionOne] = useState([])
+
+    useEffect(() =>
+        fetch('http://localhost:5000/form/guest-information')
+            .then(res => res.json())
+            .then(data => setSectionOne(data.forms))
+        , [])
     return (
-        <div>
-            <h1>Settings</h1>
+        <div className='container'>
+            <h1 className='text-center my-2'>Settings</h1>
+            <div className="container shadow">
+                <h3 className="text-center m-2 p-4">Trip Information Section</h3>
+
+
+            </div>
         </div>
     );
 };

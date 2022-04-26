@@ -24,7 +24,20 @@ async function run() {
     const database = client.db();
     const bookingsCollection = database.collection('bookings')
 
-    // // Post api
+    /* Bookings Api */
+
+    // get bookings 
+    app.get('/bookings', async (req, res) => {
+      const cursor = bookingsCollection.find({});
+      const bookings = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        bookings
+      });
+    })
+
+    // Post api
     app.post('/bookings', async (req, res) => {
       const booking = req.body;
       console.log('Recived booking data form forntend', booking);
@@ -34,15 +47,6 @@ async function run() {
       res.json(result);
     });
 
-
-    // Get default-values
-    app.get('/default-values', async (req, res) => {
-      const cursor = database.collection('default_values').find({});
-      const bookings = await cursor.toArray();
-      let values = bookings[0]
-      delete values['_id'];
-      res.send(values);
-    })
 
     //UPDATE API
     app.put('/bookings/:id', async (req, res) => {
@@ -69,15 +73,39 @@ async function run() {
       res.json(result);
     })
 
-    // get bookings 
-    app.get('/bookings', async (req, res) => {
-      const cursor = bookingsCollection.find({});
-      const bookings = await cursor.toArray();
+    /* Admin from settings api */
+
+    //get trip info form
+    app.get('/form/trip-information', async (req, res) => {
+      const cursor = database.collection('trip_information').find({});
+      const forms = await cursor.toArray();
       const count = await cursor.count();
       res.send({
         count,
-        bookings
+        forms
       });
+    })
+
+    //get guest info form
+    app.get('/form/guest-information', async (req, res) => {
+      const cursor = database.collection('guest_information').find({});
+      const forms = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        forms
+      });
+    })
+
+
+
+    // Get default-values
+    app.get('/default-values', async (req, res) => {
+      const cursor = database.collection('default_values').find({});
+      const bookings = await cursor.toArray();
+      let values = bookings[0]
+      delete values['_id'];
+      res.send(values);
     })
 
 

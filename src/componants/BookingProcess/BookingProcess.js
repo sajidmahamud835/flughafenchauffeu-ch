@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Step1 from './Step1/Step1';
 import Step2 from './Step2/Step2';
@@ -29,6 +29,56 @@ const BookingProcess = () => {
         required: true
 
     }])
+    const [tripInformation, setTripInformation] = useState({
+        id: 2,
+        title: "Trip Information",
+        inputs: [
+
+            {
+                id: 3,
+                name: "flight_number",
+                type: "text",
+                placeholder: "Your Flight Number",
+                errorMessage:
+                    "Please enter your first name!",
+                label: "Flight Number",
+                pattern: "^[A-Za-z0-9]{3,16}$",
+                required: true,
+            }
+        ]
+    });
+
+    useEffect(() =>
+        fetch('http://localhost:5000/form/trip-information')
+            .then(res => res.json())
+            .then(data => setTripInformation(data.forms[0]))
+        , [])
+
+    const [guestInformation, setGuestInformation] = useState({
+        id: 2,
+        title: "Trip Information",
+        inputs: [
+
+            {
+                id: 3,
+                name: "flight_number",
+                type: "text",
+                placeholder: "Your Flight Number",
+                errorMessage:
+                    "Please enter your first name!",
+                label: "Flight Number",
+                pattern: "^[A-Za-z0-9]{3,16}$",
+                required: true,
+            }
+        ]
+    });
+
+    useEffect(() =>
+        fetch('http://localhost:5000/form/guest-information')
+            .then(res => res.json())
+            .then(data => setGuestInformation(data.forms[0]))
+        , [])
+
 
     const forms = [
         {
@@ -42,141 +92,16 @@ const BookingProcess = () => {
                     addInput: setDestination,
                     button_display: true
                 },
-                {
-                    id: 2,
-                    title: "Trip Information",
-                    inputs: [
-                        {
-                            id: 1,
-                            name: "time_pickup",
-                            type: "time",
-                            placeholder: "Time We Pick You",
-                            label: "Time We Pick You",
-                        },
-                        {
-                            id: 2,
-                            name: "date_pickup",
-                            type: "date",
-                            placeholder: "Date We Pick You",
-                            label: "Date We Pick You",
-                        },
-                        {
-                            id: 3,
-                            name: "flight_number",
-                            type: "text",
-                            placeholder: "Your Flight Number",
-                            errorMessage:
-                                "Please enter your first name!",
-                            label: "Flight Number",
-                            pattern: "^[A-Za-z0-9]{3,16}$",
-                            required: true,
-                        },
-                        {
-                            id: 4,
-                            name: "total_people",
-                            type: "number",
-                            placeholder: "Number of People",
-                            errorMessage:
-                                "Please enter the destination you want to go.",
-                            label: "People",
-                            required: true,
-                        },
-                        {
-                            id: 5,
-                            name: "luggage_weight",
-                            type: "text",
-                            placeholder: "Luggage Weight ",
-                            errorMessage:
-                                "Please enter the destination you want to go.",
-                            label: "Luggage Weight",
-                            required: true,
-                        }
-                    ]
-                }
+
+                tripInformation
+
             ]
 
         },
         {
             key: 1,
             section: [
-                {
-                    id: 1,
-                    title: "Guest Information",
-                    inputs: [
-                        {
-                            id: 1,
-                            name: "first_name",
-                            type: "text",
-                            placeholder: "Your First Name",
-                            errorMessage:
-                                "Please enter your first name!",
-                            label: "First Name",
-                            pattern: "^[A-Za-z0-9]{3,16}$",
-                            required: true,
-                        },
-                        {
-                            id: 2,
-                            name: "last_name",
-                            type: "text",
-                            placeholder: "Your Last Name",
-                            errorMessage:
-                                "Please enter your last name!",
-                            label: "Last Name",
-                            pattern: "^[A-Za-z0-9]{3,16}$",
-                            required: true,
-                        },
-                        {
-                            id: 3,
-                            name: "address",
-                            type: "text",
-                            placeholder: "Your Street Address",
-                            errorMessage: "It should be address!",
-                            label: "Street Address",
-
-                        },
-                        {
-                            id: 4,
-                            name: "city",
-                            type: "text",
-                            placeholder: "Your City",
-                            errorMessage: "Please enter a valid postal code!",
-                            label: "City",
-                        },
-                        {
-                            id: 5,
-                            name: "postal_code",
-                            type: "text",
-                            placeholder: "Postal code",
-                            errorMessage: "Please enter a valid postal code!",
-                            label: "Postal code",
-                        },
-                        {
-                            id: 6,
-                            name: "country",
-                            type: "text",
-                            placeholder: "Your Country",
-                            errorMessage: "Please enter a valid postal code!",
-                            label: "Country",
-                        },
-                        {
-                            id: 7,
-                            name: "phone",
-                            type: "phone",
-                            placeholder: "Your Phone Number",
-                            label: "Phone Nubmer",
-                            required: true,
-                        },
-                        {
-                            id: 8,
-                            name: "email",
-                            type: "email",
-                            placeholder: "Your Email Address",
-                            errorMessage: "It should be a valid email address!",
-                            label: "Email",
-                            required: true,
-                        }
-                    ]
-                }
+                guestInformation
             ]
 
         },
