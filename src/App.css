@@ -2,20 +2,27 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  
+
 }
 
 header {
   min-height: 10vh;
 }
+
 main {
   min-height: 75vh;
 }
-footer{
+
+footer {
   min-height: 15vh;
 }
 
-.map{
+.map {
   width: 100%;
   min-height: 400px;
+}
+
+input,
+select {
+  margin-bottom: 10px;
 }

@@ -74,6 +74,17 @@ async function run() {
     })
 
     /* Admin from settings api */
+    //get general settings
+    app.get('/general-settings', async (req, res) => {
+      const cursor = database.collection('general_settings').find({});
+      const forms = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        forms
+      });
+    })
+
 
     //get trip info form
     app.get('/form/trip-information', async (req, res) => {
