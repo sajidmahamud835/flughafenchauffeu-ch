@@ -6,10 +6,9 @@ const FormsAdd = () => {
 
         <div className="card m-3 p-3 bg-light">
             <div class="row">
-
                 <div class=" col-md-5 m-3 p-3">
                     <label for={"label" + id} class="form-label">Name</label><input type="text" class="form-control" id={"label" + id} />
-                    <label for={"name" + id} class="form-label">ID</label><input type="text" class="form-control" id={"name" + id} />
+                    <label for={"name" + id} class="form-label">ID</label><input type="text" class="form-control" value={"field_0" + id} id={"name" + id} disabled />
                     <label for={"type" + id} class="form-label">Type</label><select name="type" class="form-control" id={"type" + id} >
                         <option value="text">text</option>
                         <option value="phone">phone</option>

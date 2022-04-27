@@ -15,7 +15,7 @@ function App() {
   const [values, setValues] = useState({});
 
   useEffect(() =>
-    fetch('http://localhost:5000/default-values')
+    fetch('https://secret-river-49503.herokuapp.com/default-values')
       .then(res => res.json())
       .then(data => setValues(data))
     , [])
@@ -28,7 +28,7 @@ function App() {
       <div>
         <Routes>
           <Route path='/' element={<Home />} >
-            <Route path='' element={<BookASchedule/>} />
+            <Route path='' element={<BookASchedule />} />
             <Route path='admin' element={<Admin />} />
             <Route path='admin/login' element={<Login />} />
             <Route path='thank-you' element={<ThankYou />} />

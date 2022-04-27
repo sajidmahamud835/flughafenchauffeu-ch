@@ -5,7 +5,7 @@ const FormsOption = (props) => {
     return (
         <div class="card col-md-3 m-5 p-3 ">
             <label for={"label" + id} class="form-label">Name</label><input type="text" class="form-control" value={label} id={"label" + id} />
-            <label for={"name" + id} class="form-label">ID</label><input type="text" class="form-control" value={name} id={"name" + id} />
+            <label for={"name" + id} class="form-label">ID</label><input type="text" class="form-control" value={name} id={"name" + id} disabled />
             <label for={"type" + id} class="form-label">Type</label><select name="type" class="form-control" value={type} id={"type" + id} >
                 <option value="text">text</option>
                 <option value="phone">phone</option>
