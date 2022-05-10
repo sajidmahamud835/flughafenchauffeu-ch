@@ -22,8 +22,8 @@ const BookingsList = (props) => {
             <td>{flight_number}</td>
             <td>{total_people}</td>
             <td>{luggage_weight}</td>
-            <td> <button onClick={showEmail} className="btn btn-primary"><i class="far fa-envelope"></i></button> </td>
-            <td><button onClick={showPhone} className="btn btn-success"><i class="fas fa-phone"></i></button></td>
+            <td> <button onClick={showEmail} className="btn btn-primary"><i className="far fa-envelope"></i></button> </td>
+            <td><button onClick={showPhone} className="btn btn-success"><i className="fas fa-phone"></i></button></td>
             <td>{_id}</td>
             <td><select value={status} onChange={(e) => props.handleStatus(props.booking._id, e.target.value)} name="status" id="status">
                 <option value="Pending">Pending</option>
@@ -32,7 +32,7 @@ const BookingsList = (props) => {
                 <option value="Canceled">Canceled</option>
             </select></td>
             <td>
-                <button onClick={() => props.handleDelete(props.booking._id)} type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                <button onClick={() => props.handleDelete(props.booking._id)} type="button" className="btn btn-danger"><i className="far fa-trash-alt"></i></button>
             </td>
         </tr>
 

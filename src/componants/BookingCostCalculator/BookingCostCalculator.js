@@ -1,20 +1,90 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../../App';
 const BookingCostCalculator = () => {
-    const [apiKey, setApiKey] = useState('');
-    const { values } = useContext(FormContext);
-
+    const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
+    const { values, suggetions, setSuggetions } = useContext(FormContext);
+    const { start_address } = values;
 
     useEffect(() => {
-        console.log(values);
-    }, [values]);
+        if (start_address === undefined) {
+            console.log("Start Address is empty.");
+            setSuggetions(
+                {
+                    start_address: {
+                        items:
+                            [
+                                {
+                                    title: "Frankfurt (Oder), Brandenburg, Deutschland",
+                                    position: {
+                                        lat: 52.3417,
+                                        lng: 14.55428
+                                    }
+                                },
+                                {
+                                    title: "Brandenburg, Deutschland",
+                                    position: {
+                                        lat: 53.3417,
+                                        lng: 14.55428
+                                    }
+                                }
+                            ]
+                    }
+                }
+            );
+        }
+        else {
+            console.log(start_address);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${start_address}&apiKey=${apiKey}`)
+                .then(response => response.json())
+                .then(data => setSuggetions({ start_address: data }));
+        }
+
+    }, [start_address, apiKey, setSuggetions]);
+
+    // {
+    //     "items":
+    //     [
+    //         {
+    //             "title": "Frankfurt (Oder), Brandenburg, Deutschland",
+    //             "id": "here:cm:namedplace:20187473",
+    //             "resultType": "administrativeArea",
+    //             "administrativeAreaType": "county",
+    //             "address": {
+    //                 "label": "Frankfurt (Oder), Brandenburg, Deutschland",
+    //                 "countryCode": "DEU",
+    //                 "countryName": "Deutschland",
+    //                 "stateCode": "BB",
+    //                 "state": "Brandenburg",
+    //                 "countyCode": "FF",
+    //                 "county": "Frankfurt (Oder)"
+    //             },
+    //             "position": {
+    //                 "lat": 52.3417,
+    //                 "lng": 14.55428
+    //             },
+    //             "mapView": {
+    //                 "west": 14.39495,
+    //                 "south": 52.25287,
+    //                 "east": 14.60145,
+    //                 "north": 52.3982
+    //             },
+    //             "scoring": {
+    //                 "queryScore": 1,
+    //                 "fieldScore": {
+    //                     "county": 1
+    //                 }
+    //             }
+    //         }
+    //     ]
+    // }
+
     return (
         <section id='cost_calculator' className='p-3'>
             <div className="box shadow-sm p-2">
                 <h3 className='text-center text-dark'>Estimated Distance & Cost</h3>
                 <div className='m-3'>
                     {apiKey && <iframe title="map" className='rounded shadow mb-3' width="100%" height="400px" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/marine-gps/">navigation gps</a></iframe>}
-                    
+
                     {!apiKey && <section className='map card rounded shadow mb-3 d-flex'> <div className='text-center mt-5 pt-5 px-2'><h4 className='mt-5'>Please set  here.com api on settings page to use this function.</h4></div> </section>}
                     <br />
                     <h6 className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 16 16">

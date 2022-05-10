@@ -109,6 +109,8 @@ const BookingProcess = () => {
     ];
 
     const { values, setValues } = useContext(FormContext);
+
+
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {

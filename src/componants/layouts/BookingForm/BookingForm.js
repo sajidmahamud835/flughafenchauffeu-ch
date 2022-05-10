@@ -6,7 +6,8 @@ import { FormContext } from '../../../App';
 
 const BookingForm = (props) => {
 
-    const { values, setValues } = useContext(FormContext);
+    const { values, setValues, suggetions, setSuggetions } = useContext(FormContext);
+
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
@@ -35,6 +36,7 @@ const BookingForm = (props) => {
                             key={input.id}
                             {...input}
                             value={values[input.name]}
+                            suggetion={suggetions.start_address}
                             onChange={onChange}
                         />
                     ))}
