@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./FromInput.css";
 
 const FormInput = (props) => {
     const [focused, setFocused] = useState(false);
-    const { label, errorMessage, onChange, id, ...inputProps } = props;
+    const { label, errorMessage, onChange, id, startAddressSuggestion, inputName, ...inputProps } = props;
 
     const handleFocus = (e) => {
         setFocused(true);
     };
-
+    useEffect(() => {
+        if (inputName === "start_address") {
+            console.log(startAddressSuggestion)
+        }
+    }, [inputName, startAddressSuggestion]);
     return (
         <div className="formInput">
             <label>{label}</label>

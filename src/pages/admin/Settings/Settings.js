@@ -94,18 +94,18 @@ const Settings = () => {
             </div> */}
             <div className="col-10 container shadow-sm p-5 my-3">
                 <h3 className="text-center m-2 p-4">General Settings</h3>
-                <form class="row g-3">
+                <form className="row g-3">
                     <h4>MAP API</h4>
-                    <div class="col-md-6">
-                        <label for="apiKey" class="form-label">App Name</label>
-                        <input type="text" value="FlughafenChauffeur" class="form-control" id="apiKey" disabled />
+                    <div className="col-md-6">
+                        <label for="apiKey" className="form-label">App Name</label>
+                        <input type="text" value="FlughafenChauffeur" className="form-control" id="apiKey" disabled />
                     </div>
-                    <div class="col-md-6">
-                        <label for="apiKey" class="form-label">MAP API KEY</label>
-                        <input type="password" placeholder='Here.com API Key' class="form-control" id="apiKey" />
+                    <div className="col-md-6">
+                        <label for="apiKey" className="form-label">MAP API KEY</label>
+                        <input type="password" placeholder='Here.com API Key' className="form-control" id="apiKey" />
                     </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <div className="col-12">
+                        <button type="submit" className="btn btn-primary">Save</button>
                     </div>
                     <h4>Form Settings</h4>
                     <FormsAdd />

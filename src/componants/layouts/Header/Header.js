@@ -30,14 +30,14 @@ const Header = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link active" aria-current="page" href="#">Kontakt</NavLink>
                             </li>
-                            {user && <li class="nav-item dropdown">
-                                <Link class="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {user && <li className="nav-item dropdown">
+                                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Admin
                                 </Link>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li> <Link to="/admin/bookings" class="dropdown-item">Bookings</Link></li>
-                                    <li><Link class="dropdown-item" to="/admin/settings">Settings</Link></li>
-                                    <li><Link class="dropdown-item" to="#" onClick={logout}>Logout</Link></li>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li> <Link to="/admin/bookings" className="dropdown-item">Bookings</Link></li>
+                                    <li><Link className="dropdown-item" to="/admin/settings">Settings</Link></li>
+                                    <li><Link className="dropdown-item" to="#" onClick={logout}>Logout</Link></li>
                                 </ul>
                             </li>}
                         </ul>

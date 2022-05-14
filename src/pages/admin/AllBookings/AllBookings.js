@@ -78,9 +78,9 @@ const AllBookings = () => {
 
     return (
         <div id='all-bookings'>
-            <div class="container">
+            <div className="container">
                 <h3 className="text-center">All Bookings</h3>
-                <table class=" table  table-bordered table-sm" cellspacing="0"
+                <table className=" table  table-bordered table-sm" cellspacing="0"
                     width="100%">
                     <thead>
                         <tr>

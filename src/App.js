@@ -13,6 +13,7 @@ export const FormContext = createContext("form");
 function App() {
 
   const [values, setValues] = useState({});
+  const [suggetions, setSuggetions] = useState({})
 
   useEffect(() =>
     fetch('https://secret-river-49503.herokuapp.com/default-values')
@@ -23,7 +24,9 @@ function App() {
   return (
     <FormContext.Provider value={{
       values: values,
-      setValues: setValues
+      setValues: setValues,
+      suggetions: suggetions,
+      setSuggetions: setSuggetions
     }}>
       <div>
         <Routes>
