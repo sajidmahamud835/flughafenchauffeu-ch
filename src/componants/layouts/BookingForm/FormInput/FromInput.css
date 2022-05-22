@@ -6,10 +6,21 @@
 
 .formInput input {
     padding: 7px;
-    margin: 5px 0px;
+    margin: 0px;
     border-radius: 5px;
     border: 1px solid gray;
 }
+
+.formInput .inputSugesstions {
+    margin: 0px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.formInput .inputSugesstion:hover {
+    border: 1px solid black;
+}
+
 
 
 .formInput label {

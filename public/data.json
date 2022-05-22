@@ -1,0 +1,101 @@
+{
+    "items": [
+        {
+            "items": [
+                {
+                    "title": "Kreuzlingen, Thurgau, Schweiz",
+                    "id": "here:cm:namedplace:20144209",
+                    "resultType": "locality",
+                    "localityType": "city",
+                    "address": {
+                        "label": "Kreuzlingen, Thurgau, Schweiz",
+                        "countryCode": "CHE",
+                        "countryName": "Schweiz",
+                        "stateCode": "TG",
+                        "state": "Thurgau",
+                        "county": "Kreuzlingen",
+                        "city": "Kreuzlingen",
+                        "postalCode": "8280"
+                    },
+                    "position": {
+                        "lat": 47.64815,
+                        "lng": 9.17512
+                    },
+                    "mapView": {
+                        "west": 9.14007,
+                        "south": 47.62092,
+                        "east": 9.20599,
+                        "north": 47.66054
+                    },
+                    "scoring": {
+                        "queryScore": 1,
+                        "fieldScore": {
+                            "city": 1
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "title": "New York, NY, United States",
+            "id": "here:cm:namedplace:21019301",
+            "resultType": "locality",
+            "localityType": "city",
+            "address": {
+                "label": "New York, NY, United States",
+                "countryCode": "USA",
+                "countryName": "United States",
+                "stateCode": "NY",
+                "state": "New York",
+                "county": "New York",
+                "city": "New York",
+                "postalCode": "10007"
+            },
+            "position": {
+                "lat": 40.71455,
+                "lng": -74.00714
+            },
+            "mapView": {
+                "west": -74.2589,
+                "south": 40.47742,
+                "east": -73.70038,
+                "north": 40.91762
+            },
+            "scoring": {
+                "queryScore": 1.0,
+                "fieldScore": {
+                    "city": 1.0
+                }
+            }
+        },
+        {
+            "title": "NY, United States",
+            "id": "here:cm:namedplace:21010819",
+            "resultType": "administrativeArea",
+            "administrativeAreaType": "state",
+            "address": {
+                "label": "NY, United States",
+                "countryCode": "USA",
+                "countryName": "United States",
+                "stateCode": "NY",
+                "state": "New York"
+            },
+            "position": {
+                "lat": 42.65155,
+                "lng": -73.75521
+            },
+            "mapView": {
+                "west": -79.76212,
+                "south": 40.47742,
+                "east": -71.66864,
+                "north": 45.01608
+            },
+            "scoring": {
+                "queryScore": 1.0,
+                "fieldScore": {
+                    "state": 1.0
+                }
+            }
+        }
+    ]
+}
