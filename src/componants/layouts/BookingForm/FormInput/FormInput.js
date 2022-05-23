@@ -4,9 +4,7 @@ import "./FromInput.css";
 const FormInput = (props) => {
     const [focused, setFocused] = useState(false);
     const [showSuggestion, setShowSuggestion] = useState(false);
-    const { label, errorMessage, onChange, id, startAddressSuggestion, inputName, value, ...inputProps } = props;
-    const [address, setAddress] = useState('');
-    // const { start_address } = value;
+    const { label, errorMessage, onChange, id, startAddressSuggestion, inputName, value, startAddressChange, ...inputProps } = props;
 
     const handleFocus = (e) => {
         setFocused(true);
@@ -23,7 +21,7 @@ const FormInput = (props) => {
         <div className="formInput">
             <label>{label}</label>
             {(showSuggestion) &&
-                <div class="card mt-0 pt-0 border-top-0 shadow rounded-lg mb-2 inputSugesstions">
+                <div className="card mt-0 pt-0 border-top-0 shadow rounded-lg mb-2 inputSugesstions">
                     <input
                         {...inputProps}
                         onChange={onChange}
@@ -31,14 +29,15 @@ const FormInput = (props) => {
                         onFocus={() =>
                             inputProps.name === "confirmPassword" && setFocused(true)
                         }
+                        value = {value}
                         focused={focused.toString()}
                     />
 
 
 
-                    {showSuggestion && startAddressSuggestion.items.map(input => (
-                        <div class="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion">
-                            <h6 className="text-primary" key={input.position.lat}>{input.title}</h6>
+                    {showSuggestion && startAddressSuggestion.items.map(item => (
+                        <div className="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion" key={item.id}>
+                            <i className="fa-solid fa-location-dot"></i> <h6 onClick={(e) => startAddressChange(e)} className="text-primary" >{item.title}</h6>
                         </div>
                     ))}
 

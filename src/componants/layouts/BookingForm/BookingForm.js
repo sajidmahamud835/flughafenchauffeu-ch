@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FormInput from './FormInput/FormInput';
 import "./BookingForm.css"
 import AddOrRemoveBtn from './AddOrRemoveBtn/AddOrRemoveBtn';
@@ -7,9 +7,15 @@ import { FormContext } from '../../../App';
 const BookingForm = (props) => {
 
     const { values, setValues, suggetions } = useContext(FormContext);
+    const [showSuggestion, setShowSuggestion] = useState(false);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
+
+    const startAddressChange = (e) =>{
+        setValues({ ...values, start_address: e.target.innerText })
+        e.target.parentNode.className = 'd-none'
+    }
 
     const numOfDest = props.inputs.length;
     if (numOfDest === 6) {
@@ -38,6 +44,7 @@ const BookingForm = (props) => {
                             startAddressSuggestion={suggetions.start_address}
                             inputName={input.name}
                             onChange={onChange}
+                            startAddressChange={startAddressChange}
                         />
                     ))}
                 </div>
