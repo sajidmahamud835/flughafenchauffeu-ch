@@ -36,8 +36,8 @@ const FormInput = (props) => {
 
 
                     {showSuggestion && startAddressSuggestion.items.map(item => (
-                        <div className="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion" key={item.id}>
-                            <i className="fa-solid fa-location-dot"></i> <h6 onClick={(e) => startAddressChange(e)} className="text-primary" >{item.title}</h6>
+                        <div className="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion" key={item.id} data={item}>
+                            <i className="fa-solid fa-location-dot"></i> <h6 onClick={(e, data) => startAddressChange(e, item)} className="text-primary" >{item.title}</h6>
                         </div>
                     ))}
 
