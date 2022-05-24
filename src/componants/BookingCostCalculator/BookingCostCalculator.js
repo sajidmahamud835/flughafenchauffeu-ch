@@ -25,9 +25,13 @@ const BookingCostCalculator = () => {
             <div className="box shadow-sm p-2">
                 <h3 className='text-center text-dark'>Estimated Distance & Cost</h3>
                 <div className='m-3'>
-                    {apiKey && <iframe title="map" className='rounded shadow mb-3' width="100%" height="400px" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/marine-gps/">navigation gps</a></iframe>}
+            
+                    {(apiKey && values.start_address_data) && <iframe title="map" className='rounded shadow mb-3' width="100%" height="320px" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0" src={`https://image.maps.ls.hereapi.com/mia/1.6/mapview?apiKey=${apiKey}&c=${values.start_address_data.position.lat},${values.start_address_data.position.lng}&z=15&w=500`}></iframe>}
 
                     {!apiKey && <section className='map card rounded shadow mb-3 d-flex'> <div className='text-center mt-5 pt-5 px-2'><h4 className='mt-5'>Please set  here.com api on settings page to use this function.</h4></div> </section>}
+
+                    {!values.start_address_data &&<section className='card'> <div className='text-center mt-5 pt-5 position-absolute px-2'><h4 className='mt-5'>Strat typing the address to see the location real time.</h4></div> 
+                    <iframe title="map" className='rounded shadow' width="100%" height="320px" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0" src={`https://image.maps.ls.hereapi.com/mia/1.6/mapview?apiKey=${apiKey}&c=40.71455,-74.00714&z=14&w=500`}></iframe> </section> }
                     <br />
                     { values.start_address_data &&
                     <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
