@@ -3,24 +3,46 @@ import { FormContext } from '../../App';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { values, suggestions, setSuggestions } = useContext(FormContext);
-    const defaultData = { "items": [{ "title": "New York, NY, United States", "id": "here:cm:namedplace:21019301", "resultType": "locality", "localityType": "city", "address": { "label": "New York, NY, United States", "countryCode": "USA", "countryName": "United States", "stateCode": "NY", "state": "New York", "county": "New York", "city": "New York", "postalCode": "10007" }, "position": { "lat": 40.71455, "lng": -74.00714 }, "mapView": { "west": -74.2589, "south": 40.47742, "east": -73.70038, "north": 40.91762 }, "scoring": { "queryScore": 1.0, "fieldScore": { "city": 1.0 } } }, { "title": "NY, United States", "id": "here:cm:namedplace:21010819", "resultType": "administrativeArea", "administrativeAreaType": "state", "address": { "label": "NY, United States", "countryCode": "USA", "countryName": "United States", "stateCode": "NY", "state": "New York" }, "position": { "lat": 42.65155, "lng": -73.75521 }, "mapView": { "west": -79.76212, "south": 40.47742, "east": -71.66864, "north": 45.01608 }, "scoring": { "queryScore": 1.0, "fieldScore": { "state": 1.0 } } }] };
 
-    const suggestionsGenerator = (fieldName, value) => {
-        if (value === undefined || value.length <= 0) {
-            console.log("Start Address is empty.");
-            setSuggestions({ ...suggestions, [fieldName]: defaultData })
-        }
-        else {
-            console.log(value);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${value}&apiKey=${apiKey}`)
-                .then(res => res.json())
-                .then(data => setSuggestions({ ...suggestions, [fieldName]: data }));
-        }
-    }
+    const defaultData = { "items": [{ "title": "New York, NY, United States", "id": "here:cm:namedplace:21019301", "resultType": "locality", "localityType": "city", "address": { "label": "New York, NY, United States", "countryCode": "USA", "countryName": "United States", "stateCode": "NY", "state": "New York", "county": "New York", "city": "New York", "postalCode": "10007" }, "position": { "lat": 40.71455, "lng": -74.00714 }, "mapView": { "west": -74.2589, "south": 40.47742, "east": -73.70038, "north": 40.91762 }, "scoring": { "queryScore": 1.0, "fieldScore": { "city": 1.0 } } }, { "title": "NY, United States", "id": "here:cm:namedplace:21010819", "resultType": "administrativeArea", "administrativeAreaType": "state", "address": { "label": "NY, United States", "countryCode": "USA", "countryName": "United States", "stateCode": "NY", "state": "New York" }, "position": { "lat": 42.65155, "lng": -73.75521 }, "mapView": { "west": -79.76212, "south": 40.47742, "east": -71.66864, "north": 45.01608 }, "scoring": { "queryScore": 1.0, "fieldScore": { "state": 1.0 } } }] };
+    const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
+    const [destination01Suggestion, setDestination01Suggestion] = useState(defaultData);
+
 
     useEffect(() => {
-        suggestionsGenerator('start_address', values.start_address)
-    }, [values.start_address]);
+        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion })
+    }, [destination01Suggestion, startAddressSuggestion]);
+
+
+    //start address suggestions gen
+    useEffect(() => {
+        if (values.start_address === undefined || values.start_address.length <= 0) {
+            console.log("Start Address is empty.");
+        }
+        else {
+            console.log(values.start_address);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.start_address}&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setStartAddressSuggestion(data));
+        }
+    }, [apiKey, values.start_address]);
+
+    //destination 01 suggestions gen
+    useEffect(() => {
+        if (values.destination_01 === undefined || values.destination_01.length <= 0) {
+            console.log("Start Address is empty.");
+        }
+        else {
+            console.log(values.destination_01);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_01}&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setDestination01Suggestion(data));
+        }
+    }, [apiKey, values.destination_01]);
+
+
+
+    console.log(values)
 
 
     return (

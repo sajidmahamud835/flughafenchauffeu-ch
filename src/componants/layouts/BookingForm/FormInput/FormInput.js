@@ -10,7 +10,7 @@ const FormInput = (props) => {
         setFocused(true);
     };
     useEffect(() => {
-        if (inputName === "start_address") {
+        if (inputName === "start_address" || inputName === "destination_01") {
             console.log(addressSuggestion);
             // setAddress(start_address);
             setShowSuggestion(true);
