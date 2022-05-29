@@ -6,13 +6,13 @@ import { FormContext } from '../../../App';
 
 const BookingForm = (props) => {
 
-    const { values, setValues, suggetions } = useContext(FormContext);
+    const { values, setValues, suggestions } = useContext(FormContext);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    const startAddressChange = (e, data) =>{
-        setValues({ ...values, start_address: e.target.innerText, start_address_data: data})
+    const startAddressChange = (e, data) => {
+        setValues({ ...values, start_address: e.target.innerText, start_address_data: data })
         e.target.parentNode.className = 'd-none'
     }
 
@@ -40,7 +40,7 @@ const BookingForm = (props) => {
                             key={input.id}
                             {...input}
                             value={values[input.name]}
-                            startAddressSuggestion={suggetions.start_address}
+                            startAddressSuggestion={suggestions.start_address}
                             inputName={input.name}
                             onChange={onChange}
                             startAddressChange={startAddressChange}
