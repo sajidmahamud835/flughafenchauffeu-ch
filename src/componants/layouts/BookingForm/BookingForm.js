@@ -41,7 +41,7 @@ const BookingForm = (props) => {
                             key={input.id}
                             {...input}
                             value={values[input.name]}
-                            startAddressSuggestion={suggestions.start_address}
+                            addressSuggestion={suggestions}
                             inputName={input.name}
                             onChange={onChange}
                             onAddressChange={onAddressChange}
