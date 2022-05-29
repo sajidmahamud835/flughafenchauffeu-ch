@@ -11,7 +11,7 @@ const BookingForm = (props) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    const startAddressChange = (e, data) => {
+    const onAddressChange = (e, data) => {
         setValues({ ...values, start_address: e.target.innerText, start_address_data: data })
         e.target.parentNode.className = 'd-none'
     }
@@ -43,7 +43,7 @@ const BookingForm = (props) => {
                             startAddressSuggestion={suggestions.start_address}
                             inputName={input.name}
                             onChange={onChange}
-                            startAddressChange={startAddressChange}
+                            onAddressChange={onAddressChange}
                         />
                     ))}
                 </div>
