@@ -11,8 +11,9 @@ const BookingForm = (props) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    const onAddressChange = (e, data) => {
-        setValues({ ...values, start_address: e.target.innerText, start_address_data: data })
+    const onAddressChange = (e, data, inputName) => {
+        const dataField = inputName + "_data";
+        setValues({ ...values, [inputName]: e.target.innerText, [dataField]: data })
         e.target.parentNode.className = 'd-none'
     }
 
