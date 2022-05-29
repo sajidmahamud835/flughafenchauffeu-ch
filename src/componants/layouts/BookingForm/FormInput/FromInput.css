@@ -18,7 +18,8 @@
 }
 
 .formInput .inputSugesstion:hover {
-    border: 1px solid black;
+    color: blue;
+    background-color: lightgray;
 }
 
 
