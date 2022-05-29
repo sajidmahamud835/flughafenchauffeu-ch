@@ -4,7 +4,7 @@ const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { values, suggestions, setSuggestions } = useContext(FormContext);
 
-    const defaultData = { "items": [{ "title": "New York, NY, United States", "id": "here:cm:namedplace:21019301", "resultType": "locality", "localityType": "city", "address": { "label": "New York, NY, United States", "countryCode": "USA", "countryName": "United States", "stateCode": "NY", "state": "New York", "county": "New York", "city": "New York", "postalCode": "10007" }, "position": { "lat": 40.71455, "lng": -74.00714 }, "mapView": { "west": -74.2589, "south": 40.47742, "east": -73.70038, "north": 40.91762 }, "scoring": { "queryScore": 1.0, "fieldScore": { "city": 1.0 } } }, { "title": "NY, United States", "id": "here:cm:namedplace:21010819", "resultType": "administrativeArea", "administrativeAreaType": "state", "address": { "label": "NY, United States", "countryCode": "USA", "countryName": "United States", "stateCode": "NY", "state": "New York" }, "position": { "lat": 42.65155, "lng": -73.75521 }, "mapView": { "west": -79.76212, "south": 40.47742, "east": -71.66864, "north": 45.01608 }, "scoring": { "queryScore": 1.0, "fieldScore": { "state": 1.0 } } }] };
+    const defaultData = { "items": [] };
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
     const [destination01Suggestion, setDestination01Suggestion] = useState(defaultData);
 
