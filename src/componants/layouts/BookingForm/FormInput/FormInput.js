@@ -16,7 +16,7 @@ const FormInput = (props) => {
             setShowSuggestion(true);
 
         }
-    }, [inputName, addressSuggestion]);
+    }, [inputName, value, addressSuggestion]);
     return (
         <div className="formInput">
             <label>{label}</label>
@@ -26,8 +26,9 @@ const FormInput = (props) => {
                         {...inputProps}
                         onChange={onChange}
                         onBlur={handleFocus}
-                        onFocus={() =>
-                            inputProps.name === "confirmPassword" && setFocused(true)
+                        onFocus={() => {
+                            inputProps.name === "confirmPassword" && setFocused(true) && setShowSuggestion(true)
+                        }
                         }
                         value={value}
                         focused={focused.toString()}
