@@ -66,7 +66,7 @@ const BookingCostCalculator = () => {
                 <h3 className='text-center text-dark'>Estimated Distance & Cost</h3>
                 <div className='m-3'>
 
-                    {(apiKey && values.start_address_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && values.start_address_data && !values.destination_01_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
                             center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
@@ -74,6 +74,17 @@ const BookingCostCalculator = () => {
                             width="100%"
                             height="350"
                             addressMarkers={[{ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } }, { svgMarkup: destination01SvgMarkup, coords: { lat: 40.53075, lng: 10.3851 } }]}
+                        />
+                    </div>}
+
+                    {(apiKey && values.start_address_data && values.destination_01_data) && <div className='rounded shadow mb-3'>
+                        <DisplayMapFC
+                            apikey={apiKey}
+                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            zoom={14}
+                            width="100%"
+                            height="350"
+                            addressMarkers={[{ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } }, { svgMarkup: destination01SvgMarkup, coords: { lat: values.destination_01_data.position.lat, lng: values.destination_01_data.position.lng } }]}
                         />
                     </div>}
 

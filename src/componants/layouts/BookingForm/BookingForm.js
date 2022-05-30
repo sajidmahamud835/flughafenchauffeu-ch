@@ -14,7 +14,7 @@ const BookingForm = (props) => {
     const onAddressChange = (e, data, inputName) => {
         const dataField = inputName + "_data";
         setValues({ ...values, [inputName]: e.target.innerText, [dataField]: data })
-        e.target.parentNode.className = 'd-none'
+        e.target.parentNode.parentNode.className = 'd-none'
     }
 
     const numOfDest = props.inputs.length;
