@@ -186,7 +186,7 @@ const BookingProcess = () => {
     return (
         <section id='booking_from' className='p-3'>
 
-            <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow-sm rounded">
+            <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow rounded">
                 <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
                 <div style={display1}>
                     <Step1
@@ -207,7 +207,7 @@ const BookingProcess = () => {
             </form>
 
 
-            <div className="card w-100 box px-5 py-3 m-2 mt-4 shadow-sm border-0 rounded text-white bg-primary">
+            <div className="card w-100 box px-5 py-3 m-2 mt-4 shadow border-0 rounded text-white bg-primary">
                 <div className="card-body">
                     <h5 className="card-title">Need Help?</h5>
                     <p className="card-text">We are here to help you. Please call us at +41 78 676 63 69.</p>
