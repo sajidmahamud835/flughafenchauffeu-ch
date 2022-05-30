@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export const DisplayMapFC = (props) => {
-    const { apikey, center, zoom, addressMarkers } = props;
+    const { apikey, center, zoom, addressMarkers, showMarker } = props;
     // Create a reference to the HTML element we want to put the map on
     const mapRef = React.useRef(null);
 
@@ -25,16 +25,17 @@ export const DisplayMapFC = (props) => {
         });
 
         /* Marks the start address */
-        if (!addressMarkers === undefined) {
+        if (addressMarkers) {
             addressMarkers.map(addressMarker => {
-                const addressIcon = new H.map.Icon(addressMarker.svgMarkup),
-                    addressCoords = addressMarker.coords,
-                    newMarker = new H.map.Marker(addressCoords, { icon: addressIcon });
-                hMap.addObject(newMarker);
+                if (addressMarker.coords.lat !== undefined) {
+                    const addressIcon = new H.map.Icon(addressMarker.svgMarkup),
+                        addressCoords = addressMarker.coords,
+                        newMarker = new H.map.Marker(addressCoords, { icon: addressIcon });
+                    hMap.addObject(newMarker);
+                }
                 return 0;
             })
         }
-
 
 
 

@@ -70,9 +70,10 @@ const BookingCostCalculator = () => {
                         <DisplayMapFC
                             apikey={apiKey}
                             center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
-                            zoom={13}
+                            zoom={14}
                             width="100%"
                             height="350"
+                            addressMarkers={[{ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } }, { svgMarkup: destination01SvgMarkup, coords: { lat: 40.53075, lng: 10.3851 } }]}
                         />
                     </div>}
 
@@ -85,7 +86,6 @@ const BookingCostCalculator = () => {
                             zoom={4}
                             width="100%"
                             height="350"
-                            addressMarkers={[{ svgMarkup: startAddressSvgMarkup, coords: { lat: 52.53075, lng: 13.3851 } }, { svgMarkup: destination01SvgMarkup, coords: { lat: 40.53075, lng: 10.3851 } }]}
                         />
                     </div>}
                     <br />
