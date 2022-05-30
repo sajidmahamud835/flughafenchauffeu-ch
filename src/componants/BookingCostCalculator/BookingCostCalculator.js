@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../../App';
-import MapBox from '../mapbox/MapBox';
+import { DisplayMapFC } from '../../DisplayMapFC';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { values, suggestions, setSuggestions } = useContext(FormContext);
@@ -41,6 +41,20 @@ const BookingCostCalculator = () => {
         }
     }, [apiKey, values.destination_01]);
 
+    const startAddressSvgMarkup = '<svg width="24" height="24" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+        'height="22" /><text x="12" y="18" font-size="12pt" ' +
+        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+        'fill="white">S</text></svg>';
+
+    const destination01SvgMarkup = '<svg width="24" height="24" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+        'height="22" /><text x="12" y="18" font-size="12pt" ' +
+        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+        'fill="white">D1</text></svg>';
+
 
 
     console.log(values)
@@ -53,7 +67,7 @@ const BookingCostCalculator = () => {
                 <div className='m-3'>
 
                     {(apiKey && values.start_address_data) && <div className='rounded shadow mb-3'>
-                        <MapBox
+                        <DisplayMapFC
                             apikey={apiKey}
                             center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
                             zoom={13}
@@ -65,12 +79,13 @@ const BookingCostCalculator = () => {
                     {!apiKey && <section className='map card rounded shadow mb-3 d-flex'> <div className='text-center mt-5 pt-5 px-2'><h4 className='mt-5'>Please set  here.com api on settings page to use this function.</h4></div> </section>}
 
                     {!values.start_address_data && <div className='rounded shadow mb-3'>
-                        <MapBox
+                        <DisplayMapFC
                             apikey={apiKey}
                             center={{ lat: 50, lng: 5 }}
                             zoom={4}
                             width="100%"
                             height="350"
+                            addressMarkers={[{ svgMarkup: startAddressSvgMarkup, coords: { lat: 52.53075, lng: 13.3851 } }, { svgMarkup: destination01SvgMarkup, coords: { lat: 40.53075, lng: 10.3851 } }]}
                         />
                     </div>}
                     <br />
