@@ -12,7 +12,7 @@ const FormInput = (props) => {
     // const inputValue = value;
     // const dataValue = value[`${inputName}_data`];
     useEffect(() => {
-        if ((inputName === "start_address" || inputName === "destination_01" || inputName === "destination_02") && value) {
+        if ((inputName === "start_address" || inputName === "destination_01" || inputName === "destination_02" || inputName === "destination_03" || inputName === "destination_04" || inputName === "destination_05") && value) {
             setShowSuggestion(true);
         }
     }, [inputName, value, setShowSuggestion]);

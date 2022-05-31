@@ -9,13 +9,16 @@ const BookingCostCalculator = () => {
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
     const [destination01Suggestion, setDestination01Suggestion] = useState(defaultData);
     const [destination02Suggestion, setDestination02Suggestion] = useState(defaultData);
+    const [destination03Suggestion, setDestination03Suggestion] = useState(defaultData);
+    const [destination04Suggestion, setDestination04Suggestion] = useState(defaultData);
+    const [destination05Suggestion, setDestination05Suggestion] = useState(defaultData);
 
     const [distance, setDistance] = useState(0);
 
 
     useEffect(() => {
-        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion })
-    }, [destination01Suggestion, destination02Suggestion, setSuggestions, startAddressSuggestion]);
+        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion })
+    }, [destination01Suggestion, destination02Suggestion, destination03Suggestion, destination04Suggestion, destination05Suggestion, setSuggestions, startAddressSuggestion]);
 
 
     //start address suggestions gen
@@ -57,6 +60,45 @@ const BookingCostCalculator = () => {
         }
     }, [apiKey, values.destination_02]);
 
+    //destination 03 suggestions gen
+    useEffect(() => {
+        if (values.destination_03 === undefined || values.destination_03.length <= 0) {
+            console.log("Destination 03 is empty.");
+        }
+        else {
+            console.log(values.destination_03);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_03}&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setDestination03Suggestion(data));
+        }
+    }, [apiKey, values.destination_03]);
+
+    //destination 04 suggestions gen
+    useEffect(() => {
+        if (values.destination_04 === undefined || values.destination_04.length <= 0) {
+            console.log("Destination 04 is empty.");
+        }
+        else {
+            console.log(values.destination_04);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_04}&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setDestination04Suggestion(data));
+        }
+    }, [apiKey, values.destination_04]);
+
+    //destination 05 suggestions gen
+    useEffect(() => {
+        if (values.destination_05 === undefined || values.destination_05.length <= 0) {
+            console.log("Destination 05 is empty.");
+        }
+        else {
+            console.log(values.destination_05);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_05}&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setDestination05Suggestion(data));
+        }
+    }, [apiKey, values.destination_05]);
+
     const startAddressSvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
         '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
@@ -78,6 +120,29 @@ const BookingCostCalculator = () => {
         'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
         'fill="white">S1</text></svg>';
 
+    const destination03SvgMarkup = '<svg width="24" height="24" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+        'height="22" /><text x="12" y="18" font-size="12pt" ' +
+        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+        'fill="white">S2</text></svg>';
+
+    const destination04SvgMarkup = '<svg width="24" height="24" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+        'height="22" /><text x="12" y="18" font-size="12pt" ' +
+        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+        'fill="white">S3</text></svg>';
+
+
+    const destination05SvgMarkup = '<svg width="24" height="24" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+        'height="22" /><text x="12" y="18" font-size="12pt" ' +
+        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+        'fill="white">S4</text></svg>';
+
+
 
     const mapMarkers = [];
 
@@ -89,8 +154,20 @@ const BookingCostCalculator = () => {
         mapMarkers.push({ svgMarkup: destination01SvgMarkup, coords: { lat: values.destination_01_data.position.lat, lng: values.destination_01_data.position.lng } });
     }
 
-    if (values.destination_02_data) {
-        mapMarkers.push({ svgMarkup: destination02SvgMarkup, coords: { lat: values.destination_02_data.position.lat, lng: values.destination_02_data.position.lng } });
+    // if (values.destination_02_data) {
+    //     mapMarkers.push({ svgMarkup: destination02SvgMarkup, coords: { lat: values.destination_02_data.position.lat, lng: values.destination_02_data.position.lng } });
+    // }
+
+    if (values.destination_03_data) {
+        mapMarkers.push({ svgMarkup: destination03SvgMarkup, coords: { lat: values.destination_03_data.position.lat, lng: values.destination_03_data.position.lng } });
+    }
+
+    if (values.destination_04_data) {
+        mapMarkers.push({ svgMarkup: destination04SvgMarkup, coords: { lat: values.destination_04_data.position.lat, lng: values.destination_04_data.position.lng } });
+    }
+
+    if (values.destination_05_data) {
+        mapMarkers.push({ svgMarkup: destination05SvgMarkup, coords: { lat: values.destination_05_data.position.lat, lng: values.destination_05_data.position.lng } });
     }
 
 
@@ -147,6 +224,24 @@ const BookingCostCalculator = () => {
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
                             <strong> Stop 01:</strong> <span title={`lat: ${values.destination_02_data.position.lat}, lng: ${values.destination_02_data.position.lng}`} >{values.destination_02_data.title}</span>  </small>
+                    }
+                    {values.destination_03_data &&
+                        <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
+                            <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
+                        </svg>
+                            <strong> Stop 02:</strong> <span title={`lat: ${values.destination_03_data.position.lat}, lng: ${values.destination_03_data.position.lng}`} >{values.destination_03_data.title}</span>  </small>
+                    }
+                    {values.destination_04_data &&
+                        <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
+                            <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
+                        </svg>
+                            <strong> Stop 03:</strong> <span title={`lat: ${values.destination_04_data.position.lat}, lng: ${values.destination_04_data.position.lng}`} >{values.destination_04_data.title}</span>  </small>
+                    }
+                    {values.destination_05_data &&
+                        <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
+                            <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
+                        </svg>
+                            <strong> Stop 04:</strong> <span title={`lat: ${values.destination_05_data.position.lat}, lng: ${values.destination_05_data.position.lng}`} >{values.destination_05_data.title}</span>  </small>
                     }
                     {values.destination_01_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
