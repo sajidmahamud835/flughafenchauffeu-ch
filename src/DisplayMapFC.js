@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export const DisplayMapFC = (props) => {
     const { apikey, center, zoom, addressMarkers, setDistance, distance } = props;
+    const [stopCoords, setStopCoords] = React.useState([]);
     // Create a reference to the HTML element we want to put the map on
     const mapRef = React.useRef(null);
 
@@ -26,21 +27,30 @@ export const DisplayMapFC = (props) => {
 
         /* Marks the start and destination addresses */
         if (addressMarkers) {
+            let i = 0;
             addressMarkers.map(addressMarker => {
                 if (addressMarker.coords.lat !== undefined) {
                     const addressIcon = new H.map.Icon(addressMarker.svgMarkup),
                         addressCoords = addressMarker.coords,
+                        addressCoordsString = `${addressCoords.lat},${addressCoords.lng}`,
                         newMarker = new H.map.Marker(addressCoords, { icon: addressIcon });
                     hMap.addObject(newMarker);
+
+                    if (i > 1) {
+                        setStopCoords([...stopCoords, addressCoordsString]); //adds coords to an array so for routing path
+                        // console.log('Stop Cords', stopCoords)
+                    }
+
+                    i++;
                 }
                 return 0;
             })
         }
-
+        //Verify if there is any additonal stops
         if (addressMarkers) {
 
             // Create the parameters for the routing request:
-            const routingParameters = {
+            let routingParameters = {
                 'routingMode': 'fast',
                 'transportMode': 'car',
                 // The start point of the route:
@@ -50,6 +60,21 @@ export const DisplayMapFC = (props) => {
                 // Include the route shape in the response
                 'return': 'polyline,travelSummary'
             };
+
+            if (stopCoords.length > 0) {
+                routingParameters = {
+                    'routingMode': 'fast',
+                    'transportMode': 'car',
+                    // The start point of the route:
+                    'origin': `${addressMarkers[0].coords.lat},${addressMarkers[0].coords.lng}`,
+                    'destination': `${addressMarkers[1].coords.lat},${addressMarkers[1].coords.lng}`,
+                    // defines multiple waypoints
+                    'via': new H.service.Url.MultiValueQueryParameter(stopCoords),
+                    // Include the route shape in the response
+                    'return': 'polyline,travelSummary'
+                };
+            }
+
 
             // Define a callback function to process the routing response:
             const onResult = function (result) {
