@@ -5,16 +5,22 @@ import AddOrRemoveBtn from './AddOrRemoveBtn/AddOrRemoveBtn';
 import { FormContext } from '../../../App';
 
 const BookingForm = (props) => {
-
-    const { values, setValues, suggestions } = useContext(FormContext);
+    const [showSuggestion, setShowSuggestion] = useState(false);
+    const { values, setValues, suggestions, setSuggestions } = useContext(FormContext);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
     const onAddressChange = (e, data, inputName) => {
         const dataField = inputName + "_data";
-        setValues({ ...values, [inputName]: e.target.innerText, [dataField]: data })
-        e.target.parentNode.parentNode.className = 'd-none'
+        setValues({ ...values, [inputName]: e.target.innerText, [dataField]: data });
+        // setSuggestions({ ...suggestions, [inputName]: { items: [] } });
+        delay(1000).then(() => setShowSuggestion(false));
+        // e.target.parentNode.parentNode.className = 'd-none';
     }
 
     const numOfDest = props.inputs.length;
@@ -45,6 +51,9 @@ const BookingForm = (props) => {
                             inputName={input.name}
                             onChange={onChange}
                             onAddressChange={onAddressChange}
+                            showSuggestion={showSuggestion}
+                            setShowSuggestion={setShowSuggestion}
+
                         />
                     ))}
                 </div>

@@ -3,20 +3,19 @@ import "./FromInput.css";
 
 const FormInput = (props) => {
     const [focused, setFocused] = useState(false);
-    const [showSuggestion, setShowSuggestion] = useState(false);
-    const { label, errorMessage, onChange, id, addressSuggestion, inputName, value, onAddressChange, ...inputProps } = props;
+    const { label, errorMessage, onChange, id, addressSuggestion, inputName, value, onAddressChange, showSuggestion, setShowSuggestion, ...inputProps } = props;
 
     const handleFocus = (e) => {
         setFocused(true);
     };
-    useEffect(() => {
-        if (inputName === "start_address" || inputName === "destination_01") {
-            console.log(addressSuggestion);
-            // setAddress(start_address);
-            setShowSuggestion(true);
 
+    // const inputValue = value;
+    // const dataValue = value[`${inputName}_data`];
+    useEffect(() => {
+        if ((inputName === "start_address" || inputName === "destination_01") && value) {
+            setShowSuggestion(true);
         }
-    }, [inputName, value, addressSuggestion]);
+    }, [inputName, value, setShowSuggestion]);
     return (
         <div className="formInput">
             <label>{label}</label>
@@ -27,7 +26,7 @@ const FormInput = (props) => {
                         onChange={onChange}
                         onBlur={handleFocus}
                         onFocus={() => {
-                            inputProps.name === "confirmPassword" && setFocused(true) && setShowSuggestion(true)
+                            inputProps.name === "confirmPassword" && setFocused(true)
                         }
                         }
                         value={value}
@@ -68,6 +67,7 @@ const FormInput = (props) => {
                     onFocus={() =>
                         inputProps.name === "confirmPassword" && setFocused(true)
                     }
+                    value={value}
                     focused={focused.toString()}
                 />
             }
