@@ -111,7 +111,7 @@ const BookingCostCalculator = () => {
         '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
         'height="22" /><text x="12" y="18" font-size="12pt" ' +
         'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
-        'fill="white">E</text></svg>';
+        'fill="white">FD</text></svg>';
 
     const destination02SvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
@@ -144,31 +144,31 @@ const BookingCostCalculator = () => {
 
 
 
-    const mapMarkers = [];
+    // const mapMarkers = [];
 
-    if (values.start_address_data) {
-        mapMarkers.push({ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } });
-    }
+    // if (values.start_address_data) {
+    //     mapMarkers.push({ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } });
+    // }
 
-    if (values.destination_01_data) {
-        mapMarkers.push({ svgMarkup: destination01SvgMarkup, coords: { lat: values.destination_01_data.position.lat, lng: values.destination_01_data.position.lng } });
-    }
+    // if (values.destination_01_data) {
+    //     mapMarkers.push({ svgMarkup: destination01SvgMarkup, coords: { lat: values.destination_01_data.position.lat, lng: values.destination_01_data.position.lng } });
+    // }
 
     // if (values.destination_02_data) {
     //     mapMarkers.push({ svgMarkup: destination02SvgMarkup, coords: { lat: values.destination_02_data.position.lat, lng: values.destination_02_data.position.lng } });
     // }
 
-    if (values.destination_03_data) {
-        mapMarkers.push({ svgMarkup: destination03SvgMarkup, coords: { lat: values.destination_03_data.position.lat, lng: values.destination_03_data.position.lng } });
-    }
+    // if (values.destination_03_data) {
+    //     mapMarkers.push({ svgMarkup: destination03SvgMarkup, coords: { lat: values.destination_03_data.position.lat, lng: values.destination_03_data.position.lng } });
+    // }
 
-    if (values.destination_04_data) {
-        mapMarkers.push({ svgMarkup: destination04SvgMarkup, coords: { lat: values.destination_04_data.position.lat, lng: values.destination_04_data.position.lng } });
-    }
+    // if (values.destination_04_data) {
+    //     mapMarkers.push({ svgMarkup: destination04SvgMarkup, coords: { lat: values.destination_04_data.position.lat, lng: values.destination_04_data.position.lng } });
+    // }
 
-    if (values.destination_05_data) {
-        mapMarkers.push({ svgMarkup: destination05SvgMarkup, coords: { lat: values.destination_05_data.position.lat, lng: values.destination_05_data.position.lng } });
-    }
+    // if (values.destination_05_data) {
+    //     mapMarkers.push({ svgMarkup: destination05SvgMarkup, coords: { lat: values.destination_05_data.position.lat, lng: values.destination_05_data.position.lng } });
+    // }
 
 
     return (
@@ -177,29 +177,281 @@ const BookingCostCalculator = () => {
                 <h3 className='text-center text-dark'>Estimated Distance & Cost</h3>
                 <div className='m-3'>
 
-                    {(apiKey && values.start_address_data && !values.destination_01_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && values.start_address_data && !values.destination_01_data && !values.destination_02_data && !values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
                             center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
-                            addressMarkers={[{ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } }, { svgMarkup: destination01SvgMarkup, coords: { lat: 40.53075, lng: 10.3851 } }]}
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        coords: {
+                                            lat: values.start_address_data.position.lat,
+                                            lng: values.start_address_data.position.lng
+                                        }
+                                    }
+                                    , {
+                                        svgMarkup: destination01SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: 40.53075,
+                                            lng: 10.3851
+                                        }
+                                    }
+                                ]
+                            }
                         />
                     </div>}
 
-                    {(apiKey && values.start_address_data && values.destination_01_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && values.start_address_data && values.destination_01_data && !values.destination_02_data && !values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
                             center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
-                            addressMarkers={mapMarkers}
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.start_address_data.position.lat,
+                                            lng: values.start_address_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination01SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_01_data.position.lat,
+                                            lng: values.destination_01_data.position.lng
+                                        }
+                                    }
+                                ]
+                            }
                             setDistance={setDistance}
                             distance={distance}
                         />
                     </div>}
+
+                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && !values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                        <DisplayMapFC
+                            apikey={apiKey}
+                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            zoom={14}
+                            width="100%"
+                            height="350"
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.start_address_data.position.lat,
+                                            lng: values.start_address_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination01SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_01_data.position.lat,
+                                            lng: values.destination_01_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination02SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_02_data.position.lat,
+                                            lng: values.destination_02_data.position.lng
+                                        }
+                                    }
+                                ]
+                            }
+                            setDistance={setDistance}
+                            distance={distance}
+                        />
+                    </div>}
+
+
+
+                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                        <DisplayMapFC
+                            apikey={apiKey}
+                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            zoom={14}
+                            width="100%"
+                            height="350"
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.start_address_data.position.lat,
+                                            lng: values.start_address_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination01SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_01_data.position.lat,
+                                            lng: values.destination_01_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination02SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_02_data.position.lat,
+                                            lng: values.destination_02_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination03SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_03_data.position.lat,
+                                            lng: values.destination_03_data.position.lng
+                                        }
+                                    }
+                                ]
+                            }
+                            setDistance={setDistance}
+                            distance={distance}
+                        />
+                    </div>}
+
+
+
+                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && values.destination_03_data && values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                        <DisplayMapFC
+                            apikey={apiKey}
+                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            zoom={14}
+                            width="100%"
+                            height="350"
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.start_address_data.position.lat,
+                                            lng: values.start_address_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination01SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_01_data.position.lat,
+                                            lng: values.destination_01_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination02SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_02_data.position.lat,
+                                            lng: values.destination_02_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination03SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_03_data.position.lat,
+                                            lng: values.destination_03_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination04SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_04_data.position.lat,
+                                            lng: values.destination_04_data.position.lng
+                                        }
+                                    }
+                                ]
+                            }
+                            setDistance={setDistance}
+                            distance={distance}
+                        />
+                    </div>}
+
+
+                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && values.destination_03_data && values.destination_04_data && values.destination_05_data) && <div className='rounded shadow mb-3'>
+                        <DisplayMapFC
+                            apikey={apiKey}
+                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            zoom={14}
+                            width="100%"
+                            height="350"
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.start_address_data.position.lat,
+                                            lng: values.start_address_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination01SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_01_data.position.lat,
+                                            lng: values.destination_01_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination02SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_02_data.position.lat,
+                                            lng: values.destination_02_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination03SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_03_data.position.lat,
+                                            lng: values.destination_03_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination04SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_04_data.position.lat,
+                                            lng: values.destination_04_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination05SvgMarkup,
+                                        coords:
+                                        {
+                                            lat: values.destination_05_data.position.lat,
+                                            lng: values.destination_05_data.position.lng
+                                        }
+                                    }
+                                ]
+                            }
+                            setDistance={setDistance}
+                            distance={distance}
+                        />
+                    </div>}
+
+
 
                     {!apiKey && <section className='map card rounded shadow mb-3 d-flex'> <div className='text-center mt-5 pt-5 px-2'><h4 className='mt-5'>Please set  here.com api on settings page to use this function.</h4></div> </section>}
 
