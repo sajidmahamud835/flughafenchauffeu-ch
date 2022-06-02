@@ -4,6 +4,12 @@ import { DisplayMapFC } from '../../DisplayMapFC';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { values, suggestions, setSuggestions } = useContext(FormContext);
+    const [calculatorSettings, setCalculatorSettings] = useState({});
+    setCalculatorSettings(
+        {
+
+    }
+    );
 
     const defaultData = { "items": [] };
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
