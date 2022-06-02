@@ -23,6 +23,7 @@ const BookingForm = (props) => {
         // e.target.parentNode.parentNode.className = 'd-none';
     }
 
+    //add additonal destination filed
     const numOfDest = props.inputs.length;
     if (numOfDest === 6) {
         document.getElementById('add').style.display = 'none';

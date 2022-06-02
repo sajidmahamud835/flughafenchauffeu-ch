@@ -22,10 +22,10 @@ const BookingProcess = () => {
         id: 2,
         name: "destination_01",
         type: "text",
-        placeholder: "Destination 01",
+        placeholder: "Destination 01 (Final Destination)",
         errorMessage:
             "Please enter the last address where you want to go.",
-        label: "Destination 01",
+        label: "Destination 01 (Final Destination)",
         required: true
 
     }])

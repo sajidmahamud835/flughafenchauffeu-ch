@@ -56,7 +56,6 @@ const FormInput = (props) => {
                         }
                     </div>
                 }
-
             </div>
             <span className="text-danger small">{errorMessage}</span>
         </div >
