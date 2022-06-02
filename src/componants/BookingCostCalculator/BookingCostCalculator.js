@@ -4,12 +4,47 @@ import { DisplayMapFC } from '../../DisplayMapFC';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { values, suggestions, setSuggestions } = useContext(FormContext);
-    const [calculatorSettings, setCalculatorSettings] = useState({});
-    setCalculatorSettings(
-        {
+    let errorMessage = '';
 
+    const CostCalculator = (distance, people, weight) => {
+        const costPerKm = 1.60;
+        const maxPeople = 5;
+        const maxFreePeople = 4;
+        const extraPeopleFee = 25;
+        const maxFreeWeightPerPep = 20;
+
+        let result = 0;
+
+        if (people <= 0) {
+            result = 'N/A';
+            errorMessage = 'Unable to calculate the price automaticaly. Please contact support for the price.'
+        }
+        else {
+            result = Math.round(distance * costPerKm);
+            errorMessage = ''
+
+            if (people > maxPeople) {
+                result = 'N/A';
+                errorMessage = 'Unable to calculate the price automaticaly. The number of people is exceeding our maximum limit. Please contact support for the price.'
+
+            } else if (people > maxFreePeople) {
+                const extraPeople = people - maxFreePeople;
+                result = Math.round(result + (extraPeople * extraPeopleFee));
+                errorMessage = ''
+            }
+
+            const maxFreeWeight = maxFreeWeightPerPep * people;
+
+            if (weight > maxFreeWeight) {
+                result = 'N/A';
+                errorMessage = 'Your luggage weight is exceeding our limit. Please contact support for the price.'
+            }
+
+        }
+
+        return result;
     }
-    );
+
 
     const defaultData = { "items": [] };
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
@@ -519,10 +554,13 @@ const BookingCostCalculator = () => {
                     </svg> <strong>Pessenger:</strong> {values.total_people}</h6>
 
                     <hr />
+
+
                     <h5 className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
                         <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
                         <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                    </svg> <strong>Total Cost:</strong> {Math.round(distance * 1.62)} CHF</h5>
+                    </svg> <strong>Total Cost:</strong> {CostCalculator(distance, values.total_people, values.luggage_weight)} CHF</h5>
+                    <span className="text-danger">{errorMessage}</span>
 
                     <div className='ms-auto'>
                         <button className='btn btn-outline-danger me-2 mt-3'>Reset</button>
