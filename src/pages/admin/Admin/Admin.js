@@ -26,7 +26,7 @@ const Admin = () => {
     });
 
     return (
-        <div>
+        <div className='p-5'>
             <AllBookings />
         </div>
     );
