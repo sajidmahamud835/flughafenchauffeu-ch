@@ -5,6 +5,7 @@ import MapBox from './componants/mapbox/MapBox';
 import Admin from './pages/admin/Admin/Admin';
 import AllBookings from './pages/admin/AllBookings/AllBookings';
 import Settings from './pages/admin/Settings/Settings';
+import SingleBooking from './pages/admin/SingleBooking/SingleBooking';
 import BookASchedule from './pages/BookASchedule/BookASchedule';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -42,6 +43,7 @@ function App() {
             <Route path='admin/login' element={<Login />} />
             <Route path='thank-you' element={<ThankYou />} />
             <Route path='admin/bookings' element={<AllBookings />} />
+            <Route path='admin/booking/:id' element={<SingleBooking />} />
             <Route path='admin/settings' element={<Settings />} />
             <Route path='*' element={<NotFound />} />
           </Route>

@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FirebaseApp from '../../../firebase/FirebaseApp';
+import AllBookings from '../AllBookings/AllBookings';
 
 const Admin = () => {
     const auth = getAuth(FirebaseApp);
@@ -26,7 +27,7 @@ const Admin = () => {
 
     return (
         <div>
-            <h1>Admin Dashboard</h1>
+            <AllBookings />
         </div>
     );
 };

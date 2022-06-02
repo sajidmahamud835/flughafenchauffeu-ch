@@ -77,8 +77,8 @@ const AllBookings = () => {
         , [dataChange])
 
     return (
-        <div id='all-bookings'>
-            <div className="container">
+        <div id='all-bookings mt-5'>
+            <div className="container shadow w-75 p-5">
                 <h3 className="text-center">All Bookings</h3>
                 <table className=" table  table-bordered table-sm" cellspacing="0"
                     width="100%">
@@ -86,16 +86,16 @@ const AllBookings = () => {
                         <tr>
                             <th scope="col">Client Name</th>
                             <th scope="col">Start Address</th>
-                            <th scope="col">Dest 01</th>
-                            <th scope="col">Dest 02</th>
-                            <th scope="col">Dest 03</th>
-                            <th scope="col">Dest 04</th>
-                            <th scope="col">Dest 05</th>
-                            <th scope="col">Pickup Time</th>
-                            <th scope="col">Pickup Date</th>
-                            <th scope="col">Flight Number</th>
+                            <th scope="col">Final Destination</th>
+                            {/* <th scope="col">Stop 01</th>
+                            <th scope="col">Stop 02</th>
+                            <th scope="col">Stop 03</th>
+                            <th scope="col">Stop 04</th> */}
+                            <th scope="col">Pickup Time & Date</th>
+                            {/* <th scope="col">Flight Number</th>
                             <th scope="col">Total People</th>
                             <th scope="col">Luggage Weight</th>
+                            */}
                             <th scope="col">Email</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Booking ID</th>

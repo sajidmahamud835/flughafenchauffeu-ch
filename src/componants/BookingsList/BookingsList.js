@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './BookingsList.css';
 
 const BookingsList = (props) => {
@@ -9,19 +10,19 @@ const BookingsList = (props) => {
 
     return (
 
+
         <tr id='booking-list'>
-            <th scope="row">{first_name} {last_name}</th>
-            <td>{start_address}</td>
-            <td>{destination_01}</td>
-            <td>{destination_02}</td>
-            <td>{destination_03}</td>
-            <td>{destination_04}</td>
-            <td>{destination_05}</td>
-            <td>{time_pickup}</td>
-            <td>{date_pickup}</td>
-            <td>{flight_number}</td>
+            <th title='Client Name' scope="row">{first_name} {last_name}</th>
+            <td title='Start Address'>{start_address}</td>
+            <td title='Final Destination'>{destination_01}</td>
+            {/* <td title='Stop 01'>{destination_02}</td>
+            <td title='Stop 02'>{destination_03}</td>
+            <td title='Stop 03'>{destination_04}</td>
+            <td title='Stop 04'>{destination_05}</td> */}
+            <td title='Pickup Time & Date<'>{time_pickup}, {date_pickup}</td>
+            {/* <td>{flight_number}</td>
             <td>{total_people}</td>
-            <td>{luggage_weight}</td>
+            <td>{luggage_weight}</td> */}
             <td> <button onClick={showEmail} className="btn btn-primary"><i className="far fa-envelope"></i></button> </td>
             <td><button onClick={showPhone} className="btn btn-success"><i className="fas fa-phone"></i></button></td>
             <td>{_id}</td>
@@ -32,7 +33,8 @@ const BookingsList = (props) => {
                 <option value="Canceled">Canceled</option>
             </select></td>
             <td>
-                <button onClick={() => props.handleDelete(props.booking._id)} type="button" className="btn btn-danger"><i className="far fa-trash-alt"></i></button>
+                <Link to={`/admin/booking/${props.booking._id}`} type="button" className="btn btn-dark"><i className="fa fa-eye"></i> View</Link>
+                {/* <button onClick={() => props.handleDelete(props.booking._id)} type="button" className="btn btn-danger"><i className="far fa-trash-alt"></i></button> */}
             </td>
         </tr>
 
