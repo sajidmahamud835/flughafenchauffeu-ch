@@ -185,7 +185,6 @@ const BookingProcess = () => {
 
     return (
         <section id='booking_from' className='p-3'>
-
             <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow rounded">
                 <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
                 <div style={display1}>
@@ -201,9 +200,17 @@ const BookingProcess = () => {
                     />
                 </div>
 
-                <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
-                <button onClick={() => setStep(step + 1)} style={btnNextStyle} className='btn btn-primary m-2 px-4'>Next</button>
-                <input style={btnSubmitStyle} className='btn btn-primary m-2 px-4' type="submit"></input>
+                {/* <!-- Button trigger modal --> */}
+                <div className='d-flex justify-content-between'>
+                    <div>
+                        <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
+                        <button onClick={() => setStep(step + 1)} style={btnNextStyle} className='btn btn-primary m-2 px-4'>Next</button>
+                        <input style={btnSubmitStyle} className='btn btn-primary m-2 px-4' type="submit"></input>
+                    </div>
+                    <button type="button" style={btnBackStyle} class="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Already Have A User ID?
+                    </button>
+                </div>
             </form>
 
 
