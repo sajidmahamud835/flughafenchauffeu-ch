@@ -22,7 +22,8 @@ async function run() {
   try {
     await client.connect();
     const database = client.db();
-    const bookingsCollection = database.collection('bookings')
+    const bookingsCollection = database.collection('bookings');
+    const settingsCollection = database.collection('settings');
 
     /* Bookings Api */
 
@@ -76,15 +77,44 @@ async function run() {
     /* Admin from settings api */
     //get general settings
     app.get('/general-settings', async (req, res) => {
-      const cursor = database.collection('general_settings').find({});
-      const forms = await cursor.toArray();
+      const cursor = settingsCollection.find({});
+      const settings = await cursor.toArray();
       const count = await cursor.count();
       res.send({
         count,
-        forms
+        settings
       });
     })
 
+
+    // Post api
+    app.post('/general-settings', async (req, res) => {
+      const settings = req.body;
+      console.log('Recived settings data form forntend', settings);
+
+      const result = await settingsCollection.insertOne(settings);
+      console.log(result);
+      res.json(result);
+    });
+
+
+    //UPDATE API
+    app.put('/general-settings', async (req, res) => {
+      const id = '629e4f7ffd58f1b52a3a074b';
+      const settings = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          ...settings
+        },
+      };
+      console.log(updateDoc)
+      const result = await settingsCollection.updateOne(filter, updateDoc, options);
+      console.log('updating settings', id);
+      console.log(result);
+      res.json(result);
+    })
 
     //get trip info form
     app.get('/form/trip-information', async (req, res) => {
