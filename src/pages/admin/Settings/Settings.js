@@ -69,7 +69,7 @@ const Settings = () => {
     ])
 
     useEffect(() =>
-        fetch('https://sms-sender-server.herokuapp.com/general-settings')
+        fetch('https://secret-river-49503.herokuapp.com/general-settings')
             .then(res => res.json())
             .then(data => setGeneralSettings(data.settings[0]))
         , []);
@@ -77,7 +77,7 @@ const Settings = () => {
     const saveSettings = (e) => {
         e.preventDefault()
         delete generalSettings["_id"];
-        const url = `https://sms-sender-server.herokuapp.com/general-settings`;
+        const url = `https://secret-river-49503.herokuapp.com/general-settings`;
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -90,13 +90,13 @@ const Settings = () => {
     }
 
     useEffect(() =>
-        fetch('https://sms-sender-server.herokuapp.com/form/trip-information')
+        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
             .then(res => res.json())
             .then(data => setSectionOne(data.forms))
         , [])
 
     useEffect(() =>
-        fetch('https://sms-sender-server.herokuapp.com/form/guest-information')
+        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
             .then(res => res.json())
             .then(data => setSectionTwo(data.forms))
         , [])
