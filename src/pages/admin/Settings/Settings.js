@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FirebaseApp from '../../../firebase/FirebaseApp';
+import AppSettings from './AppSettings/AppSettings';
 import FormsAdd from './FormsAdd/FormsAdd';
 import FormsOption from './FormsOption/FormsOption';
 
@@ -26,7 +27,6 @@ const Settings = () => {
             }
         }
     });
-
     const [generalSettings, setGeneralSettings] = useState({});
     const [sectionOne, setSectionOne] = useState([
         {
@@ -69,44 +69,51 @@ const Settings = () => {
     ])
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/genaral-settings')
+        fetch('https://sms-sender-server.herokuapp.com/general-settings')
             .then(res => res.json())
-            .then(data => setGeneralSettings(data.forms))
-        , [])
+            .then(data => setGeneralSettings(data.settings[0]))
+        , []);
+
+    const saveSettings = (e) => {
+        e.preventDefault()
+        delete generalSettings["_id"];
+        const url = `https://sms-sender-server.herokuapp.com/general-settings`;
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(generalSettings)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch('https://sms-sender-server.herokuapp.com/form/trip-information')
             .then(res => res.json())
             .then(data => setSectionOne(data.forms))
         , [])
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch('https://sms-sender-server.herokuapp.com/form/guest-information')
             .then(res => res.json())
             .then(data => setSectionTwo(data.forms))
         , [])
 
-    console.log(sectionOne)
     return (
         <section className='row'>
-            {/* <div className="col-2 container shadow p-3 my-3 ms-3 me-4">
-
-            </div> */}
             <div className="col-10 container shadow-sm p-5 my-3">
                 <h3 className="text-center m-2 p-4">General Settings</h3>
                 <form className="row g-3">
-                    <h4>MAP API</h4>
-                    <div className="col-md-6">
-                        <label for="apiKey" className="form-label">App Name</label>
-                        <input type="text" value="FlughafenChauffeur" className="form-control" id="apiKey" disabled />
-                    </div>
-                    <div className="col-md-6">
-                        <label for="apiKey" className="form-label">MAP API KEY</label>
-                        <input type="password" placeholder='Here.com API Key' className="form-control" id="apiKey" />
-                    </div>
-                    <div className="col-12">
-                        <button type="submit" className="btn btn-primary">Save</button>
-                    </div>
+                    <h4>MAP API & Calculator Settings</h4>
+
+                    <AppSettings
+                        saveSettings={saveSettings}
+                        generalSetting={generalSettings}
+                        setGeneralSettings={setGeneralSettings}
+                    />
+
                     <h4>Form Settings</h4>
                     <FormsAdd />
                     <h5 className="text-center">Trip Information</h5>

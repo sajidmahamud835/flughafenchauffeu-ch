@@ -18,7 +18,7 @@ function App() {
   const [suggestions, setSuggestions] = useState({})
 
   useEffect(() =>
-    fetch('https://secret-river-49503.herokuapp.com/default-values')
+    fetch('https://sms-sender-server.herokuapp.com/default-values')
       .then(res => res.json())
       .then(data => setValues(data))
     , [])

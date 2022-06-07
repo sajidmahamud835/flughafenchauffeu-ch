@@ -49,7 +49,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch('https://sms-sender-server.herokuapp.com/form/trip-information')
             .then(res => res.json())
             .then(data => setTripInformation(data.forms[0]))
         , [])
@@ -74,7 +74,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch('https://sms-sender-server.herokuapp.com/form/guest-information')
             .then(res => res.json())
             .then(data => setGuestInformation(data.forms[0]))
         , [])
@@ -115,7 +115,7 @@ const BookingProcess = () => {
         e.preventDefault();
 
         console.log(values);
-        axios.post('https://secret-river-49503.herokuapp.com/bookings', values)
+        axios.post('https://sms-sender-server.herokuapp.com/bookings', values)
             .then(res => {
                 console.log(res);
                 setValues({

@@ -32,7 +32,7 @@ const AllBookings = () => {
     }, [loading, user, navigate]);
 
     const handleDelete = id => {
-        const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+        const url = `https://sms-sender-server.herokuapp.com/bookings/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -48,7 +48,7 @@ const AllBookings = () => {
         // eslint-disable-next-line no-restricted-globals
         const confirmed = confirm("Are you sure to change the booking status to: " + status + "?");
         if (confirmed === true) {
-            const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+            const url = `https://sms-sender-server.herokuapp.com/bookings/${id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -71,13 +71,13 @@ const AllBookings = () => {
     const [bookings, setBookings] = useState([])
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/bookings')
+        fetch('https://sms-sender-server.herokuapp.com/bookings')
             .then(res => res.json())
             .then(data => setBookings(data.bookings))
         , [dataChange])
 
     return (
-        <div id='all-bookings mt-5'>
+        <div id='all-bookings p-5'>
             <div className="container shadow w-75 p-5">
                 <h3 className="text-center">All Bookings</h3>
                 <table className=" table  table-bordered table-sm" cellspacing="0"
