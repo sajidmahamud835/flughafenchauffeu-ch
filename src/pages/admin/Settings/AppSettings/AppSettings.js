@@ -38,7 +38,7 @@ const AppSettings = (props) => {
             </div>
             <div className="col-md-6">
                 <label for="hqAddress" className="form-label">HQ Address</label>
-                <input type="text" onChange={(e) => setGeneralSettings({ ...generalSetting, hqAddress: e.target.value })} defaultValue={generalSetting.currencySymbole} className="form-control" id="hqAddress" />
+                <input type="text" onChange={(e) => setGeneralSettings({ ...generalSetting, hqAddress: e.target.value })} defaultValue={generalSetting.hqAddress} className="form-control" id="hqAddress" />
             </div>
             <div className="col-md-6">
                 <label for="currencySymbole" className="form-label">Booking Notification Email</label>
