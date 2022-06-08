@@ -48,6 +48,7 @@ const BookingForm = (props) => {
                             key={input.id}
                             {...input}
                             value={values[input.name]}
+                            location={suggestions['currentLocation']}
                             addressSuggestion={suggestions}
                             inputName={input.name}
                             onChange={onChange}

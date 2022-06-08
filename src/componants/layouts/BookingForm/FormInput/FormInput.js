@@ -3,7 +3,7 @@ import "./FromInput.css";
 
 const FormInput = (props) => {
     const [focused, setFocused] = useState(false);
-    const { label, errorMessage, onChange, id, addressSuggestion, inputName, value, onAddressChange, showSuggestion, setShowSuggestion, ...inputProps } = props;
+    const { label, errorMessage, onChange, id, addressSuggestion, inputName, value, onAddressChange, showSuggestion, setShowSuggestion, location, ...inputProps } = props;
 
     const handleFocus = (e) => {
         setFocused(true);
@@ -47,19 +47,19 @@ const FormInput = (props) => {
 
                             ))
                         }
-                        {
-                            // <div className="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion">
-                            //     <h6 onClick={(e) => onAddressChange(e, addressSuggestion[inputName].items[0], inputName)} className="" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-compass-fill" viewBox="0 0 16 16">
-                            //         <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24zm-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z" />
-                            //     </svg> Current Address</h6>
-                            // </div>
+                        {location.isLocationOn !== false &&
+                            <div className="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion">
+                                <h6 onClick={(e) => onAddressChange(e, location, inputName)} className="" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-compass-fill" viewBox="0 0 16 16">
+                                    <path d="M15.5 8.516a7.5 7.5 0 1 1-9.462-7.24A1 1 0 0 1 7 0h2a1 1 0 0 1 .962 1.276 7.503 7.503 0 0 1 5.538 7.24zm-3.61-3.905L6.94 7.439 4.11 12.39l4.95-2.828 2.828-4.95z" />
+                                </svg> Current Address</h6>
+                            </div>
                         }
                     </div>
                 }
 
-<span className="text-danger small">{errorMessage}</span>
+                <span className="text-danger small">{errorMessage}</span>
             </div>
-           
+
         </div >
     );
 };

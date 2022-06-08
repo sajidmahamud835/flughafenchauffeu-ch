@@ -53,14 +53,28 @@ const BookingCostCalculator = () => {
     const [destination03Suggestion, setDestination03Suggestion] = useState(defaultData);
     const [destination04Suggestion, setDestination04Suggestion] = useState(defaultData);
     const [destination05Suggestion, setDestination05Suggestion] = useState(defaultData);
+    const [currentLocation, setCurrentLocation] = useState({ isLocationOn: false });
 
     const [distance, setDistance] = useState(0);
+    const [defautlCords, setDefautlCords] = useState({ lat: 50, lng: 5 })
 
 
     useEffect(() => {
-        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion })
-    }, [destination01Suggestion, destination02Suggestion, destination03Suggestion, destination04Suggestion, destination05Suggestion, setSuggestions, startAddressSuggestion]);
+        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion, currentLocation: currentLocation })
+    }, [destination01Suggestion, destination02Suggestion, destination03Suggestion, destination04Suggestion, destination05Suggestion, startAddressSuggestion, currentLocation]);
 
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            console.log("Latitude is :", position.coords.latitude);
+            console.log("Longitude is :", position.coords.longitude);
+            setDefautlCords({ lat: position.coords.latitude, lng: position.coords.longitude });
+
+            fetch(`https://revgeocode.search.hereapi.com/v1/revgeocode?at=${position.coords.latitude}%2C${position.coords.longitude}&lang=en-US&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setCurrentLocation({ ...data.items[0], isLocationOn: true }));
+            // console.log(currentLocation.items[0])
+        });
+    }, [apiKey]);
 
     //start address suggestions gen
     useEffect(() => {
@@ -69,7 +83,7 @@ const BookingCostCalculator = () => {
         }
         else {
             console.log(values.start_address);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.start_address}&apiKey=${apiKey}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.start_address}&lang=en-US&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setStartAddressSuggestion(data));
         }
@@ -82,7 +96,7 @@ const BookingCostCalculator = () => {
         }
         else {
             console.log(values.destination_01);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_01}&apiKey=${apiKey}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_01}&lang=en-US&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setDestination01Suggestion(data));
         }
@@ -95,7 +109,7 @@ const BookingCostCalculator = () => {
         }
         else {
             console.log(values.destination_02);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_02}&apiKey=${apiKey}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_02}&lang=en-US&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setDestination02Suggestion(data));
         }
@@ -108,7 +122,7 @@ const BookingCostCalculator = () => {
         }
         else {
             console.log(values.destination_03);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_03}&apiKey=${apiKey}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_03}&lang=en-US&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setDestination03Suggestion(data));
         }
@@ -121,7 +135,7 @@ const BookingCostCalculator = () => {
         }
         else {
             console.log(values.destination_04);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_04}&apiKey=${apiKey}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_04}&lang=en-US&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setDestination04Suggestion(data));
         }
@@ -134,7 +148,7 @@ const BookingCostCalculator = () => {
         }
         else {
             console.log(values.destination_05);
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_05}&apiKey=${apiKey}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${values.destination_05}&lang=en-US&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setDestination05Suggestion(data));
         }
@@ -499,8 +513,8 @@ const BookingCostCalculator = () => {
                     {!values.start_address_data && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
-                            center={{ lat: 50, lng: 5 }}
-                            zoom={4}
+                            center={defautlCords}
+                            zoom={7}
                             width="100%"
                             height="350"
                         />
