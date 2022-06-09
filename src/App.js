@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import LocationPicker from './componants/LocationPicker/LocationPicker';
 import MapBox from './componants/mapbox/MapBox';
 import Admin from './pages/admin/Admin/Admin';
 import AllBookings from './pages/admin/AllBookings/AllBookings';
@@ -34,11 +35,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} >
             <Route path='' element={<BookASchedule />} />
-            <Route path='map' element={<MapBox
-              apikey="pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4"
-              center={{ lat: 50, lng: 5 }}
-              zoom={4}
-            />} />
+            <Route path='map' element={<LocationPicker />} />
             <Route path='admin' element={<Admin />} />
             <Route path='admin/login' element={<Login />} />
             <Route path='thank-you' element={<ThankYou />} />

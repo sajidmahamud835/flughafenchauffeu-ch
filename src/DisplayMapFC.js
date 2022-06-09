@@ -73,6 +73,17 @@ export const DisplayMapFC = (props) => {
                     // Include the route shape in the response
                     'return': 'polyline,travelSummary'
                 };
+            } else if (addressMarkers.length <= 1) {
+                routingParameters = {
+                    'routingMode': 'fast',
+                    'transportMode': 'car',
+                    // The start point of the route:
+                    'origin': `${addressMarkers[0].coords.lat},${addressMarkers[0].coords.lng}`,
+                    // The end point of the route:
+                    'destination': `${addressMarkers[0].coords.lat},${addressMarkers[0].coords.lng}`,
+                    // Include the route shape in the response
+                    'return': 'polyline,travelSummary'
+                };
             }
 
 
@@ -90,7 +101,7 @@ export const DisplayMapFC = (props) => {
 
                         // Create a polyline to display the route:
                         let routeLine = new H.map.Polyline(linestring, {
-                            style: { strokeColor: 'black', lineWidth: 4 }
+                            style: { strokeColor: 'blue', lineWidth: 4 }
                         });
                         /*
     

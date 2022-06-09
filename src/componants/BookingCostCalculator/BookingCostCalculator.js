@@ -13,6 +13,7 @@ const BookingCostCalculator = () => {
     const [destination04Suggestion, setDestination04Suggestion] = useState(defaultData);
     const [destination05Suggestion, setDestination05Suggestion] = useState(defaultData);
     const [currentLocation, setCurrentLocation] = useState({ isLocationOn: false });
+    const [hqAddress, setHQAddress] = useState({});
 
     const [distance, setDistance] = useState(0);
     const [defautlCords, setDefautlCords] = useState({ lat: 50, lng: 5 })
@@ -63,8 +64,6 @@ const BookingCostCalculator = () => {
             }
 
         }
-
-        console.log(pricePerKm, maxPeople, maxFreePeople, pricePerExtraPeople, maxWeightPerPerson);
         return result;
     }
 
@@ -81,6 +80,19 @@ const BookingCostCalculator = () => {
             // console.log(currentLocation.items[0])
         });
     }, [apiKey]);
+
+    //start address suggestions gen
+    useEffect(() => {
+        if (settingsData.hqAddress === undefined || settingsData.hqAddress.length <= 0) {
+            console.log("HQ Address is empty.");
+        }
+        else {
+            console.log(settingsData.hqAddress);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${settingsData.hqAddress}&lang=en-US&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setHQAddress(data));
+        }
+    }, [apiKey, settingsData.hqAddress]);
 
     //start address suggestions gen
     useEffect(() => {
@@ -159,6 +171,13 @@ const BookingCostCalculator = () => {
                 .then(data => setDestination05Suggestion(data));
         }
     }, [apiKey, values.destination_05]);
+
+    const hqAddressSvgMarkup = '<svg width="24" height="24" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+        'height="22" /><text x="12" y="18" font-size="12pt" ' +
+        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+        'fill="white">HQ</text></svg>';
 
     const startAddressSvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
@@ -249,19 +268,21 @@ const BookingCostCalculator = () => {
                                 [
                                     {
                                         svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
+                                        coords: {
+                                            lat: 0,
+                                            lng: 0
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
                                         coords: {
                                             lat: values.start_address_data.position.lat,
                                             lng: values.start_address_data.position.lng
                                         }
                                     }
-                                    , {
-                                        svgMarkup: destination01SvgMarkup,
-                                        coords:
-                                        {
-                                            lat: 40.53075,
-                                            lng: 10.3851
-                                        }
-                                    }
+
                                 ]
                             }
                         />
@@ -276,8 +297,18 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
+                                    // {
+                                    //     svgMarkup: hqAddressSvgMarkup,
+                                    //     hidden: false,
+                                    //     coords:
+                                    //     {
+                                    //         lat: hqAddress.items[0].position.lat,
+                                    //         lng: hqAddress.items[0].position.lng
+                                    //     },
+                                    // },
                                     {
                                         svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.start_address_data.position.lat,
@@ -286,6 +317,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination01SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_01_data.position.lat,
@@ -309,7 +341,17 @@ const BookingCostCalculator = () => {
                             addressMarkers={
                                 [
                                     {
+                                        svgMarkup: hqAddressSvgMarkup,
+                                        hidden: true,
+                                        coords:
+                                        {
+                                            lat: hqAddress.items[0].position.lat,
+                                            lng: hqAddress.items[0].position.lng
+                                        },
+                                    },
+                                    {
                                         svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.start_address_data.position.lat,
@@ -318,6 +360,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination01SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_01_data.position.lat,
@@ -326,6 +369,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination02SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_02_data.position.lat,
@@ -351,7 +395,17 @@ const BookingCostCalculator = () => {
                             addressMarkers={
                                 [
                                     {
+                                        svgMarkup: hqAddressSvgMarkup,
+                                        hidden: true,
+                                        coords:
+                                        {
+                                            lat: hqAddress.items[0].position.lat,
+                                            lng: hqAddress.items[0].position.lng
+                                        },
+                                    },
+                                    {
                                         svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.start_address_data.position.lat,
@@ -360,6 +414,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination01SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_01_data.position.lat,
@@ -368,6 +423,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination02SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_02_data.position.lat,
@@ -376,6 +432,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination03SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_03_data.position.lat,
@@ -401,7 +458,17 @@ const BookingCostCalculator = () => {
                             addressMarkers={
                                 [
                                     {
+                                        svgMarkup: hqAddressSvgMarkup,
+                                        hidden: true,
+                                        coords:
+                                        {
+                                            lat: hqAddress.items[0].position.lat,
+                                            lng: hqAddress.items[0].position.lng
+                                        },
+                                    },
+                                    {
                                         svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.start_address_data.position.lat,
@@ -410,6 +477,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination01SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_01_data.position.lat,
@@ -418,6 +486,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination02SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_02_data.position.lat,
@@ -426,6 +495,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination03SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_03_data.position.lat,
@@ -434,6 +504,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination04SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_04_data.position.lat,
@@ -457,8 +528,18 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
+                                    // {
+                                    //     svgMarkup: hqAddressSvgMarkup,
+                                    //     hidden: false,
+                                    //     coords:
+                                    //     {
+                                    //         lat: hqAddress.items[0].position.lat,
+                                    //         lng: hqAddress.items[0].position.lng
+                                    //     },
+                                    // },
                                     {
                                         svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.start_address_data.position.lat,
@@ -467,6 +548,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination01SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_01_data.position.lat,
@@ -475,6 +557,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination02SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_02_data.position.lat,
@@ -483,6 +566,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination03SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_03_data.position.lat,
@@ -491,6 +575,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination04SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_04_data.position.lat,
@@ -499,6 +584,7 @@ const BookingCostCalculator = () => {
                                     },
                                     {
                                         svgMarkup: destination05SvgMarkup,
+                                        hidden: false,
                                         coords:
                                         {
                                             lat: values.destination_05_data.position.lat,
@@ -526,11 +612,11 @@ const BookingCostCalculator = () => {
                         />
                     </div>}
                     <br />
-                    {values.start_address_data &&
+                    {hqAddress.items &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Our HQ: </strong><span>{settingsData.hqAddress}</span></small>
+                            <strong> Our HQ: </strong><span title={`lat: ${hqAddress.items[0].position.lat}, lng: ${hqAddress.items[0].position.lng}`} >{hqAddress.items[0].title}</span></small>
                     }
 
                     {values.start_address_data &&
