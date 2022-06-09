@@ -4,47 +4,6 @@ import { DisplayMapFC } from '../../DisplayMapFC';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { values, suggestions, setSuggestions } = useContext(FormContext);
-    let errorMessage = '';
-
-    const CostCalculator = (distance, people, weight) => {
-        const costPerKm = 1.60;
-        const maxPeople = 5;
-        const maxFreePeople = 4;
-        const extraPeopleFee = 25;
-        const maxFreeWeightPerPep = 20;
-
-        let result = 0;
-
-        if (people <= 0) {
-            result = 'N/A';
-            errorMessage = 'Unable to calculate the price automaticaly. Please contact support for the price.'
-        }
-        else {
-            result = Math.round(distance * costPerKm);
-            errorMessage = ''
-
-            if (people > maxPeople) {
-                result = 'N/A';
-                errorMessage = 'Unable to calculate the price automaticaly. The number of people is exceeding our maximum limit. Please contact support for the price.'
-
-            } else if (people > maxFreePeople) {
-                const extraPeople = people - maxFreePeople;
-                result = Math.round(result + (extraPeople * extraPeopleFee));
-                errorMessage = ''
-            }
-
-            const maxFreeWeight = maxFreeWeightPerPep * people;
-
-            if (weight > maxFreeWeight) {
-                result = 'N/A';
-                errorMessage = 'Your luggage weight is exceeding our limit. Please contact support for the price.'
-            }
-
-        }
-
-        return result;
-    }
-
 
     const defaultData = { "items": [] };
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
@@ -58,11 +17,58 @@ const BookingCostCalculator = () => {
     const [distance, setDistance] = useState(0);
     const [defautlCords, setDefautlCords] = useState({ lat: 50, lng: 5 })
 
-
     useEffect(() => {
         setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion, currentLocation: currentLocation })
     }, [destination01Suggestion, destination02Suggestion, destination03Suggestion, destination04Suggestion, destination05Suggestion, startAddressSuggestion, currentLocation]);
 
+    const [settingsData, setSettingsData] = useState({});
+
+    //getSettingsData 
+    useEffect(() => {
+        fetch(`https://secret-river-49503.herokuapp.com/general-settings`)
+            .then(res => res.json())
+            .then(data => setSettingsData(data.settings[0]))
+
+    }, [apiKey]);
+
+    let errorMessage = '';
+    const CostCalculator = (distance, people, weight) => {
+        const { pricePerKm, maxPeople, maxFreePeople, pricePerExtraPeople, maxWeightPerPerson } = settingsData;
+
+        let result = 0;
+
+        if (people <= 0) {
+            result = 'N/A';
+            errorMessage = 'Unable to calculate the price automaticaly. Please contact support for the price.'
+        }
+        else {
+            result = Math.round(distance * pricePerKm);
+            errorMessage = ''
+
+            if (people > maxPeople) {
+                result = 'N/A';
+                errorMessage = 'Unable to calculate the price automaticaly. The number of people is exceeding our maximum limit. Please contact support for the price.'
+
+            } else if (people > maxFreePeople) {
+                const extraPeople = people - maxFreePeople;
+                result = Math.round(result + (extraPeople * pricePerExtraPeople));
+                errorMessage = ''
+            }
+
+            const maxFreeWeight = maxWeightPerPerson * people;
+
+            if (weight > maxFreeWeight) {
+                result = 'N/A';
+                errorMessage = 'Your luggage weight is exceeding our limit. Please contact support for the price.'
+            }
+
+        }
+
+        console.log(pricePerKm, maxPeople, maxFreePeople, pricePerExtraPeople, maxWeightPerPerson);
+        return result;
+    }
+
+    //current location suggestion
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
             console.log("Latitude is :", position.coords.latitude);
@@ -524,6 +530,13 @@ const BookingCostCalculator = () => {
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
+                            <strong> Our HQ: </strong><span>{settingsData.hqAddress}</span></small>
+                    }
+
+                    {values.start_address_data &&
+                        <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
+                            <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
+                        </svg>
                             <strong> Start:</strong> <span title={`lat: ${values.start_address_data.position.lat}, lng: ${values.start_address_data.position.lng}`} >{values.start_address_data.title}</span>  </small>
                     }
                     {values.destination_02_data &&
@@ -573,7 +586,7 @@ const BookingCostCalculator = () => {
                     <h5 className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
                         <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
                         <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                    </svg> <strong>Total Cost:</strong> {CostCalculator(distance, values.total_people, values.luggage_weight)} CHF</h5>
+                    </svg> <strong>Total Cost:</strong> {CostCalculator(distance, values.total_people, values.luggage_weight)} {settingsData.currencySymbole}</h5>
                     <span className="text-danger">{errorMessage}</span>
 
                     <div className='ms-auto'>
