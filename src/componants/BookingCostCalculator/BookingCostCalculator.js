@@ -14,9 +14,11 @@ const BookingCostCalculator = () => {
     const [destination05Suggestion, setDestination05Suggestion] = useState(defaultData);
     const [currentLocation, setCurrentLocation] = useState({ isLocationOn: false });
     const [hqAddress, setHQAddress] = useState({});
+    const [hqAddressData, setHQAddressData] = useState({});
 
     const [distance, setDistance] = useState(0);
-    const [defautlCords, setDefautlCords] = useState({ lat: 50, lng: 5 })
+    const [defautlCords, setDefautlCords] = useState({ lat: 50, lng: 5 });
+    // const [hqSummery, setHQSummery] = useState;
 
     useEffect(() => {
         setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion, currentLocation: currentLocation })
@@ -43,6 +45,9 @@ const BookingCostCalculator = () => {
             errorMessage = 'Unable to calculate the price automaticaly. Please contact support for the price.'
         }
         else {
+            if (hqAddressData.length) {
+                distance = distance + (hqAddressData.length / 1000);
+            }
             result = Math.round(distance * pricePerKm);
             errorMessage = ''
 
@@ -81,7 +86,30 @@ const BookingCostCalculator = () => {
         });
     }, [apiKey]);
 
-    //start address suggestions gen
+    //HQ address
+    useEffect(() => {
+        if (settingsData.hqAddress === undefined || settingsData.hqAddress.length <= 0) {
+            console.log("HQ Address is empty.");
+        }
+        else {
+            console.log(settingsData.hqAddress);
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${settingsData.hqAddress}&lang=en-US&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setHQAddress(data));
+        }
+    }, [apiKey, settingsData.hqAddress, values.start_address]);
+
+    // HQ address langth from start
+    useEffect(() => {
+        if (hqAddress.items && values.start_address_data) {
+            console.log(settingsData.hqAddress);
+            fetch(`https://router.hereapi.com/v8/routes?transportMode=car&return=summary&origin=${hqAddress.items[0].position.lat},${hqAddress.items[0].position.lng}&destination=${values.start_address_data.position.lat},${values.start_address_data.position.lng}&apiKey=${apiKey}`)
+                .then(res => res.json())
+                .then(data => setHQAddressData(data.routes[0].sections[0].summary));
+        }
+    }, [apiKey, hqAddress.items, settingsData.hqAddress, values.start_address_data]);
+
+    //get deistance from 
     useEffect(() => {
         if (settingsData.hqAddress === undefined || settingsData.hqAddress.length <= 0) {
             console.log("HQ Address is empty.");

@@ -90,7 +90,7 @@ export const DisplayMapFC = (props) => {
             // Define a callback function to process the routing response:
             const onResult = function (result) {
                 // ensure that at least one route was found
-                console.log(result);
+                // console.log(result);
                 if (result.routes.length) {
                     result.routes[0].sections.forEach((section) => {
                         if (distance === 0) {
