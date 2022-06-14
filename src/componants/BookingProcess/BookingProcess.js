@@ -139,7 +139,7 @@ const BookingProcess = () => {
                     phone: "",
                     email: "",
                 })
-                navigate("/thank-you", { replace: true });
+                navigate("/confirm/62989e3b8c562a6f9ccc5af5", { replace: true });
             })
 
     };

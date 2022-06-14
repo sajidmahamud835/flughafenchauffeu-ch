@@ -38,7 +38,7 @@ function App() {
             <Route path='map' element={<LocationPicker />} />
             <Route path='admin' element={<Admin />} />
             <Route path='admin/login' element={<Login />} />
-            <Route path='thank-you' element={<ThankYou />} />
+            <Route path='confirm/:id' element={<ThankYou />} />
             <Route path='admin/bookings' element={<AllBookings />} />
             <Route path='admin/booking/:id' element={<SingleBooking />} />
             <Route path='admin/settings' element={<Settings />} />
