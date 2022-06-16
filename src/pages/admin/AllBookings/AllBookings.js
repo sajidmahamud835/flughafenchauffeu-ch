@@ -87,15 +87,7 @@ const AllBookings = () => {
                             <th scope="col">Client Name</th>
                             <th scope="col">Start Address</th>
                             <th scope="col">Final Destination</th>
-                            {/* <th scope="col">Stop 01</th>
-                            <th scope="col">Stop 02</th>
-                            <th scope="col">Stop 03</th>
-                            <th scope="col">Stop 04</th> */}
                             <th scope="col">Pickup Time & Date</th>
-                            {/* <th scope="col">Flight Number</th>
-                            <th scope="col">Total People</th>
-                            <th scope="col">Luggage Weight</th>
-                            */}
                             <th scope="col">Email</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Booking ID</th>

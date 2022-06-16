@@ -3,7 +3,7 @@ import { FormContext } from '../../App';
 import { DisplayMapFC } from '../../DisplayMapFC';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
-    const { values, suggestions, setSuggestions } = useContext(FormContext);
+    const { values, setValues, suggestions, setSuggestions } = useContext(FormContext);
 
     const defaultData = { "items": [] };
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
@@ -71,6 +71,11 @@ const BookingCostCalculator = () => {
         }
         return result;
     }
+    const totalCost = CostCalculator(distance, values.total_people, values.luggage_weight);
+
+    useEffect(() => {
+        setValues({ ...values, totalCost: totalCost, distance: distance, hqAddressData: hqAddressData });
+    }, [setValues, totalCost, distance, hqAddressData]);
 
     //current location suggestion
     useEffect(() => {
@@ -200,13 +205,6 @@ const BookingCostCalculator = () => {
         }
     }, [apiKey, values.destination_05]);
 
-    const hqAddressSvgMarkup = '<svg width="24" height="24" ' +
-        'xmlns="http://www.w3.org/2000/svg">' +
-        '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
-        'height="22" /><text x="12" y="18" font-size="12pt" ' +
-        'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
-        'fill="white">HQ</text></svg>';
-
     const startAddressSvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
         '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
@@ -242,42 +240,12 @@ const BookingCostCalculator = () => {
         'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
         'fill="white">S3</text></svg>';
 
-
     const destination05SvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
         '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
         'height="22" /><text x="12" y="18" font-size="12pt" ' +
         'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
         'fill="white">S4</text></svg>';
-
-
-
-    // const mapMarkers = [];
-
-    // if (values.start_address_data) {
-    //     mapMarkers.push({ svgMarkup: startAddressSvgMarkup, coords: { lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng } });
-    // }
-
-    // if (values.destination_01_data) {
-    //     mapMarkers.push({ svgMarkup: destination01SvgMarkup, coords: { lat: values.destination_01_data.position.lat, lng: values.destination_01_data.position.lng } });
-    // }
-
-    // if (values.destination_02_data) {
-    //     mapMarkers.push({ svgMarkup: destination02SvgMarkup, coords: { lat: values.destination_02_data.position.lat, lng: values.destination_02_data.position.lng } });
-    // }
-
-    // if (values.destination_03_data) {
-    //     mapMarkers.push({ svgMarkup: destination03SvgMarkup, coords: { lat: values.destination_03_data.position.lat, lng: values.destination_03_data.position.lng } });
-    // }
-
-    // if (values.destination_04_data) {
-    //     mapMarkers.push({ svgMarkup: destination04SvgMarkup, coords: { lat: values.destination_04_data.position.lat, lng: values.destination_04_data.position.lng } });
-    // }
-
-    // if (values.destination_05_data) {
-    //     mapMarkers.push({ svgMarkup: destination05SvgMarkup, coords: { lat: values.destination_05_data.position.lat, lng: values.destination_05_data.position.lng } });
-    // }
-
 
     return (
         <section id='cost_calculator' className='p-3'>
@@ -325,15 +293,6 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
-                                    // {
-                                    //     svgMarkup: hqAddressSvgMarkup,
-                                    //     hidden: false,
-                                    //     coords:
-                                    //     {
-                                    //         lat: hqAddress.items[0].position.lat,
-                                    //         lng: hqAddress.items[0].position.lng
-                                    //     },
-                                    // },
                                     {
                                         svgMarkup: startAddressSvgMarkup,
                                         hidden: false,
@@ -368,15 +327,6 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
-                                    {
-                                        svgMarkup: hqAddressSvgMarkup,
-                                        hidden: true,
-                                        coords:
-                                        {
-                                            lat: hqAddress.items[0].position.lat,
-                                            lng: hqAddress.items[0].position.lng
-                                        },
-                                    },
                                     {
                                         svgMarkup: startAddressSvgMarkup,
                                         hidden: false,
@@ -422,15 +372,7 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
-                                    {
-                                        svgMarkup: hqAddressSvgMarkup,
-                                        hidden: true,
-                                        coords:
-                                        {
-                                            lat: hqAddress.items[0].position.lat,
-                                            lng: hqAddress.items[0].position.lng
-                                        },
-                                    },
+
                                     {
                                         svgMarkup: startAddressSvgMarkup,
                                         hidden: false,
@@ -485,15 +427,6 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
-                                    {
-                                        svgMarkup: hqAddressSvgMarkup,
-                                        hidden: true,
-                                        coords:
-                                        {
-                                            lat: hqAddress.items[0].position.lat,
-                                            lng: hqAddress.items[0].position.lng
-                                        },
-                                    },
                                     {
                                         svgMarkup: startAddressSvgMarkup,
                                         hidden: false,
@@ -556,15 +489,6 @@ const BookingCostCalculator = () => {
                             height="350"
                             addressMarkers={
                                 [
-                                    // {
-                                    //     svgMarkup: hqAddressSvgMarkup,
-                                    //     hidden: false,
-                                    //     coords:
-                                    //     {
-                                    //         lat: hqAddress.items[0].position.lat,
-                                    //         lng: hqAddress.items[0].position.lng
-                                    //     },
-                                    // },
                                     {
                                         svgMarkup: startAddressSvgMarkup,
                                         hidden: false,
@@ -700,7 +624,7 @@ const BookingCostCalculator = () => {
                     <h5 className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
                         <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
                         <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                    </svg> <strong>Total Cost:</strong> {CostCalculator(distance, values.total_people, values.luggage_weight)} {settingsData.currencySymbole}</h5>
+                    </svg> <strong>Total Cost:</strong> {totalCost} {settingsData.currencySymbole}</h5>
                     <span className="text-danger">{errorMessage}</span>
 
                     <div className='ms-auto'>

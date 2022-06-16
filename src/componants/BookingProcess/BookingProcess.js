@@ -6,7 +6,7 @@ import { FormContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
 const BookingProcess = () => {
-
+    const [response, setResponse] = useState({})
     const [step, setStep] = useState(0)
     const [destinations, setDestination] = useState([{
         id: 1,
@@ -117,7 +117,8 @@ const BookingProcess = () => {
         console.log(values);
         axios.post('https://secret-river-49503.herokuapp.com/bookings', values)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
+                setResponse(res.data);
                 setValues({
                     start_address: "",
                     destination_01: "",
@@ -139,10 +140,15 @@ const BookingProcess = () => {
                     phone: "",
                     email: "",
                 })
-                navigate("/confirm/62989e3b8c562a6f9ccc5af5", { replace: true });
             })
 
     };
+
+    useEffect(() => {
+        if (response.acknowledged) {
+            navigate(`/confirm/${response.insertedId}`, { replace: true });
+        }
+    }, [navigate, response.acknowledged, response.insertedId]);
 
     // Back Button
     const [btnBackStyle, setBtnBackStyle] = useState({ display: "none" });

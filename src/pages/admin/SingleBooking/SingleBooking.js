@@ -43,8 +43,8 @@ const SingleBooking = () => {
             .then(data => {
                 console.log(data);
                 setDataChange(data);
+                window.location.href = '/admin/bookings/';
             })
-            .then(() => window.location.href = '/admin/bookings/');
 
     }
 
