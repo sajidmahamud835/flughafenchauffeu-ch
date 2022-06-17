@@ -29,7 +29,7 @@ const FormInput = (props) => {
                         inputProps.name === "confirmPassword" && setFocused(true)
                     }
                     }
-                    value={value}
+                    defaultValue={value}
                     focused={focused.toString()}
                 />
 

@@ -6,7 +6,10 @@ import { FormContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
 const BookingProcess = () => {
-    const [response, setResponse] = useState({})
+    const [response, setResponse] = useState({});
+    const { userID, setUserID } = useContext(FormContext);
+    const [userData, setUserData] = useState({});
+
     const [step, setStep] = useState(0)
     const [destinations, setDestination] = useState([{
         id: 1,
@@ -49,7 +52,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch('http://localhost:5000/form/trip-information')
             .then(res => res.json())
             .then(data => setTripInformation(data.forms[0]))
         , [])
@@ -74,7 +77,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch('http://localhost:5000/form/guest-information')
             .then(res => res.json())
             .then(data => setGuestInformation(data.forms[0]))
         , [])
@@ -114,8 +117,23 @@ const BookingProcess = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(values);
-        axios.post('https://secret-river-49503.herokuapp.com/bookings', values)
+        axios.post('http://localhost:5000/users', {
+            first_name: values.first_name,
+            last_name: values.last_name,
+            address: values.address,
+            city: values.city,
+            postal_code: values.postal_code,
+            country: values.country,
+            phone: values.phone,
+            email: values.email,
+        })
+            .then(res => {
+                setUserID(res.data.insertedId);
+            })
+
+        console.log({ ...values, userId: userID });
+
+        axios.post('http://localhost:5000/bookings', { ...values, userId: userID })
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
@@ -141,7 +159,6 @@ const BookingProcess = () => {
                     email: "",
                 })
             })
-
     };
 
     useEffect(() => {
@@ -188,7 +205,6 @@ const BookingProcess = () => {
             setDisplay2({});
         }
     }, [step])
-
     return (
         <section id='booking_from' className='p-3'>
             <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow rounded">
@@ -202,6 +218,10 @@ const BookingProcess = () => {
                 <div style={display2}>
                     <Step2
                         key={forms[step].key}
+                        values={values}
+                        setValues={setValues}
+                        userData={userData}
+                        setUserData={setUserData}
                         forms={forms}
                     />
                 </div>

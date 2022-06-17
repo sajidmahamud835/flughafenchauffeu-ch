@@ -24,6 +24,7 @@ async function run() {
     const database = client.db();
     const bookingsCollection = database.collection('bookings');
     const settingsCollection = database.collection('settings');
+    const usersCollection = database.collection('users');
 
     /* Bookings Api */
 
@@ -47,7 +48,6 @@ async function run() {
       console.log(result);
       res.json(result);
     });
-
 
     //UPDATE API
     app.put('/bookings/:id', async (req, res) => {
@@ -73,6 +73,42 @@ async function run() {
       const result = await bookingsCollection.deleteOne(query);
       res.json(result);
     })
+
+    /* Users Data */
+
+    // get users 
+    app.get('/users', async (req, res) => {
+      const cursor = usersCollection.find({});
+      const users = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        users
+      });
+    })
+
+    // get single user 
+    app.get('/users/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const cursor = usersCollection.find(query);
+      const users = await cursor.toArray();
+      const count = await cursor.count();
+      res.send({
+        count,
+        users
+      });
+    })
+
+    // Post api
+    app.post('/users', async (req, res) => {
+      const users = req.body;
+      console.log('Recived user data form forntend', users);
+
+      const result = await usersCollection.insertOne(users);
+      console.log(result);
+      res.json(result);
+    });
 
     /* Admin from settings api */
     //get general settings

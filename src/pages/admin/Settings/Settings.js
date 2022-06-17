@@ -69,7 +69,7 @@ const Settings = () => {
     ])
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/general-settings')
+        fetch('http://localhost:5000/general-settings')
             .then(res => res.json())
             .then(data => setGeneralSettings(data.settings[0]))
         , []);
@@ -77,7 +77,7 @@ const Settings = () => {
     const saveSettings = (e) => {
         e.preventDefault()
         delete generalSettings["_id"];
-        const url = `https://secret-river-49503.herokuapp.com/general-settings`;
+        const url = `http://localhost:5000/general-settings`;
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -90,13 +90,13 @@ const Settings = () => {
     }
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch('http://localhost:5000/form/trip-information')
             .then(res => res.json())
             .then(data => setSectionOne(data.forms))
         , [])
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch('http://localhost:5000/form/guest-information')
             .then(res => res.json())
             .then(data => setSectionTwo(data.forms))
         , [])

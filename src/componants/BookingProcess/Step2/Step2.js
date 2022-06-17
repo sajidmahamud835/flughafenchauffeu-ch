@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { FormContext } from '../../../App';
 import BookingForm from '../../layouts/BookingForm/BookingForm';
 
 const Step2 = (props) => {
-    const { forms } = props;
+    const { forms, values, setValues, userData, setUserData } = props;
+    const { userID, setUserID } = useContext(FormContext);
+
+    const handleApply = (e) => {
+        e.preventDefault()
+        setUserID(document.getElementById('userid0').value);
+        fetch(`http://localhost:5000/users/${document.getElementById('userid0').value}`)
+            .then(res => res.json())
+            .then(data => setUserData(data.users[0]));
+    }
+
+    useEffect(() => {
+        console.log(userData)
+        setValues({
+            ...values,
+            first_name: userData.first_name,
+            last_name: userData.last_name,
+            address: userData.address,
+            city: userData.city,
+            postal_code: userData.postal_code,
+            country: userData.country,
+            phone: userData.phone,
+            email: userData.email,
+        })
+    }, [userData])
+
     return (
         <div>
             {/* <!-- Modal --> */}
@@ -15,11 +41,11 @@ const Step2 = (props) => {
                         </div>
                         <div className="modal-body">
                             <p>Auto fill using your User ID.</p>
-                            User ID: <input className='form-control' type="text" />
+                            User ID: <input id="userid0" className='form-control' defultValue={userID} type="text" />
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Auto Fill</button>
+                            <button type="button" onClick={(e) => handleApply(e)} className="btn btn-primary">Auto Fill</button>
                         </div>
                     </div>
                 </div>
