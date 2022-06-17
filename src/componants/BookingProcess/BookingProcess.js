@@ -254,11 +254,3 @@ const BookingProcess = () => {
 };
 
 export default BookingProcess;
-
-// const inputNameGen = (name) => {
-    //     num++;
-    //     return {
-    //         id: name.toLowerCase() + '_' + num,
-    //         name: name + ' ' + num
-    //     }
-    // }

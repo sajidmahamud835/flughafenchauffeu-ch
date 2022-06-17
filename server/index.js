@@ -3,6 +3,8 @@ const { MongoClient } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId
 require('dotenv').config();
 const cors = require('cors');
+const formData = require('form-data');
+const Mailgun = require('mailgun.js');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -184,6 +186,26 @@ async function run() {
       delete values['_id'];
       res.send(values);
     })
+
+    //email sender
+    app.post('/send-mail', async (req, res) => {
+      const email = req.body;
+      console.log('Recived email data form forntend', email);
+      const mailgun = new Mailgun(formData);
+      const mg = mailgun.client({
+        username: 'api',
+        key: '8d3e51bcbf55e2c44a8d1057aa653a00-50f43e91-a2a788fb',
+      });
+      mg.messages
+        .create('sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org', {
+          from: email.from,
+          to: email.to,
+          subject: email.subject,
+          text: email.text,
+        })
+        .then(msg => console.log(msg) && res.json(msg)) // logs response data
+        .catch(err => console.log(err)); // logs any error`;
+    });
 
 
   }
