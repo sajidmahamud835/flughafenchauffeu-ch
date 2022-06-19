@@ -114,6 +114,24 @@ const BookingProcess = () => {
     const { values, setValues } = useContext(FormContext);
     const navigate = useNavigate()
 
+    const [email, setEmail] = useState({})
+    useEffect(() => {
+        if (email.text) {
+            axios.post('http://localhost:5000/send-mail', email)
+                .then(res => {
+                    console.log(res.data);
+                })
+        }
+    }, [email]);
+
+    // setEmail(
+    //     {
+    //         from: "FlughafenChauffeur <update@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
+    //         to: ["sajidmahamud835@gmail.com"],
+    //         subject: "Hello",
+    //         text: "Testing some Mailgun awesomness!",
+    //     });
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -213,6 +231,8 @@ const BookingProcess = () => {
                     <Step1
                         key={forms[step].key}
                         forms={forms}
+                        values={values}
+                        setValues={setValues}
                     />
                 </div>
                 <div style={display2}>
