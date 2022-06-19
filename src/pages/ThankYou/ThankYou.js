@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { FormContext } from '../../App';
 import { DisplayMapFC } from '../../DisplayMapFC';
 
 
@@ -10,11 +11,12 @@ const ThankYou = () => {
     const [dataChange, setDataChange] = useState([])
     const [distance, setDistance] = useState(0);
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
+    const { userID } = useContext(FormContext);
     let navigate = useNavigate();
 
     //hendel delete option
     const handleDelete = id => {
-        const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+        const url = `http://localhost:5000/bookings/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -31,7 +33,7 @@ const ThankYou = () => {
         // eslint-disable-next-line no-restricted-globals
         const confirmed = confirm("Are you sure to change the booking status to: " + status + "?");
         if (confirmed === true) {
-            const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+            const url = `http://localhost:5000/bookings/${id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -54,7 +56,7 @@ const ThankYou = () => {
     const [bookings, setBookings] = useState([])
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/bookings')
+        fetch('http://localhost:5000/bookings')
             .then(res => res.json())
             .then(data => setBookings(data.bookings))
         , [dataChange])
@@ -112,7 +114,7 @@ const ThankYou = () => {
                     <div className='col'>
                         <h3>Booking Success!</h3>
                         <p>Thank you so much. The booking was succesful. Please wait, one of our member will reach you out soon.</p>
-                        <h6>Save your User ID (<strong className='text-warning'>62989e3b8c</strong>) for future, for auto fillng the data. We also sent you a copy in your email.</h6>
+                        <h6>Save your User ID (<strong className='text-warning'>{userID}</strong>) for future, for auto fillng the data. We also sent you a copy in your email.</h6>
                     </div>
                 </div>
             </div>
@@ -420,7 +422,7 @@ const ThankYou = () => {
                                     <div className='row'>
                                         <div className='col-5 container bg-light shadow-sm p-5'>
                                             <h3 className='mb-3'>Client Details</h3>
-                                            <h6><strong>User ID:</strong> <span className='bg-white shadow-sm p-1'>62989e3b8c</span></h6>
+                                            <h6><strong>User ID:</strong> <span className='bg-white shadow-sm p-1'>{userID}</span></h6>
                                             <h6><strong>Client Name:</strong> {booking.first_name} {booking.last_name}</h6>
                                             <h6><strong>Email: </strong> {booking.email}</h6>
                                             <h6><strong>Phone:</strong> {booking.phone}</h6>
@@ -510,32 +512,5 @@ const ThankYou = () => {
         </div>
     );
 };
-
-/* <tr id='booking-list'>
-    <th title='Client Name' scope="row">{first_name} {last_name}</th>
-    <td title='Start Address'></td>
-    <td title='Final Destination'>{destination_01}</td>
-    <td title='Stop 01'>{destination_02}</td>
-    <td title='Stop 02'>{destination_03}</td>
-    <td title='Stop 03'>{destination_04}</td>
-    <td title='Stop 04'>{destination_05}</td>
-    <td title='Pickup Time & Date<'>{time_pickup}, {date_pickup}</td>
-    <td>{flight_number}</td>
-    <td>{total_people}</td>
-    <td>{luggage_weight}</td>
-    <td> <button onClick={showEmail} className="btn btn-primary"><i className="far fa-envelope"></i></button> </td>
-    <td><button onClick={showPhone} className="btn btn-success"><i className="fas fa-phone"></i></button></td>
-    <td>{_id}</td>
-    <td><select value={status} onChange={(e) => props.handleStatus(props.booking._id, e.target.value)} name="status" id="status">
-        <option value="Pending">Pending</option>
-        <option value="Accepted">Accepted</option>
-        <option value="Rejected">Rejected</option>
-        <option value="Canceled">Canceled</option>
-    </select></td>
-    <td>
-        <Link to={`/admin/booking/${props.booking._id}`} type="button" className="btn btn-dark"><i className="fa fa-eye"></i> View</Link>
-        <button onClick={() => props.handleDelete(props.booking._id)} type="button" className="btn btn-danger"><i className="far fa-trash-alt"></i></button>
-    </td>
-</tr>  */
 
 export default ThankYou;

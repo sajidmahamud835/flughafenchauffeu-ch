@@ -7,7 +7,10 @@ import { useNavigate } from 'react-router-dom';
 
 const BookingProcess = () => {
     const [response, setResponse] = useState({})
+    const { userID, setUserID } = useContext(FormContext);
+    const [userData, setUserData] = useState({});
     const [step, setStep] = useState(0)
+    const [email, setEmail] = useState({})
     const [destinations, setDestination] = useState([{
         id: 1,
         name: "start_address",
@@ -49,7 +52,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch('http://localhost:5000/form/trip-information')
             .then(res => res.json())
             .then(data => setTripInformation(data.forms[0]))
         , [])
@@ -74,7 +77,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch('http://localhost:5000/form/guest-information')
             .then(res => res.json())
             .then(data => setGuestInformation(data.forms[0]))
         , [])
@@ -114,8 +117,28 @@ const BookingProcess = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (userID.length > 2) {
+            axios.post('http://localhost:5000/users', {
+                first_name: values.first_name,
+                last_name: values.last_name,
+                address: values.address,
+                city: values.city,
+                postal_code: values.postal_code,
+                country: values.country,
+                phone: values.phone,
+                email: values.email,
+            })
+                .then(res => {
+                    setUserID(res.data.insertedId);
+                })
+        }
+
+        console.log({ ...values, userId: userID });
+
+        axios.post('http://localhost:5000/bookings', { ...values, userId: userID })
+
         console.log(values);
-        axios.post('https://secret-river-49503.herokuapp.com/bookings', values)
+        axios.post('http://localhost:5000/bookings', values)
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
@@ -142,7 +165,26 @@ const BookingProcess = () => {
                 })
             })
 
+        setEmail(
+            {
+                from: "Mailgun Sandbox <postmaster@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
+                to: ["sajidmahamud835@gmail.com"],
+                subject: "Hello",
+                text: "Testing some Mailgun awesomness!",
+            }
+        )
+
     };
+
+    //email sender
+    useEffect(() => {
+        if (email.text) {
+            axios.post('http://localhost:5000/send-mail', email)
+                .then(res => {
+                    console.log(res.data);
+                })
+        }
+    }, [email]);
 
     useEffect(() => {
         if (response.acknowledged) {
@@ -203,6 +245,10 @@ const BookingProcess = () => {
                     <Step2
                         key={forms[step].key}
                         forms={forms}
+                        values={values}
+                        setValues={setValues}
+                        userData={userData}
+                        setUserData={setUserData}
                     />
                 </div>
 
