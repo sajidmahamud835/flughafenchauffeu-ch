@@ -3,11 +3,13 @@ import "./FromInput.css";
 
 const FormInput = (props) => {
     const [focused, setFocused] = useState(false);
+
     const { label, errorMessage, onChange, id, addressSuggestion, inputName, value, onAddressChange, showSuggestion, setShowSuggestion, location, ...inputProps } = props;
 
     const handleFocus = (e) => {
         setFocused(true);
     };
+
 
     // const inputValue = value;
     // const dataValue = value[`${inputName}_data`];
@@ -36,7 +38,7 @@ const FormInput = (props) => {
 
 
                 {(showSuggestion && addressSuggestion[inputName].items.length > 0) &&
-                    <div>
+                    <div className="showSuggestion">
                         {
                             addressSuggestion[inputName].items.map(item => (
                                 <div className="card-body ps-3 py-1 m-1 border border-light rounded inputSugesstion" key={item.id}>

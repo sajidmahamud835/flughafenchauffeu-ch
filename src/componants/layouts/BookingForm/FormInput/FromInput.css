@@ -36,3 +36,11 @@
 .formInput input:invalid[focused="true"]~span {
     display: block;
 }
+
+.formInput .showSuggestion {
+    display: none;
+}
+
+.formInput:hover .showSuggestion {
+    display: block;
+}

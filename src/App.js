@@ -44,7 +44,6 @@ function App() {
             <Route path='admin/bookings' element={<AllBookings />} />
             <Route path='admin/booking/:id' element={<SingleBooking />} />
             <Route path='admin/settings' element={<Settings />} />
-            <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
       </div>
