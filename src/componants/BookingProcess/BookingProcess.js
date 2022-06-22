@@ -133,12 +133,8 @@ const BookingProcess = () => {
                 });
         }
 
-        console.log({ ...values, userId: userID });
-
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userId: userID });
-
         console.log(values);
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, values)
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userId: userID })
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
