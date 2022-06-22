@@ -259,7 +259,7 @@ const BookingProcess = () => {
                         <button onClick={() => setStep(step + 1)} style={btnNextStyle} className='btn btn-primary m-2 px-4'>Next</button>
                         <input style={btnSubmitStyle} className='btn btn-primary m-2 px-4' type="submit"></input>
                     </div>
-                    <button type="button" style={btnBackStyle} class="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" style={btnBackStyle} className="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Already Have A User ID?
                     </button>
                 </div>
