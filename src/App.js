@@ -17,7 +17,6 @@ function App() {
   const [values, setValues] = useState({});
   const [suggestions, setSuggestions] = useState({});
   const [userID, setUserID] = useState("");
-  console.log('work', process.env.REACT_APP_SERVER_URL, process.env.NODE_ENV);
   useEffect(() =>
     fetch(`${process.env.REACT_APP_SERVER_URL}/default-values`)
       .then(res => res.json())
