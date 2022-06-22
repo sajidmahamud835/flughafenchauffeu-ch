@@ -28,7 +28,7 @@ const BookingCostCalculator = () => {
 
     //getSettingsData 
     useEffect(() => {
-        fetch(`http://localhost:5000/general-settings`)
+        fetch(`https://secret-river-49503.herokuapp.com/general-settings`)
             .then(res => res.json())
             .then(data => setSettingsData(data.settings[0]))
 

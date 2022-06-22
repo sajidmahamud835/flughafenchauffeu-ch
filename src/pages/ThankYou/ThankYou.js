@@ -16,7 +16,7 @@ const ThankYou = () => {
 
     //hendel delete option
     const handleDelete = id => {
-        const url = `http://localhost:5000/bookings/${id}`;
+        const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -33,7 +33,7 @@ const ThankYou = () => {
         // eslint-disable-next-line no-restricted-globals
         const confirmed = confirm("Are you sure to change the booking status to: " + status + "?");
         if (confirmed === true) {
-            const url = `http://localhost:5000/bookings/${id}`;
+            const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -56,7 +56,7 @@ const ThankYou = () => {
     const [bookings, setBookings] = useState([])
 
     useEffect(() =>
-        fetch('http://localhost:5000/bookings')
+        fetch('https://secret-river-49503.herokuapp.com/bookings')
             .then(res => res.json())
             .then(data => setBookings(data.bookings))
         , [dataChange])

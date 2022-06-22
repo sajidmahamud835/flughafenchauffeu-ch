@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import LocationPicker from './componants/LocationPicker/LocationPicker';
-import MapBox from './componants/mapbox/MapBox';
 import Admin from './pages/admin/Admin/Admin';
 import AllBookings from './pages/admin/AllBookings/AllBookings';
 import Settings from './pages/admin/Settings/Settings';
@@ -20,7 +19,7 @@ function App() {
   const [userID, setUserID] = useState("");
 
   useEffect(() =>
-    fetch('http://localhost:5000/default-values')
+    fetch('https://secret-river-49503.herokuapp.com/default-values')
       .then(res => res.json())
       .then(data => setValues(data))
     , [])

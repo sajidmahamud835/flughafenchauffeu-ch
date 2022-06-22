@@ -52,7 +52,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('http://localhost:5000/form/trip-information')
+        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
             .then(res => res.json())
             .then(data => setTripInformation(data.forms[0]))
         , [])
@@ -77,7 +77,7 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('http://localhost:5000/form/guest-information')
+        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
             .then(res => res.json())
             .then(data => setGuestInformation(data.forms[0]))
         , [])
@@ -118,7 +118,7 @@ const BookingProcess = () => {
         e.preventDefault();
 
         if (userID.length < 2) {
-            axios.post('http://localhost:5000/users', {
+            axios.post('https://secret-river-49503.herokuapp.com/users', {
                 first_name: values.first_name,
                 last_name: values.last_name,
                 address: values.address,
@@ -135,10 +135,10 @@ const BookingProcess = () => {
 
         console.log({ ...values, userId: userID });
 
-        axios.post('http://localhost:5000/bookings', { ...values, userId: userID })
+        axios.post('https://secret-river-49503.herokuapp.com/bookings', { ...values, userId: userID })
 
         console.log(values);
-        axios.post('http://localhost:5000/bookings', values)
+        axios.post('https://secret-river-49503.herokuapp.com/bookings', values)
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
@@ -179,7 +179,7 @@ const BookingProcess = () => {
     //email sender
     useEffect(() => {
         if (email.text) {
-            axios.post('http://localhost:5000/send-mail', email)
+            axios.post('https://secret-river-49503.herokuapp.com/send-mail', email)
                 .then(res => {
                     console.log(res.data);
                 })

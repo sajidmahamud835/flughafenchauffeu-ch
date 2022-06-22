@@ -9,7 +9,7 @@ const Step2 = (props) => {
     const handleApply = (e) => {
         e.preventDefault()
         setUserID(document.getElementById('userid0').value);
-        fetch(`http://localhost:5000/users/${document.getElementById('userid0').value}`)
+        fetch(`https://secret-river-49503.herokuapp.com/users/${document.getElementById('userid0').value}`)
             .then(res => res.json())
             .then(data => setUserData(data.users[0]));
     }
