@@ -117,7 +117,7 @@ const BookingProcess = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (userID.length > 2) {
+        if (userID.length < 2) {
             axios.post('http://localhost:5000/users', {
                 first_name: values.first_name,
                 last_name: values.last_name,
