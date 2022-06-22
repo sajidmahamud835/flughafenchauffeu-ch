@@ -21,16 +21,16 @@ const BookingCostCalculator = () => {
     // const [hqSummery, setHQSummery] = useState;
 
     useEffect(() => {
-        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion, currentLocation: currentLocation })
+        setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion, currentLocation: currentLocation });
     }, [destination01Suggestion, destination02Suggestion, destination03Suggestion, destination04Suggestion, destination05Suggestion, startAddressSuggestion, currentLocation]);
 
     const [settingsData, setSettingsData] = useState({});
 
     //getSettingsData 
     useEffect(() => {
-        fetch(`https://secret-river-49503.herokuapp.com/general-settings`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/general-settings`)
             .then(res => res.json())
-            .then(data => setSettingsData(data.settings[0]))
+            .then(data => setSettingsData(data.settings[0]));
 
     }, [apiKey]);
 
@@ -42,35 +42,35 @@ const BookingCostCalculator = () => {
 
         if (people <= 0) {
             result = 'N/A';
-            errorMessage = 'Unable to calculate the price automaticaly. Please contact support for the price.'
+            errorMessage = 'Unable to calculate the price automaticaly. Please contact support for the price.';
         }
         else {
             if (hqAddressData.length) {
                 distance = distance + (hqAddressData.length / 1000);
             }
             result = Math.round(distance * pricePerKm);
-            errorMessage = ''
+            errorMessage = '';
 
             if (people > maxPeople) {
                 result = 'N/A';
-                errorMessage = 'Unable to calculate the price automaticaly. The number of people is exceeding our maximum limit. Please contact support for the price.'
+                errorMessage = 'Unable to calculate the price automaticaly. The number of people is exceeding our maximum limit. Please contact support for the price.';
 
             } else if (people > maxFreePeople) {
                 const extraPeople = people - maxFreePeople;
                 result = Math.round(result + (extraPeople * pricePerExtraPeople));
-                errorMessage = ''
+                errorMessage = '';
             }
 
             const maxFreeWeight = maxWeightPerPerson * people;
 
             if (weight > maxFreeWeight) {
                 result = 'N/A';
-                errorMessage = 'Your luggage weight is exceeding our limit. Please contact support for the price.'
+                errorMessage = 'Your luggage weight is exceeding our limit. Please contact support for the price.';
             }
 
         }
         return result;
-    }
+    };
     const totalCost = CostCalculator(distance, values.total_people, values.luggage_weight);
 
     useEffect(() => {

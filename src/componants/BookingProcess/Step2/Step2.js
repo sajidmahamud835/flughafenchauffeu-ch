@@ -7,15 +7,15 @@ const Step2 = (props) => {
     const { userID, setUserID } = useContext(FormContext);
 
     const handleApply = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         setUserID(document.getElementById('userid0').value);
-        fetch(`https://secret-river-49503.herokuapp.com/users/${document.getElementById('userid0').value}`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/users/${document.getElementById('userid0').value}`)
             .then(res => res.json())
             .then(data => setUserData(data.users[0]));
-    }
+    };
 
     useEffect(() => {
-        console.log(userData)
+        console.log(userData);
         setValues({
             ...values,
             first_name: userData.first_name,
@@ -26,8 +26,8 @@ const Step2 = (props) => {
             country: userData.country,
             phone: userData.phone,
             email: userData.email,
-        })
-    }, [userData])
+        });
+    }, [userData]);
 
     return (
         <div>

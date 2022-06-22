@@ -1,6 +1,6 @@
 import { getAuth } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import './AllBookings.css'
+import './AllBookings.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -12,27 +12,27 @@ import FirebaseApp from '../../../firebase/FirebaseApp';
 const AllBookings = () => {
     const auth = getAuth(FirebaseApp);
     const [user, loading, error] = useAuthState(auth);
-    const [dataChange, setDataChange] = useState([])
+    const [dataChange, setDataChange] = useState([]);
     let navigate = useNavigate();
 
 
 
     useEffect(() => {
         if (loading) {
-            console.log('Page is loading.....')
+            console.log('Page is loading.....');
         } else {
             if (!user) {
                 toast("Please login!");
                 navigate("/admin/login", { replace: true });
             } else {
-                console.log('Logged in')
+                console.log('Logged in');
                 console.log(user.email);
             }
         }
     }, [loading, user, navigate]);
 
     const handleDelete = id => {
-        const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/bookings/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -40,15 +40,15 @@ const AllBookings = () => {
             .then(data => {
                 console.log(data);
                 setDataChange(data);
-            })
+            });
 
-    }
+    };
 
     const handleStatus = (id, status) => {
         // eslint-disable-next-line no-restricted-globals
         const confirmed = confirm("Are you sure to change the booking status to: " + status + "?");
         if (confirmed === true) {
-            const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+            const url = `${process.env.REACT_APP_SERVER_URL}/bookings/${id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -63,18 +63,18 @@ const AllBookings = () => {
                 .then(data => {
                     console.log(data);
                     setDataChange(data);
-                })
+                });
         }
 
-    }
+    };
 
-    const [bookings, setBookings] = useState([])
+    const [bookings, setBookings] = useState([]);
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/bookings')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/bookings`)
             .then(res => res.json())
             .then(data => setBookings(data.bookings))
-        , [dataChange])
+        , [dataChange]);
 
     return (
         <div id='all-bookings p-5'>

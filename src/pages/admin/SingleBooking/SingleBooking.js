@@ -13,7 +13,7 @@ const SingleBooking = () => {
     const { id } = useParams();
     const auth = getAuth(FirebaseApp);
     const [user, loading, error] = useAuthState(auth);
-    const [dataChange, setDataChange] = useState([])
+    const [dataChange, setDataChange] = useState([]);
     const [distance, setDistance] = useState(0);
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     let navigate = useNavigate();
@@ -22,20 +22,20 @@ const SingleBooking = () => {
 
     useEffect(() => {
         if (loading) {
-            console.log('Page is loading.....')
+            console.log('Page is loading.....');
         } else {
             if (!user) {
                 toast("Please login!");
                 navigate("/admin/login", { replace: true });
             } else {
-                console.log('Logged in')
+                console.log('Logged in');
                 console.log(user.email);
             }
         }
     }, [loading, user, navigate]);
 
     const handleDelete = id => {
-        const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/bookings/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -44,15 +44,15 @@ const SingleBooking = () => {
                 console.log(data);
                 setDataChange(data);
                 window.location.href = '/admin/bookings/';
-            })
+            });
 
-    }
+    };
 
     const handleStatus = (id, status) => {
         // eslint-disable-next-line no-restricted-globals
         const confirmed = confirm("Are you sure to change the booking status to: " + status + "?");
         if (confirmed === true) {
-            const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+            const url = `${process.env.REACT_APP_SERVER_URL}/bookings/${id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -67,18 +67,18 @@ const SingleBooking = () => {
                 .then(data => {
                     console.log(data);
                     setDataChange(data);
-                })
+                });
         }
 
-    }
+    };
 
-    const [bookings, setBookings] = useState([])
+    const [bookings, setBookings] = useState([]);
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/bookings')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/bookings`)
             .then(res => res.json())
             .then(data => setBookings(data.bookings))
-        , [dataChange])
+        , [dataChange]);
 
     const startAddressSvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
@@ -518,7 +518,7 @@ const SingleBooking = () => {
                                 </div>
                             );
                         } else {
-                            return <div></div>
+                            return <div></div>;
                         }
                     }
                     ))

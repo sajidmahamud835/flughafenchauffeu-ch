@@ -16,13 +16,13 @@ const Settings = () => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         if (loading) {
-            console.log('Page is loading')
+            console.log('Page is loading');
         } else {
             if (!user) {
                 toast("Please login!");
                 navigate("/admin/login", { replace: true });
             } else {
-                console.log('Logged in')
+                console.log('Logged in');
                 console.log(user.email);
             }
         }
@@ -46,7 +46,7 @@ const Settings = () => {
                 }
             ]
         }
-    ])
+    ]);
 
     const [sectionTwo, setSectionTwo] = useState([
         {
@@ -66,18 +66,18 @@ const Settings = () => {
                 }
             ]
         }
-    ])
+    ]);
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/general-settings')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/general-settings`)
             .then(res => res.json())
             .then(data => setGeneralSettings(data.settings[0]))
         , []);
 
     const saveSettings = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         delete generalSettings["_id"];
-        const url = `https://secret-river-49503.herokuapp.com/general-settings`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/general-settings`;
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -86,20 +86,20 @@ const Settings = () => {
             body: JSON.stringify(generalSettings)
         })
             .then(res => res.json())
-            .then(data => console.log(data))
-    }
+            .then(data => console.log(data));
+    };
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
             .then(res => res.json())
             .then(data => setSectionOne(data.forms))
-        , [])
+        , []);
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
             .then(res => res.json())
             .then(data => setSectionTwo(data.forms))
-        , [])
+        , []);
 
     return (
         <section className='row'>

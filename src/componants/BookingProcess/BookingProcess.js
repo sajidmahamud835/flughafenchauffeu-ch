@@ -6,11 +6,11 @@ import { FormContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
 const BookingProcess = () => {
-    const [response, setResponse] = useState({})
+    const [response, setResponse] = useState({});
     const { userID, setUserID } = useContext(FormContext);
     const [userData, setUserData] = useState({});
-    const [step, setStep] = useState(0)
-    const [email, setEmail] = useState({})
+    const [step, setStep] = useState(0);
+    const [email, setEmail] = useState({});
     const [destinations, setDestination] = useState([{
         id: 1,
         name: "start_address",
@@ -31,7 +31,7 @@ const BookingProcess = () => {
         label: "Destination 01 (Final Destination)",
         required: true
 
-    }])
+    }]);
     const [tripInformation, setTripInformation] = useState({
         id: 2,
         title: "Trip Information",
@@ -52,10 +52,10 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/trip-information')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
             .then(res => res.json())
             .then(data => setTripInformation(data.forms[0]))
-        , [])
+        , []);
 
     const [guestInformation, setGuestInformation] = useState({
         id: 2,
@@ -77,10 +77,10 @@ const BookingProcess = () => {
     });
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/form/guest-information')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
             .then(res => res.json())
             .then(data => setGuestInformation(data.forms[0]))
-        , [])
+        , []);
 
 
     const forms = [
@@ -112,13 +112,13 @@ const BookingProcess = () => {
     ];
 
     const { values, setValues } = useContext(FormContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (userID.length < 2) {
-            axios.post('https://secret-river-49503.herokuapp.com/users', {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
                 first_name: values.first_name,
                 last_name: values.last_name,
                 address: values.address,
@@ -130,15 +130,15 @@ const BookingProcess = () => {
             })
                 .then(res => {
                     setUserID(res.data.insertedId);
-                })
+                });
         }
 
         console.log({ ...values, userId: userID });
 
-        axios.post('https://secret-river-49503.herokuapp.com/bookings', { ...values, userId: userID })
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userId: userID });
 
         console.log(values);
-        axios.post('https://secret-river-49503.herokuapp.com/bookings', values)
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, values)
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
@@ -162,8 +162,8 @@ const BookingProcess = () => {
                     country: "",
                     phone: "",
                     email: "",
-                })
-            })
+                });
+            });
 
         setEmail(
             {
@@ -172,17 +172,17 @@ const BookingProcess = () => {
                 subject: "Hello",
                 text: "Testing some Mailgun awesomness!",
             }
-        )
+        );
 
     };
 
     //email sender
     useEffect(() => {
         if (email.text) {
-            axios.post('https://secret-river-49503.herokuapp.com/send-mail', email)
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/send-mail`, email)
                 .then(res => {
                     console.log(res.data);
-                })
+                });
         }
     }, [email]);
 
@@ -229,7 +229,7 @@ const BookingProcess = () => {
             setDisplay1({ display: 'none' });
             setDisplay2({});
         }
-    }, [step])
+    }, [step]);
 
     return (
         <section id='booking_from' className='p-3'>

@@ -15,14 +15,14 @@ export const FormContext = createContext("form");
 function App() {
 
   const [values, setValues] = useState({});
-  const [suggestions, setSuggestions] = useState({})
+  const [suggestions, setSuggestions] = useState({});
   const [userID, setUserID] = useState("");
-
+  console.log('work', process.env.REACT_APP_SERVER_URL, process.env.NODE_ENV);
   useEffect(() =>
-    fetch('https://secret-river-49503.herokuapp.com/default-values')
+    fetch(`${process.env.REACT_APP_SERVER_URL}/default-values`)
       .then(res => res.json())
       .then(data => setValues(data))
-    , [])
+    , []);
 
   return (
     <FormContext.Provider value={{

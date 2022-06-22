@@ -8,7 +8,7 @@ import { DisplayMapFC } from '../../DisplayMapFC';
 
 const ThankYou = () => {
     const { id } = useParams();
-    const [dataChange, setDataChange] = useState([])
+    const [dataChange, setDataChange] = useState([]);
     const [distance, setDistance] = useState(0);
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
     const { userID } = useContext(FormContext);
@@ -16,7 +16,7 @@ const ThankYou = () => {
 
     //hendel delete option
     const handleDelete = id => {
-        const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/bookings/${id}`;
         fetch(url, {
             method: 'DELETE'
         })
@@ -27,13 +27,13 @@ const ThankYou = () => {
             })
             .then(() => window.location.href = '/');
 
-    }
+    };
 
     const handleStatus = (id, status) => {
         // eslint-disable-next-line no-restricted-globals
         const confirmed = confirm("Are you sure to change the booking status to: " + status + "?");
         if (confirmed === true) {
-            const url = `https://secret-river-49503.herokuapp.com/bookings/${id}`;
+            const url = `${process.env.REACT_APP_SERVER_URL}/bookings/${id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -48,18 +48,18 @@ const ThankYou = () => {
                 .then(data => {
                     console.log(data);
                     setDataChange(data);
-                })
+                });
         }
 
-    }
+    };
 
-    const [bookings, setBookings] = useState([])
+    const [bookings, setBookings] = useState([]);
 
     useEffect(() =>
-        fetch('https://secret-river-49503.herokuapp.com/bookings')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/bookings`)
             .then(res => res.json())
             .then(data => setBookings(data.bookings))
-        , [dataChange])
+        , [dataChange]);
 
     const startAddressSvgMarkup = '<svg width="24" height="24" ' +
         'xmlns="http://www.w3.org/2000/svg">' +
@@ -503,7 +503,7 @@ const ThankYou = () => {
                                 </div>
                             );
                         } else {
-                            return <div></div>
+                            return <div></div>;
                         }
                     }
                     ))
