@@ -6,7 +6,7 @@ import { FormContext } from '../../../App';
 
 const BookingForm = (props) => {
     const [showSuggestion, setShowSuggestion] = useState(false);
-    const { values, setValues, suggestions, setSuggestions } = useContext(FormContext);
+    const { values, setValues, suggestions, setSuggestions, valuesData, setValuesData } = useContext(FormContext);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
@@ -18,6 +18,7 @@ const BookingForm = (props) => {
     const onAddressChange = (e, data, inputName) => {
         const dataField = inputName + "_data";
         setValues({ ...values, [inputName]: e.target.innerText, [dataField]: data });
+        setValuesData({ ...valuesData, [dataField]: data }); //to solve unwanted rerander of map
         // setSuggestions({ ...suggestions, [inputName]: { items: [] } });
         delay(1000).then(() => setShowSuggestion(false));
         // e.target.parentNode.parentNode.className = 'd-none';

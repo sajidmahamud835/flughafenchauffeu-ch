@@ -17,6 +17,7 @@ function App() {
   const [values, setValues] = useState({});
   const [suggestions, setSuggestions] = useState({})
   const [userID, setUserID] = useState("");
+  const [valuesData, setValuesData] = useState({});
 
   useEffect(() =>
     fetch('https://secret-river-49503.herokuapp.com/default-values')
@@ -31,7 +32,9 @@ function App() {
       suggestions: suggestions,
       setSuggestions: setSuggestions,
       userID: userID,
-      setUserID: setUserID
+      setUserID: setUserID,
+      valuesData: valuesData,
+      setValuesData: setValuesData
     }}>
       <div>
         <Routes>

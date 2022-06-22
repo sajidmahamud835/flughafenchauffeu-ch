@@ -3,7 +3,7 @@ import { FormContext } from '../../App';
 import { DisplayMapFC } from '../../DisplayMapFC';
 const BookingCostCalculator = () => {
     const [apiKey, setApiKey] = useState('pEkb6dHSrZx_gcFA7JcJbWvZRcs71rxjU3lvj3AChY4');
-    const { values, setValues, suggestions, setSuggestions } = useContext(FormContext);
+    const { values, setValues, suggestions, setSuggestions, valuesData } = useContext(FormContext);
 
     const defaultData = { "items": [] };
     const [startAddressSuggestion, setStartAddressSuggestion] = useState(defaultData);
@@ -18,7 +18,6 @@ const BookingCostCalculator = () => {
 
     const [distance, setDistance] = useState(0);
     const [defautlCords, setDefautlCords] = useState({ lat: 50, lng: 5 });
-    // const [hqSummery, setHQSummery] = useState;
 
     useEffect(() => {
         setSuggestions({ ...suggestions, start_address: startAddressSuggestion, destination_01: destination01Suggestion, destination_02: destination02Suggestion, destination_03: destination03Suggestion, destination_04: destination04Suggestion, destination_05: destination05Suggestion, currentLocation: currentLocation })
@@ -106,13 +105,13 @@ const BookingCostCalculator = () => {
 
     // HQ address langth from start
     useEffect(() => {
-        if (hqAddress.items && values.start_address_data) {
+        if (hqAddress.items && valuesData.start_address_data) {
             console.log(settingsData.hqAddress);
-            fetch(`https://router.hereapi.com/v8/routes?transportMode=car&return=summary&origin=${hqAddress.items[0].position.lat},${hqAddress.items[0].position.lng}&destination=${values.start_address_data.position.lat},${values.start_address_data.position.lng}&apiKey=${apiKey}`)
+            fetch(`https://router.hereapi.com/v8/routes?transportMode=car&return=summary&origin=${hqAddress.items[0].position.lat},${hqAddress.items[0].position.lng}&destination=${valuesData.start_address_data.position.lat},${valuesData.start_address_data.position.lng}&apiKey=${apiKey}`)
                 .then(res => res.json())
                 .then(data => setHQAddressData(data.routes[0].sections[0].summary));
         }
-    }, [apiKey, hqAddress.items, settingsData.hqAddress, values.start_address_data]);
+    }, [apiKey, hqAddress.items, settingsData.hqAddress, valuesData.start_address_data]);
 
     //get deistance from 
     useEffect(() => {
@@ -253,10 +252,10 @@ const BookingCostCalculator = () => {
                 <h3 className='text-center text-dark'>Estimated Distance & Cost</h3>
                 <div className='m-3'>
 
-                    {(apiKey && values.start_address_data && !values.destination_01_data && !values.destination_02_data && !values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && valuesData.start_address_data && !valuesData.destination_01_data && !valuesData.destination_02_data && !valuesData.destination_03_data && !valuesData.destination_04_data && !valuesData.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
-                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            center={{ lat: valuesData.start_address_data.position.lat, lng: valuesData.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
@@ -274,8 +273,8 @@ const BookingCostCalculator = () => {
                                         svgMarkup: startAddressSvgMarkup,
                                         hidden: false,
                                         coords: {
-                                            lat: values.start_address_data.position.lat,
-                                            lng: values.start_address_data.position.lng
+                                            lat: valuesData.start_address_data.position.lat,
+                                            lng: valuesData.start_address_data.position.lng
                                         }
                                     }
 
@@ -284,10 +283,10 @@ const BookingCostCalculator = () => {
                         />
                     </div>}
 
-                    {(apiKey && values.start_address_data && values.destination_01_data && !values.destination_02_data && !values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && valuesData.start_address_data && valuesData.destination_01_data && !valuesData.destination_02_data && !valuesData.destination_03_data && !valuesData.destination_04_data && !valuesData.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
-                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            center={{ lat: valuesData.start_address_data.position.lat, lng: valuesData.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
@@ -298,8 +297,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.start_address_data.position.lat,
-                                            lng: values.start_address_data.position.lng
+                                            lat: valuesData.start_address_data.position.lat,
+                                            lng: valuesData.start_address_data.position.lng
                                         }
                                     },
                                     {
@@ -307,51 +306,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_01_data.position.lat,
-                                            lng: values.destination_01_data.position.lng
-                                        }
-                                    }
-                                ]
-                            }
-                            setDistance={setDistance}
-                            distance={distance}
-                        />
-                    </div>}
-
-                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && !values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
-                        <DisplayMapFC
-                            apikey={apiKey}
-                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
-                            zoom={14}
-                            width="100%"
-                            height="350"
-                            addressMarkers={
-                                [
-                                    {
-                                        svgMarkup: startAddressSvgMarkup,
-                                        hidden: false,
-                                        coords:
-                                        {
-                                            lat: values.start_address_data.position.lat,
-                                            lng: values.start_address_data.position.lng
-                                        }
-                                    },
-                                    {
-                                        svgMarkup: destination01SvgMarkup,
-                                        hidden: false,
-                                        coords:
-                                        {
-                                            lat: values.destination_01_data.position.lat,
-                                            lng: values.destination_01_data.position.lng
-                                        }
-                                    },
-                                    {
-                                        svgMarkup: destination02SvgMarkup,
-                                        hidden: false,
-                                        coords:
-                                        {
-                                            lat: values.destination_02_data.position.lat,
-                                            lng: values.destination_02_data.position.lng
+                                            lat: valuesData.destination_01_data.position.lat,
+                                            lng: valuesData.destination_01_data.position.lng
                                         }
                                     }
                                 ]
@@ -361,12 +317,55 @@ const BookingCostCalculator = () => {
                         />
                     </div>}
 
-
-
-                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && values.destination_03_data && !values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && valuesData.start_address_data && valuesData.destination_01_data && valuesData.destination_02_data && !valuesData.destination_03_data && !valuesData.destination_04_data && !valuesData.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
-                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            center={{ lat: valuesData.start_address_data.position.lat, lng: valuesData.start_address_data.position.lng }}
+                            zoom={14}
+                            width="100%"
+                            height="350"
+                            addressMarkers={
+                                [
+                                    {
+                                        svgMarkup: startAddressSvgMarkup,
+                                        hidden: false,
+                                        coords:
+                                        {
+                                            lat: valuesData.start_address_data.position.lat,
+                                            lng: valuesData.start_address_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination01SvgMarkup,
+                                        hidden: false,
+                                        coords:
+                                        {
+                                            lat: valuesData.destination_01_data.position.lat,
+                                            lng: valuesData.destination_01_data.position.lng
+                                        }
+                                    },
+                                    {
+                                        svgMarkup: destination02SvgMarkup,
+                                        hidden: false,
+                                        coords:
+                                        {
+                                            lat: valuesData.destination_02_data.position.lat,
+                                            lng: valuesData.destination_02_data.position.lng
+                                        }
+                                    }
+                                ]
+                            }
+                            setDistance={setDistance}
+                            distance={distance}
+                        />
+                    </div>}
+
+
+
+                    {(apiKey && valuesData.start_address_data && valuesData.destination_01_data && valuesData.destination_02_data && valuesData.destination_03_data && !valuesData.destination_04_data && !valuesData.destination_05_data) && <div className='rounded shadow mb-3'>
+                        <DisplayMapFC
+                            apikey={apiKey}
+                            center={{ lat: valuesData.start_address_data.position.lat, lng: valuesData.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
@@ -378,8 +377,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.start_address_data.position.lat,
-                                            lng: values.start_address_data.position.lng
+                                            lat: valuesData.start_address_data.position.lat,
+                                            lng: valuesData.start_address_data.position.lng
                                         }
                                     },
                                     {
@@ -387,8 +386,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_01_data.position.lat,
-                                            lng: values.destination_01_data.position.lng
+                                            lat: valuesData.destination_01_data.position.lat,
+                                            lng: valuesData.destination_01_data.position.lng
                                         }
                                     },
                                     {
@@ -396,8 +395,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_02_data.position.lat,
-                                            lng: values.destination_02_data.position.lng
+                                            lat: valuesData.destination_02_data.position.lat,
+                                            lng: valuesData.destination_02_data.position.lng
                                         }
                                     },
                                     {
@@ -405,8 +404,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_03_data.position.lat,
-                                            lng: values.destination_03_data.position.lng
+                                            lat: valuesData.destination_03_data.position.lat,
+                                            lng: valuesData.destination_03_data.position.lng
                                         }
                                     }
                                 ]
@@ -418,10 +417,10 @@ const BookingCostCalculator = () => {
 
 
 
-                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && values.destination_03_data && values.destination_04_data && !values.destination_05_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && valuesData.start_address_data && valuesData.destination_01_data && valuesData.destination_02_data && valuesData.destination_03_data && valuesData.destination_04_data && !valuesData.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
-                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            center={{ lat: valuesData.start_address_data.position.lat, lng: valuesData.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
@@ -432,8 +431,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.start_address_data.position.lat,
-                                            lng: values.start_address_data.position.lng
+                                            lat: valuesData.start_address_data.position.lat,
+                                            lng: valuesData.start_address_data.position.lng
                                         }
                                     },
                                     {
@@ -441,8 +440,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_01_data.position.lat,
-                                            lng: values.destination_01_data.position.lng
+                                            lat: valuesData.destination_01_data.position.lat,
+                                            lng: valuesData.destination_01_data.position.lng
                                         }
                                     },
                                     {
@@ -450,8 +449,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_02_data.position.lat,
-                                            lng: values.destination_02_data.position.lng
+                                            lat: valuesData.destination_02_data.position.lat,
+                                            lng: valuesData.destination_02_data.position.lng
                                         }
                                     },
                                     {
@@ -459,8 +458,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_03_data.position.lat,
-                                            lng: values.destination_03_data.position.lng
+                                            lat: valuesData.destination_03_data.position.lat,
+                                            lng: valuesData.destination_03_data.position.lng
                                         }
                                     },
                                     {
@@ -468,8 +467,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_04_data.position.lat,
-                                            lng: values.destination_04_data.position.lng
+                                            lat: valuesData.destination_04_data.position.lat,
+                                            lng: valuesData.destination_04_data.position.lng
                                         }
                                     }
                                 ]
@@ -480,10 +479,10 @@ const BookingCostCalculator = () => {
                     </div>}
 
 
-                    {(apiKey && values.start_address_data && values.destination_01_data && values.destination_02_data && values.destination_03_data && values.destination_04_data && values.destination_05_data) && <div className='rounded shadow mb-3'>
+                    {(apiKey && valuesData.start_address_data && valuesData.destination_01_data && valuesData.destination_02_data && valuesData.destination_03_data && valuesData.destination_04_data && valuesData.destination_05_data) && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
-                            center={{ lat: values.start_address_data.position.lat, lng: values.start_address_data.position.lng }}
+                            center={{ lat: valuesData.start_address_data.position.lat, lng: valuesData.start_address_data.position.lng }}
                             zoom={14}
                             width="100%"
                             height="350"
@@ -494,8 +493,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.start_address_data.position.lat,
-                                            lng: values.start_address_data.position.lng
+                                            lat: valuesData.start_address_data.position.lat,
+                                            lng: valuesData.start_address_data.position.lng
                                         }
                                     },
                                     {
@@ -503,8 +502,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_01_data.position.lat,
-                                            lng: values.destination_01_data.position.lng
+                                            lat: valuesData.destination_01_data.position.lat,
+                                            lng: valuesData.destination_01_data.position.lng
                                         }
                                     },
                                     {
@@ -512,8 +511,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_02_data.position.lat,
-                                            lng: values.destination_02_data.position.lng
+                                            lat: valuesData.destination_02_data.position.lat,
+                                            lng: valuesData.destination_02_data.position.lng
                                         }
                                     },
                                     {
@@ -521,8 +520,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_03_data.position.lat,
-                                            lng: values.destination_03_data.position.lng
+                                            lat: valuesData.destination_03_data.position.lat,
+                                            lng: valuesData.destination_03_data.position.lng
                                         }
                                     },
                                     {
@@ -530,8 +529,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_04_data.position.lat,
-                                            lng: values.destination_04_data.position.lng
+                                            lat: valuesData.destination_04_data.position.lat,
+                                            lng: valuesData.destination_04_data.position.lng
                                         }
                                     },
                                     {
@@ -539,8 +538,8 @@ const BookingCostCalculator = () => {
                                         hidden: false,
                                         coords:
                                         {
-                                            lat: values.destination_05_data.position.lat,
-                                            lng: values.destination_05_data.position.lng
+                                            lat: valuesData.destination_05_data.position.lat,
+                                            lng: valuesData.destination_05_data.position.lng
                                         }
                                     }
                                 ]
@@ -554,7 +553,7 @@ const BookingCostCalculator = () => {
 
                     {!apiKey && <section className='map card rounded shadow mb-3 d-flex'> <div className='text-center mt-5 pt-5 px-2'><h4 className='mt-5'>Please set  here.com api on settings page to use this function.</h4></div> </section>}
 
-                    {!values.start_address_data && <div className='rounded shadow mb-3'>
+                    {!valuesData.start_address_data && <div className='rounded shadow mb-3'>
                         <DisplayMapFC
                             apikey={apiKey}
                             center={defautlCords}
@@ -571,41 +570,41 @@ const BookingCostCalculator = () => {
                             <strong> Our HQ: </strong><span title={`lat: ${hqAddress.items[0].position.lat}, lng: ${hqAddress.items[0].position.lng}`} >{hqAddress.items[0].title}</span></small>
                     }
 
-                    {values.start_address_data &&
+                    {valuesData.start_address_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Start:</strong> <span title={`lat: ${values.start_address_data.position.lat}, lng: ${values.start_address_data.position.lng}`} >{values.start_address_data.title}</span>  </small>
+                            <strong> Start:</strong> <span title={`lat: ${valuesData.start_address_data.position.lat}, lng: ${valuesData.start_address_data.position.lng}`} >{valuesData.start_address_data.title}</span>  </small>
                     }
-                    {values.destination_02_data &&
+                    {valuesData.destination_02_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Stop 01:</strong> <span title={`lat: ${values.destination_02_data.position.lat}, lng: ${values.destination_02_data.position.lng}`} >{values.destination_02_data.title}</span>  </small>
+                            <strong> Stop 01:</strong> <span title={`lat: ${valuesData.destination_02_data.position.lat}, lng: ${valuesData.destination_02_data.position.lng}`} >{valuesData.destination_02_data.title}</span>  </small>
                     }
-                    {values.destination_03_data &&
+                    {valuesData.destination_03_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Stop 02:</strong> <span title={`lat: ${values.destination_03_data.position.lat}, lng: ${values.destination_03_data.position.lng}`} >{values.destination_03_data.title}</span>  </small>
+                            <strong> Stop 02:</strong> <span title={`lat: ${valuesData.destination_03_data.position.lat}, lng: ${valuesData.destination_03_data.position.lng}`} >{valuesData.destination_03_data.title}</span>  </small>
                     }
-                    {values.destination_04_data &&
+                    {valuesData.destination_04_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Stop 03:</strong> <span title={`lat: ${values.destination_04_data.position.lat}, lng: ${values.destination_04_data.position.lng}`} >{values.destination_04_data.title}</span>  </small>
+                            <strong> Stop 03:</strong> <span title={`lat: ${valuesData.destination_04_data.position.lat}, lng: ${valuesData.destination_04_data.position.lng}`} >{valuesData.destination_04_data.title}</span>  </small>
                     }
-                    {values.destination_05_data &&
+                    {valuesData.destination_05_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Stop 04:</strong> <span title={`lat: ${values.destination_05_data.position.lat}, lng: ${values.destination_05_data.position.lng}`} >{values.destination_05_data.title}</span>  </small>
+                            <strong> Stop 04:</strong> <span title={`lat: ${valuesData.destination_05_data.position.lat}, lng: ${valuesData.destination_05_data.position.lng}`} >{valuesData.destination_05_data.title}</span>  </small>
                     }
-                    {values.destination_01_data &&
+                    {valuesData.destination_01_data &&
                         <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
                             <path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z" />
                         </svg>
-                            <strong> Final Destinaton:</strong> <span title={`lat: ${values.destination_01_data.position.lat}, lng: ${values.destination_01_data.position.lng}`} >{values.destination_01_data.title}</span>  </small>
+                            <strong> Final Destinaton:</strong> <span title={`lat: ${valuesData.destination_01_data.position.lat}, lng: ${valuesData.destination_01_data.position.lng}`} >{valuesData.destination_01_data.title}</span>  </small>
                     }
                     <hr />
 
