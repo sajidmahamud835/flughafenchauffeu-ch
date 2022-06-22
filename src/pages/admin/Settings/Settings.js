@@ -89,6 +89,20 @@ const Settings = () => {
             .then(data => console.log(data));
     };
 
+    const updateFormData = (e, data) => {
+        e.preventDefault();
+        const url = `${process.env.REACT_APP_SERVER_URL}/form/trip-information/`;
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
+    };
+
     useEffect(() =>
         fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
             .then(res => res.json())
@@ -118,11 +132,11 @@ const Settings = () => {
                     <FormsAdd />
                     <h5 className="text-center">Trip Information</h5>
                     {
-                        sectionOne[0].inputs.map((input) => (<FormsOption key={input.id} input={input} />))
+                        sectionOne[0].inputs.map((input) => (<FormsOption key={input._id} input={input} />))
                     }
                     <h5 className="text-center">Personal Information</h5>
                     {
-                        sectionTwo[0].inputs.map((input) => (<FormsOption key={input.id} input={input} />))
+                        sectionTwo[0].inputs.map((input) => (<FormsOption key={input._id} input={input} />))
                     }
                 </form>
 
