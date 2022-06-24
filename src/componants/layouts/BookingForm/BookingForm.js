@@ -32,10 +32,10 @@ const BookingForm = (props) => {
         id: numOfDest + 1,
         name: "destination_0" + numOfDest,
         type: "text",
-        placeholder: "Destination 0" + numOfDest,
+        placeholder: "Ziel 0" + numOfDest,
         errorMessage:
-            "Please enter the destination you want to go.",
-        label: "Destination 0" + numOfDest,
+            "Bitte geben Sie das gewünschte Ziel ein.",
+        label: "Ziel 0" + numOfDest,
     }
 
     return (
@@ -100,9 +100,9 @@ export default BookingForm;
                id: 2,
                name: "email",
                type: "email",
-               placeholder: "Email",
-               errorMessage: "It should be a valid email address!",
-               label: "Email",
+               placeholder: "eMail",
+               errorMessage: "Es sollte eine gültige E-Mail-Adresse sein!",
+               label: "eMail",
                required: true,
            },
            {

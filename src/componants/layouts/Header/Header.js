@@ -35,9 +35,9 @@ const Header = () => {
                                     Admin
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li> <Link to="/admin/bookings" className="dropdown-item">Bookings</Link></li>
-                                    <li><Link className="dropdown-item" to="/admin/settings">Settings</Link></li>
-                                    <li><Link className="dropdown-item" to="#" onClick={logout}>Logout</Link></li>
+                                    <li> <Link to="/admin/bookings" className="dropdown-item">Buchungen</Link></li>
+                                    <li><Link className="dropdown-item" to="/admin/settings" >Einstellungen< /Link></li>
+                                    <li><Link className="dropdown-item" to="#" onClick={logout}>Abmelden</Link></li>
                                 </ul>
                             </li>}
                         </ul>

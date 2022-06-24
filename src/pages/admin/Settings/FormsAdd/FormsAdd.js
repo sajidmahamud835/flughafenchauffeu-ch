@@ -23,9 +23,9 @@ const FormsAdd = () => {
                         <option value="false">No</option>
                         <option value="true">Yes</option>
                     </select>
-                    <label for={"required" + id} className="form-label">Section</label><select name="required" type="text" className="form-control" id={"required" + id} >
-                        <option value="false">Trip Information</option>
-                        <option value="true">Personal Information</option>
+                    <label for={"required" + id} className="form-label">Abschnitt</label><select name="required" type="text" className="form-control" id={"required" + id} >
+                        <option value="false">Reiseinformationen</option>
+                        <option value="true">persönliche Informationen</option>
                     </select>
 
                     <div className="col-12">

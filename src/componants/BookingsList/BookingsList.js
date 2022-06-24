@@ -5,21 +5,21 @@ import './BookingsList.css';
 const BookingsList = (props) => {
     const { start_address, destination_01, destination_02, destination_03, destination_04, destination_05, time_pickup, date_pickup, flight_number, total_people, luggage_weight, first_name, last_name, address, city, postal_code, country, phone, email, _id, status } = props.booking || {}
 
-    const showEmail = () => alert('Email Address: ' + email);
-    const showPhone = () => alert('Phone Number: ' + phone);
+    const showEmail = () => alert('E-Mail-Addresse: ' + email);
+    const showPhone = () => alert('Telefonnummer: ' + phone);
 
     return (
 
 
         <tr id='booking-list'>
-            <th title='Client Name' scope="row">{first_name} {last_name}</th>
-            <td title='Start Address'>{start_address}</td>
-            <td title='Final Destination'>{destination_01}</td>
+            <th title='Kundenname' scope="row">{first_name} {last_name}</th>
+            <td title='Startadresse'>{start_address}</td>
+            <td title='Endstation'>{destination_01}</td>
             {/* <td title='Stop 01'>{destination_02}</td>
             <td title='Stop 02'>{destination_03}</td>
             <td title='Stop 03'>{destination_04}</td>
             <td title='Stop 04'>{destination_05}</td> */}
-            <td title='Pickup Time & Date<'>{time_pickup}, {date_pickup}</td>
+            <td title='Abholzeit und -datum<'>{time_pickup}, {date_pickup}</td>
             {/* <td>{flight_number}</td>
             <td>{total_people}</td>
             <td>{luggage_weight}</td> */}

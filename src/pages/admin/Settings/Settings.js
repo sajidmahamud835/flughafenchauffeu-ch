@@ -32,15 +32,15 @@ const Settings = () => {
         {
             "_id": "62671d132c254186f07f737f",
             "id": 1,
-            "title": "Guest Information",
+            "title": "persönliche Informationen",
             "inputs": [
                 {
                     "id": 1,
                     "name": "first_name",
                     "type": "text",
-                    "placeholder": "Your First Name",
-                    "errorMessage": "Please enter your first name!",
-                    "label": "First Name",
+                    "placeholder": "Ihr Vorname",
+                    "errorMessage": "Geben Sie bitte Ihren Vornamen ein",
+                    "label": "Vorname",
                     "pattern": "^[A-Za-z0-9]{3,16}$",
                     "required": true
                 }
@@ -52,15 +52,15 @@ const Settings = () => {
         {
             "_id": "62671d132c254186f07f737f",
             "id": 1,
-            "title": "Guest Information",
+            "title": "persönliche Informationen",
             "inputs": [
                 {
                     "id": 1,
                     "name": "first_name",
                     "type": "text",
-                    "placeholder": "Your First Name",
-                    "errorMessage": "Please enter your first name!",
-                    "label": "First Name",
+                    "placeholder": "Ihr Vorname",
+                    "errorMessage": "Geben Sie bitte Ihren Vornamen ein",
+                    "label": "Vorname",
                     "pattern": "^[A-Za-z0-9]{3,16}$",
                     "required": true
                 }
@@ -104,9 +104,9 @@ const Settings = () => {
     return (
         <section className='row'>
             <div className="col-10 container shadow-sm p-5 my-3">
-                <h3 className="text-center m-2 p-4">General Settings</h3>
+                <h3 className="text-center m-2 p-4">Allgemeine Einstellungen</h3>
                 <form className="row g-3">
-                    <h4>MAP API & Calculator Settings</h4>
+                    <h4>MAP API & Rechnereinstellungen</h4>
 
                     <AppSettings
                         saveSettings={saveSettings}
@@ -116,11 +116,11 @@ const Settings = () => {
 
                     <h4>Form Settings</h4>
                     <FormsAdd />
-                    <h5 className="text-center">Trip Information</h5>
+                    <h5 className="text-center">Reiseinformationen</h5>
                     {
                         sectionOne[0].inputs.map((input) => (<FormsOption key={input.id} input={input} />))
                     }
-                    <h5 className="text-center">Personal Information</h5>
+                    <h5 className="text-center">persönliche Informationen</h5>
                     {
                         sectionTwo[0].inputs.map((input) => (<FormsOption key={input.id} input={input} />))
                     }

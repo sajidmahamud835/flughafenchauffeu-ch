@@ -15,26 +15,26 @@ const BookingProcess = () => {
         id: 1,
         name: "start_address",
         type: "text",
-        placeholder: "Pickup Location",
+        placeholder: "Treffpunkt",
         errorMessage:
             "Please enter the address where you want to get pickedup from.",
-        label: "Start address",
+        label: "Startadresse",
         required: true
     },
     {
         id: 2,
         name: "destination_01",
         type: "text",
-        placeholder: "Destination 01 (Final Destination)",
+        placeholder: "Ziel 01 (Endziel)",
         errorMessage:
             "Please enter the last address where you want to go.",
-        label: "Destination 01 (Final Destination)",
+        label: "Ziel 01 (Endziel)",
         required: true
 
     }]);
     const [tripInformation, setTripInformation] = useState({
         id: 2,
-        title: "Trip Information",
+        title: "Reiseinformationen",
         inputs: [
 
             {
@@ -43,8 +43,8 @@ const BookingProcess = () => {
                 type: "text",
                 placeholder: "Your Flight Number",
                 errorMessage:
-                    "Please enter your first name!",
-                label: "Flight Number",
+                    "Geben Sie bitte Ihren Vornamen ein",
+                label: "Flugnummer",
                 pattern: "^[A-Za-z0-9]{3,16}$",
                 required: true,
             }
@@ -59,7 +59,7 @@ const BookingProcess = () => {
 
     const [guestInformation, setGuestInformation] = useState({
         id: 2,
-        title: "Trip Information",
+        title: "Reiseinformationen",
         inputs: [
 
             {
@@ -68,8 +68,8 @@ const BookingProcess = () => {
                 type: "text",
                 placeholder: "Your Flight Number",
                 errorMessage:
-                    "Please enter your first name!",
-                label: "Flight Number",
+                    "Geben Sie bitte Ihren Vornamen ein",
+                label: "Flugnummer",
                 pattern: "^[A-Za-z0-9]{3,16}$",
                 required: true,
             }
@@ -89,7 +89,7 @@ const BookingProcess = () => {
             section: [
                 {
                     id: 1,
-                    title: "Select Locations",
+                    title: "Ort auswählen",
                     description: "Please select whare do you want to get picked up from",
                     inputs: destinations,
                     addInput: setDestination,
@@ -230,7 +230,7 @@ const BookingProcess = () => {
     return (
         <section id='booking_from' className='p-3'>
             <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow rounded">
-                <h2 className='text-center text-dark mb-3'>Book Your Trip</h2>
+                <h2 className='text-center text-dark mb-3'>buchen Sie Ihre Reise</h2>
                 <div style={display1}>
                     <Step1
                         key={forms[step].key}
@@ -251,12 +251,12 @@ const BookingProcess = () => {
                 {/* <!-- Button trigger modal --> */}
                 <div className='d-flex justify-content-between'>
                     <div>
-                        <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>Back</button>
+                        <button onClick={() => setStep(step - 1)} style={btnBackStyle} className='btn btn-outline-danger m-2 px-4'>zurück</button>
                         <button onClick={() => setStep(step + 1)} style={btnNextStyle} className='btn btn-primary m-2 px-4'>Next</button>
-                        <input style={btnSubmitStyle} className='btn btn-primary m-2 px-4' type="submit"></input>
+                        <input style={btnSubmitStyle} className='btn btn-primary m-2 px-4' type="submit" value="senden"></input>
                     </div>
                     <button type="button" style={btnBackStyle} className="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Already Have A User ID?
+                        Sie haben bereits eine Benutzer-ID?
                     </button>
                 </div>
             </form>
@@ -264,8 +264,8 @@ const BookingProcess = () => {
 
             <div className="card w-100 box px-5 py-3 m-2 mt-4 shadow border-0 rounded text-white bg-primary">
                 <div className="card-body">
-                    <h5 className="card-title">Need Help?</h5>
-                    <p className="card-text">We are here to help you. Please call us at +41 78 676 63 69.</p>
+                    <h5 className="card-title">brauchen Sie Hilfe?</h5>
+                    <p className="card-text">Gerne helfen wir Ihnen. Rufen Sie uns an unter +41 78 676 63 69</p>
                     <a href="tel:41786766369" className="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-telephone-fill" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
                     </svg> Call Now</a>

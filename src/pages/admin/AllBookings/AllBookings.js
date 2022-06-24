@@ -79,20 +79,20 @@ const AllBookings = () => {
     return (
         <div id='all-bookings p-5'>
             <div className="container shadow w-75 p-5">
-                <h3 className="text-center">All Bookings</h3>
+                <h3 className="text-center">alle Buchungen</h3>
                 <table className=" table  table-bordered table-sm" cellspacing="0"
                     width="100%">
                     <thead>
                         <tr>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Start Address</th>
-                            <th scope="col">Final Destination</th>
-                            <th scope="col">Pickup Time & Date</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Booking ID</th>
+                            <th scope="col">Kundenname</th>
+                            <th scope="col">Startadresse</th>
+                            <th scope="col">Endstation</th>
+                            <th scope="col">Abholzeit und -datum</th>
+                            <th scope="col">eMail</th>
+                            <th scope="col">Telefon</th>
+                            <th scope="col">Buchungs-ID</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Aktionen</th>
                         </tr>
                     </thead>
                     <tbody>

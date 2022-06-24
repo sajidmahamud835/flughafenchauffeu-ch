@@ -423,11 +423,11 @@ const ThankYou = () => {
                                         <div className='col-5 container bg-light shadow-sm p-5'>
                                             <h3 className='mb-3'>Client Details</h3>
                                             <h6><strong>User ID:</strong> <span className='bg-white shadow-sm p-1'>{userID}</span></h6>
-                                            <h6><strong>Client Name:</strong> {booking.first_name} {booking.last_name}</h6>
-                                            <h6><strong>Email: </strong> {booking.email}</h6>
-                                            <h6><strong>Phone:</strong> {booking.phone}</h6>
+                                            <h6><strong>Kundenname:</strong> {booking.first_name} {booking.last_name}</h6>
+                                            <h6><strong>eMail: </strong> {booking.email}</h6>
+                                            <h6><strong>Telefon:</strong> {booking.phone}</h6>
                                             <h6><strong>Address:</strong> {booking.address}</h6>
-                                            <h6><strong>City:</strong> {booking.city}</h6>
+                                            <h6><strong>Stadt:</strong> {booking.city}</h6>
                                             <h6><strong>Postal Code:</strong> {booking.postal_code}</h6>
                                             <h6><strong>Country:</strong> {booking.country}</h6>
                                             <hr />
@@ -439,7 +439,7 @@ const ThankYou = () => {
 
                                         <section id='cost_calculator' className='col-5 container bg-light shadow-sm p-5'>
                                             <h3 className='mb-3'>Booking Details</h3>
-                                            <h6><strong>Booking ID:</strong> {booking._id}</h6>
+                                            <h6><strong>Buchungs-ID:</strong> {booking._id}</h6>
                                             <hr />
                                             {booking.start_address_data &&
                                                 <small className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 384 512">
@@ -478,18 +478,18 @@ const ThankYou = () => {
                                                     <strong> Final Destinaton:</strong> <span title={`lat: ${booking.destination_01_data.position.lat}, lng: ${booking.destination_01_data.position.lng}`} >{booking.destination_01_data.title}</span>  </small>
                                             }
                                             <hr />
-                                            <h6><strong>Pickup Time & Date:</strong> {booking.time_pickup}, {booking.date_pickup}</h6>
+                                            <h6><strong>Abholzeit und -datum:</strong> {booking.time_pickup}, {booking.date_pickup}</h6>
                                             {booking.flight_number && <h6><strong>Flight Number:</strong> {booking.flight_number}</h6>}
                                             {booking.luggage_weight && <h6><strong>Luggage Weight:</strong> {booking.luggage_weight}</h6>}
                                             <hr />
                                             <h6 className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 16 16">
                                                 <path fillRule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h3.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z" />
                                                 <path fillRule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
-                                            </svg> <strong>Total Distance:</strong> {booking.distance && <span>{booking.distance} km</span>} {!booking.distance && <span>not claculated</span>}</h6>
+                                            </svg> <strong>Gesamtentfernung:</strong> {booking.distance && <span>{booking.distance} km</span>} {!booking.distance && <span>not claculated</span>}</h6>
                                             <h6 className='d-block'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-check" viewBox="0 0 16 16">
                                                 <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                                 <path fillRule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                                            </svg> <strong>Pessenger:</strong> {booking.total_people}</h6>
+                                            </svg> <strong>Passagiere:</strong> {booking.total_people}</h6>
 
                                             <hr />
                                             <h6 className='d-block'> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-cash" viewBox="0 0 16 16">
