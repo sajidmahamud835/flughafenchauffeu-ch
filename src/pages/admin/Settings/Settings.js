@@ -38,10 +38,10 @@ const Settings = () => {
                     "id": 1,
                     "name": "first_name",
                     "type": "text",
-                    "placeholder": "Ihr Vorname",
-                    "errorMessage": "Geben Sie bitte Ihren Vornamen ein",
-                    "label": "Vorname",
-                    "pattern": "^[A-Za-z0-9]{3,16}$",
+                    "placeholder": "",
+                    "errorMessage": "",
+                    "label": "",
+                    "pattern": "",
                     "required": true
                 }
             ]

@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const FormsAdd = () => {
     const id = "015";
+    const [formData, setFormData] = useState({
+        name: "",
+        id: "",
+        type: "",
+        placeholder: "",
+        errorMessage: "",
+        regExCheck: "",
+        requried: "",
+        section: "",
+
+    });
     return (
 
         <div className="card m-3 p-3 bg-light">
@@ -23,7 +34,7 @@ const FormsAdd = () => {
                         <option value="false">No</option>
                         <option value="true">Yes</option>
                     </select>
-                    <label for={"required" + id} className="form-label">Abschnitt</label><select name="required" type="text" className="form-control" id={"required" + id} >
+                    <label for={"section" + id} className="form-label">Abschnitt</label><select name="section" type="text" className="form-control" id={"section" + id} >
                         <option value="false">Reiseinformationen</option>
                         <option value="true">persönliche Informationen</option>
                     </select>
