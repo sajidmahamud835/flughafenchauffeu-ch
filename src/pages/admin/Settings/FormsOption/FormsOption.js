@@ -4,42 +4,56 @@ import { useState } from 'react';
 
 const FormsOption = (props) => {
     const { _id, id, name, type, placeholder, errorMessage, label, pattern, required } = props.input;
-    const [updateFormData, setUpdateFormData] = useState({});
+    const [updatedFormData, setUpdatedFormData] = useState({ id, name, type, placeholder, errorMessage, label, pattern, required });
     if (_id) {
-        setUpdateFormData(...updateFormData, _id);
+        setUpdatedFormData(...updatedFormData, _id);
     };
-    useEffect(() => { console.log('updatedFormData has been changed', updateFormData); }, [updateFormData]);
+    const updateFormData = (e, updatedFormData) => {
+        e.preventDefault();
+        console.log(updatedFormData);
+        // const url = `${process.env.REACT_APP_SERVER_URL}/form/trip-information/`;
+        // fetch(url, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+        //     .then(res => res.json())
+        //     .then(data => console.log(data));
+    };
+    // useEffect(() => { console.log('updatedFormData has been changed', updatedFormData); }, [updatedFormData]);
     return (
         <div className="card col-md-3 m-5 p-3 ">
             <label for={"label" + id} className="form-label">Name</label>
-            <input onChange={(e) => setUpdateFormData({ ...updateFormData, label: e.target.value })} type="text" className="form-control" defaultValue={label} id={"label" + id} />
+            <input onChange={(e) => setUpdatedFormData({ ...updatedFormData, label: e.target.value })} type="text" className="form-control" defaultValue={label} id={"label" + id} />
 
             <label for={"name" + id} className="form-label">ID</label>
-            <input onChange={(e) => setUpdateFormData({ ...updateFormData, name: e.target.value })} type="text" className="form-control" defaultValue={name} id={"name" + id} disabled />
+            <input onChange={(e) => setUpdatedFormData({ ...updatedFormData, name: e.target.value })} type="text" className="form-control" defaultValue={name} id={"name" + id} disabled />
 
             <label for={"type" + id} className="form-label">Type</label>
-            <select onChange={(e) => setUpdateFormData({ ...updateFormData, type: e.target.value })} name="type" className="form-control" defaultValue={type} id={"type" + id} >
+            <select onChange={(e) => setUpdatedFormData({ ...updatedFormData, type: e.target.value })} name="type" className="form-control" defaultValue={type} id={"type" + id} >
                 <option defaultValue="text">text</option>
                 <option defaultValue="phone">phone</option>
                 <option defaultValue="email">email</option>
             </select>
             <label for={"placeholder" + id} className="form-label">Placeholder</label>
-            <input onChange={(e) => setUpdateFormData({ ...updateFormData, placeholder: e.target.value })} type="text" className="form-control" defaultValue={placeholder} id={"placeholder" + id} />
+            <input onChange={(e) => setUpdatedFormData({ ...updatedFormData, placeholder: e.target.value })} type="text" className="form-control" defaultValue={placeholder} id={"placeholder" + id} />
 
             <label for={"errorMessage" + id} className="form-label">Error Message</label>
-            <input onChange={(e) => setUpdateFormData({ ...updateFormData, errorMessage: e.target.value })} type="text" className="form-control" defaultValue={errorMessage} id={"errorMessage" + id} />
+            <input onChange={(e) => setUpdatedFormData({ ...updatedFormData, errorMessage: e.target.value })} type="text" className="form-control" defaultValue={errorMessage} id={"errorMessage" + id} />
 
             <label for={"pattern" + id} className="form-label">RegEx Check</label>
-            <input onChange={(e) => setUpdateFormData({ ...updateFormData, pattern: e.target.value })} type="text" className="form-control" defaultValue={pattern} id={"pattern" + id} />
+            <input onChange={(e) => setUpdatedFormData({ ...updatedFormData, pattern: e.target.value })} type="text" className="form-control" defaultValue={pattern} id={"pattern" + id} />
 
             <label for={"required" + id} className="form-label">Requried</label>
-            <select onChange={(e) => setUpdateFormData({ ...updateFormData, required: e.target.value })} name="required" type="text" className="form-control" defaultValue={required} id={"required" + id} >
+            <select onChange={(e) => setUpdatedFormData({ ...updatedFormData, required: e.target.value })} name="required" type="text" className="form-control" defaultValue={required} id={"required" + id} >
                 <option defaultValue="false">No</option>
                 <option defaultValue="true">Yes</option>
             </select>
 
             <div className="col-12">
-                <button type="submit" className="btn btn-primary mt-3">Update</button>
+                <button onClick={(e) => updateFormData(e, updatedFormData)} type="submit" className="btn btn-primary mt-3">Update</button>
             </div>
         </div >
     );

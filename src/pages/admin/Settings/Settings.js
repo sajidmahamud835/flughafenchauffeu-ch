@@ -89,18 +89,19 @@ const Settings = () => {
             .then(data => console.log(data));
     };
 
-    const updateFormData = (e, data) => {
+    const updateFormData = (e, updatedFormData) => {
         e.preventDefault();
-        const url = `${process.env.REACT_APP_SERVER_URL}/form/trip-information/`;
-        fetch(url, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => console.log(data));
+        console.log(updatedFormData);
+        // const url = `${process.env.REACT_APP_SERVER_URL}/form/trip-information/`;
+        // fetch(url, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // })
+        //     .then(res => res.json())
+        //     .then(data => console.log(data));
     };
 
     useEffect(() =>
@@ -132,11 +133,11 @@ const Settings = () => {
                     <FormsAdd />
                     <h5 className="text-center">Reiseinformationen</h5>
                     {
-                        sectionOne[0].inputs.map((input) => (<FormsOption key={input._id} input={input} />))
+                        sectionOne[0].inputs.map((input) => (<FormsOption key={input.id} updateFormData={updateFormData} input={input} />))
                     }
                     <h5 className="text-center">persönliche Informationen</h5>
                     {
-                        sectionTwo[0].inputs.map((input) => (<FormsOption key={input._id} input={input} />))
+                        sectionTwo[0].inputs.map((input) => (<FormsOption key={input.id} updateFormData={updateFormData} input={input} />))
                     }
                 </form>
 
