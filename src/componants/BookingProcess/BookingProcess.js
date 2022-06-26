@@ -34,11 +34,33 @@ const BookingProcess = () => {
     }]);
     const [tripInformation, setTripInformation] = useState({
         id: 2,
-        title: "Travel information",
+        title: "Reiseinformationen",
         inputs: [
 
         ]
     });
+
+    const defultData = {
+        start_address: "",
+        destination_01: "",
+        destination_02: "",
+        destination_03: "",
+        destination_04: "",
+        destination_05: "",
+        time_pickup: "",
+        date_pickup: "",
+        flight_number: "",
+        total_people: 1,
+        luggage_weight: "",
+        first_name: "",
+        last_name: "",
+        address: "",
+        city: "",
+        postal_code: "",
+        country: "",
+        phone: "",
+        email: "",
+    };
 
     useEffect(() =>
         fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
@@ -91,11 +113,11 @@ const BookingProcess = () => {
     const { values, setValues } = useContext(FormContext);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
 
         if (userID.length < 2) {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
                 first_name: values.first_name,
                 last_name: values.last_name,
                 address: values.address,
@@ -111,41 +133,20 @@ const BookingProcess = () => {
         }
 
         console.log(values);
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userId: userID })
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userID })
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
-                setValues({
-                    start_address: "",
-                    destination_01: "",
-                    destination_02: "",
-                    destination_03: "",
-                    destination_04: "",
-                    destination_05: "",
-                    time_pickup: "",
-                    date_pickup: "",
-                    flight_number: "",
-                    total_people: 1,
-                    luggage_weight: "",
-                    first_name: "",
-                    last_name: "",
-                    address: "",
-                    city: "",
-                    postal_code: "",
-                    country: "",
-                    phone: "",
-                    email: "",
-                });
+                setValues(defultData);
+                setEmail(
+                    {
+                        from: "FlughafenChauffeur <postmaster@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
+                        to: ["sajidmahamud835@gmail.com"],
+                        subject: "New booking has been created!",
+                        text: "Testing some Mailgun awesomness!",
+                    }
+                );
             });
-
-        setEmail(
-            {
-                from: "Mailgun Sandbox <postmaster@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
-                to: ["sajidmahamud835@gmail.com"],
-                subject: "Hello",
-                text: "Testing some Mailgun awesomness!",
-            }
-        );
 
     };
 
@@ -258,11 +259,3 @@ const BookingProcess = () => {
 };
 
 export default BookingProcess;
-
-// const inputNameGen = (name) => {
-    //     num++;
-    //     return {
-    //         id: name.toLowerCase() + '_' + num,
-    //         name: name + ' ' + num
-    //     }
-    // }

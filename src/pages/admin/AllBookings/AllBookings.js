@@ -77,8 +77,8 @@ const AllBookings = () => {
         , [dataChange]);
 
     return (
-        <div id='all-bookings p-5'>
-            <div className="container shadow w-75 p-5">
+        <div id='all-bookings'>
+            <div className="container">
                 <h3 className="text-center">alle Buchungen</h3>
                 <table className=" table  table-bordered table-sm" cellspacing="0"
                     width="100%">
