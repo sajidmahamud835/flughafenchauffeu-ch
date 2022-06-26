@@ -9,11 +9,10 @@ import SingleBooking from './pages/admin/SingleBooking/SingleBooking';
 import BookASchedule from './pages/BookASchedule/BookASchedule';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
-import NotFound from './pages/NotFound/NotFound';
 import ThankYou from './pages/ThankYou/ThankYou';
+
 export const FormContext = createContext("form");
 function App() {
-
   const [values, setValues] = useState({});
   const [suggestions, setSuggestions] = useState({});
   const [userID, setUserID] = useState("");

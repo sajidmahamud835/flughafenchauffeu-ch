@@ -5,7 +5,9 @@ import Step2 from './Step2/Step2';
 import { FormContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
-const BookingProcess = () => {
+const BookingProcess = (props) => {
+    const { setLoading } = props;
+
     const [response, setResponse] = useState({});
     const { userID, setUserID } = useContext(FormContext);
     const [userData, setUserData] = useState({});
@@ -66,6 +68,7 @@ const BookingProcess = () => {
         fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
             .then(res => res.json())
             .then(data => setTripInformation(data))
+            .then(() => setLoading(false))
         , []);
 
     const [guestInformation, setGuestInformation] = useState({
