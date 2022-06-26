@@ -34,52 +34,29 @@ const BookingProcess = () => {
     }]);
     const [tripInformation, setTripInformation] = useState({
         id: 2,
-        title: "Reiseinformationen",
+        title: "Travel information",
         inputs: [
 
-            {
-                id: 3,
-                name: "flight_number",
-                type: "text",
-                placeholder: "Your Flight Number",
-                errorMessage:
-                    "Geben Sie bitte Ihren Vornamen ein",
-                label: "Flugnummer",
-                pattern: "^[A-Za-z0-9]{3,16}$",
-                required: true,
-            }
         ]
     });
 
     useEffect(() =>
-        fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
             .then(res => res.json())
-            .then(data => setTripInformation(data.forms[0]))
+            .then(data => setTripInformation(data))
         , []);
 
     const [guestInformation, setGuestInformation] = useState({
         id: 2,
-        title: "Reiseinformationen",
+        title: "Guest information",
         inputs: [
-
-            {
-                id: 3,
-                name: "flight_number",
-                type: "text",
-                placeholder: "Your Flight Number",
-                errorMessage:
-                    "Geben Sie bitte Ihren Vornamen ein",
-                label: "Flugnummer",
-                pattern: "^[A-Za-z0-9]{3,16}$",
-                required: true,
-            }
         ]
     });
 
     useEffect(() =>
-        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guestInfo`)
             .then(res => res.json())
-            .then(data => setGuestInformation(data.forms[0]))
+            .then(data => setGuestInformation(data))
         , []);
 
 
@@ -231,22 +208,27 @@ const BookingProcess = () => {
         <section id='booking_from' className='p-3'>
             <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow rounded">
                 <h2 className='text-center text-dark mb-3'>buchen Sie Ihre Reise</h2>
-                <div style={display1}>
-                    <Step1
-                        key={forms[step].key}
-                        forms={forms}
-                    />
-                </div>
-                <div style={display2}>
-                    <Step2
-                        key={forms[step].key}
-                        forms={forms}
-                        values={values}
-                        setValues={setValues}
-                        userData={userData}
-                        setUserData={setUserData}
-                    />
-                </div>
+                {forms &&
+                    <div style={display1}>
+                        <Step1
+                            key={forms[step].key}
+                            forms={forms}
+                        />
+                    </div>
+                }
+
+                {forms &&
+                    <div style={display2}>
+                        <Step2
+                            key={forms[step].key}
+                            forms={forms}
+                            values={values}
+                            setValues={setValues}
+                            userData={userData}
+                            setUserData={setUserData}
+                        />
+                    </div>
+                }
 
                 {/* <!-- Button trigger modal --> */}
                 <div className='d-flex justify-content-between'>

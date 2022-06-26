@@ -28,45 +28,8 @@ const Settings = () => {
         }
     });
     const [generalSettings, setGeneralSettings] = useState({});
-    const [sectionOne, setSectionOne] = useState([
-        {
-            "_id": "62671d132c254186f07f737f",
-            "id": 1,
-            "title": "persönliche Informationen",
-            "inputs": [
-                {
-                    "id": 1,
-                    "name": "first_name",
-                    "type": "text",
-                    "placeholder": "",
-                    "errorMessage": "",
-                    "label": "",
-                    "pattern": "",
-                    "required": true
-                }
-            ]
-        }
-    ]);
-
-    const [sectionTwo, setSectionTwo] = useState([
-        {
-            "_id": "62671d132c254186f07f737f",
-            "id": 1,
-            "title": "persönliche Informationen",
-            "inputs": [
-                {
-                    "id": 1,
-                    "name": "first_name",
-                    "type": "text",
-                    "placeholder": "Ihr Vorname",
-                    "errorMessage": "Geben Sie bitte Ihren Vornamen ein",
-                    "label": "Vorname",
-                    "pattern": "^[A-Za-z0-9]{3,16}$",
-                    "required": true
-                }
-            ]
-        }
-    ]);
+    const [sectionOne, setSectionOne] = useState([]);
+    const [sectionTwo, setSectionTwo] = useState([]);
 
     useEffect(() =>
         fetch(`${process.env.REACT_APP_SERVER_URL}/general-settings`)
@@ -89,31 +52,26 @@ const Settings = () => {
             .then(data => console.log(data));
     };
 
-    const updateFormData = (e, updatedFormData) => {
-        e.preventDefault();
-        console.log(updatedFormData);
-        // const url = `${process.env.REACT_APP_SERVER_URL}/form/trip-information/`;
-        // fetch(url, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => console.log(data));
-    };
+    // useEffect(() =>
+    //     fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
+    //         .then(res => res.json())
+    //         .then(data => setSectionOne(data.forms))
+    //     , []);
+    // useEffect(() =>
+    //     fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
+    //         .then(res => res.json())
+    //         .then(data => setSectionTwo(data.forms))
+    //     , []);
 
     useEffect(() =>
-        fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
             .then(res => res.json())
-            .then(data => setSectionOne(data.forms))
+            .then(data => setSectionOne(data))
         , []);
-
     useEffect(() =>
-        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guestInfo`)
             .then(res => res.json())
-            .then(data => setSectionTwo(data.forms))
+            .then(data => setSectionTwo(data))
         , []);
 
     return (
@@ -132,12 +90,12 @@ const Settings = () => {
                     <h4>Form Settings</h4>
                     <FormsAdd />
                     <h5 className="text-center">Reiseinformationen</h5>
-                    {
-                        sectionOne[0].inputs.map((input) => (<FormsOption key={input.id} updateFormData={updateFormData} input={input} />))
+                    {sectionOne.inputs &&
+                        sectionOne.inputs.map((input) => (<FormsOption key={input.id} input={input} />))
                     }
                     <h5 className="text-center">persönliche Informationen</h5>
-                    {
-                        sectionTwo[0].inputs.map((input) => (<FormsOption key={input.id} updateFormData={updateFormData} input={input} />))
+                    {sectionTwo.inputs &&
+                        sectionTwo.inputs.map((input) => (<FormsOption key={input.id} input={input} />))
                     }
                 </form>
 

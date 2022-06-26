@@ -1,26 +1,26 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 
 const FormsOption = (props) => {
     const { _id, id, name, type, placeholder, errorMessage, label, pattern, required } = props.input;
-    const [updatedFormData, setUpdatedFormData] = useState({ id, name, type, placeholder, errorMessage, label, pattern, required });
-    if (_id) {
-        setUpdatedFormData(...updatedFormData, _id);
-    };
+    const [updatedFormData, setUpdatedFormData] = useState({ _id, id, name, type, placeholder, errorMessage, label, pattern, required });
+    // if (_id) {
+    //     setUpdatedFormData(...updatedFormData, _id);
+    // };
     const updateFormData = (e, updatedFormData) => {
         e.preventDefault();
         console.log(updatedFormData);
-        // const url = `${process.env.REACT_APP_SERVER_URL}/form/trip-information/`;
-        // fetch(url, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => console.log(data));
+        const url = `${process.env.REACT_APP_SERVER_URL}/form/tripInfo/${_id}`;
+        console.log(url)
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(updatedFormData)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
     };
     // useEffect(() => { console.log('updatedFormData has been changed', updatedFormData); }, [updatedFormData]);
     return (
