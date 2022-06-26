@@ -10,7 +10,7 @@ const AppSettings = (props) => {
             </div>
             <div className="col-md-6">
                 <label for="apiKey" className="form-label">MAP-API-Schlüssel</label>
-                <input type="password" onChange={(e) => setGeneralSettings({ ...generalSetting, apiKey: e.target.value })} defaultValue={generalSetting.apiKey} placeholder='Here.com API Key' className="form-control" id="apiKey" />
+                <input type="text" onChange={(e) => setGeneralSettings({ ...generalSetting, apiKey: e.target.value })} defaultValue={generalSetting.apiKey} placeholder='Here.com API Key' className="form-control" id="apiKey" />
             </div>
             <div className="col-md-6">
                 <label for="pricePerKm" className="form-label">Preis pro Kilometer</label>

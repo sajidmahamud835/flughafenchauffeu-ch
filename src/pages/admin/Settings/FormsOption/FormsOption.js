@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormsOption = (props) => {
     const { _id, id, name, type, placeholder, errorMessage, label, pattern, required } = props.input;
@@ -10,7 +12,7 @@ const FormsOption = (props) => {
     const updateFormData = (e, updatedFormData) => {
         e.preventDefault();
         console.log(updatedFormData);
-        const url = `${process.env.REACT_APP_SERVER_URL}/form/tripInfo/${_id}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/form/${props.collectionName}/${_id}`;
         console.log(url)
         fetch(url, {
             method: 'PUT',
@@ -21,6 +23,7 @@ const FormsOption = (props) => {
         })
             .then(res => res.json())
             .then(data => console.log(data));
+        toast(`Input field "${name}" updated successfully.`);
     };
     // useEffect(() => { console.log('updatedFormData has been changed', updatedFormData); }, [updatedFormData]);
     return (

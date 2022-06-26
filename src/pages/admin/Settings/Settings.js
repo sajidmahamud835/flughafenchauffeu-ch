@@ -2,7 +2,7 @@ import { getAuth } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import FirebaseApp from '../../../firebase/FirebaseApp';
 import AppSettings from './AppSettings/AppSettings';
 import FormsAdd from './FormsAdd/FormsAdd';
@@ -50,18 +50,8 @@ const Settings = () => {
         })
             .then(res => res.json())
             .then(data => console.log(data));
+        toast(`General Settings updated successfully.`)
     };
-
-    // useEffect(() =>
-    //     fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
-    //         .then(res => res.json())
-    //         .then(data => setSectionOne(data.forms))
-    //     , []);
-    // useEffect(() =>
-    //     fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
-    //         .then(res => res.json())
-    //         .then(data => setSectionTwo(data.forms))
-    //     , []);
 
     useEffect(() =>
         fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
@@ -77,6 +67,7 @@ const Settings = () => {
     return (
         <section className='row'>
             <div className="col-10 container shadow-sm p-5 my-3">
+                <ToastContainer />
                 <h3 className="text-center m-2 p-4">Allgemeine Einstellungen</h3>
                 <form className="row g-3">
                     <h4>MAP API & Rechnereinstellungen</h4>
@@ -91,11 +82,11 @@ const Settings = () => {
                     <FormsAdd />
                     <h5 className="text-center">Reiseinformationen</h5>
                     {sectionOne.inputs &&
-                        sectionOne.inputs.map((input) => (<FormsOption key={input.id} input={input} />))
+                        sectionOne.inputs.map((input) => (<FormsOption key={input.id} input={input} collectionName={sectionOne.collectionName} />))
                     }
                     <h5 className="text-center">persönliche Informationen</h5>
                     {sectionTwo.inputs &&
-                        sectionTwo.inputs.map((input) => (<FormsOption key={input.id} input={input} />))
+                        sectionTwo.inputs.map((input) => (<FormsOption key={input.id} input={input} collectionName={sectionTwo.collectionName} />))
                     }
                 </form>
 
