@@ -32,7 +32,7 @@
         "id": {
             "$numberInt": "1"
         },
-        "title": "Guest Information",
+        "title": "persönliche Informationen",
         "inputs": [
             {
                 "id": {
@@ -128,7 +128,7 @@
         "id": {
             "$numberInt": "2"
         },
-        "title": "Trip Information",
+        "title": "Reiseinformationen",
         "inputs": [
             {
                 "id": {

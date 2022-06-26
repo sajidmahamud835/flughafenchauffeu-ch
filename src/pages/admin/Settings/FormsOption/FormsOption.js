@@ -36,9 +36,15 @@ const FormsOption = (props) => {
 
             <label for={"type" + id} className="form-label">Type</label>
             <select onChange={(e) => setUpdatedFormData({ ...updatedFormData, type: e.target.value })} name="type" className="form-control" defaultValue={type} id={"type" + id} >
-                <option defaultValue="text">text</option>
-                <option defaultValue="phone">phone</option>
-                <option defaultValue="email">email</option>
+                <option value="text">text</option>
+                <option value="number">number</option>
+                <option value="tel">tel</option>
+                <option value="email">email</option>
+                <option value="color">color</option>
+                <option value="date">date</option>
+                <option value="time">time</option>
+                <option value="password">password</option>
+                <option value="url">url</option>
             </select>
             <label for={"placeholder" + id} className="form-label">Placeholder</label>
             <input onChange={(e) => setUpdatedFormData({ ...updatedFormData, placeholder: e.target.value })} type="text" className="form-control" defaultValue={placeholder} id={"placeholder" + id} />

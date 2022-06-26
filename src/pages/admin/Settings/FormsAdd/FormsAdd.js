@@ -22,8 +22,13 @@ const FormsAdd = () => {
                     <label for={"name" + id} className="form-label">ID</label><input type="text" className="form-control" value={"field_0" + id} id={"name" + id} disabled />
                     <label for={"type" + id} className="form-label">Type</label><select name="type" className="form-control" id={"type" + id} >
                         <option value="text">text</option>
-                        <option value="phone">phone</option>
+                        <option value="tel">tel</option>
                         <option value="email">email</option>
+                        <option value="color">color</option>
+                        <option value="date">date</option>
+                        <option value="time">time</option>
+                        <option value="password">password</option>
+                        <option value="url">url</option>
                     </select>
                     <label for={"placeholder" + id} className="form-label">Placeholder</label><input type="text" className="form-control" id={"placeholder" + id} />
                 </div>
