@@ -5,7 +5,9 @@ import Step2 from './Step2/Step2';
 import { FormContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
-const BookingProcess = () => {
+const BookingProcess = (props) => {
+    const { setLoading } = props;
+
     const [response, setResponse] = useState({});
     const { userID, setUserID } = useContext(FormContext);
     const [userData, setUserData] = useState({});
@@ -37,49 +39,49 @@ const BookingProcess = () => {
         title: "Reiseinformationen",
         inputs: [
 
-            {
-                id: 3,
-                name: "flight_number",
-                type: "text",
-                placeholder: "Your Flight Number",
-                errorMessage:
-                    "Geben Sie bitte Ihren Vornamen ein",
-                label: "Flugnummer",
-                pattern: "^[A-Za-z0-9]{3,16}$",
-                required: true,
-            }
         ]
     });
 
+    const defultData = {
+        start_address: "",
+        destination_01: "",
+        destination_02: "",
+        destination_03: "",
+        destination_04: "",
+        destination_05: "",
+        time_pickup: "",
+        date_pickup: "",
+        flight_number: "",
+        total_people: 1,
+        luggage_weight: "",
+        first_name: "",
+        last_name: "",
+        address: "",
+        city: "",
+        postal_code: "",
+        country: "",
+        phone: "",
+        email: "",
+    };
+
     useEffect(() =>
-        fetch(`${process.env.REACT_APP_SERVER_URL}/form/trip-information`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
             .then(res => res.json())
-            .then(data => setTripInformation(data.forms[0]))
+            .then(data => setTripInformation(data))
+            .then(() => setLoading(false))
         , []);
 
     const [guestInformation, setGuestInformation] = useState({
         id: 2,
-        title: "Reiseinformationen",
+        title: "Guest information",
         inputs: [
-
-            {
-                id: 3,
-                name: "flight_number",
-                type: "text",
-                placeholder: "Your Flight Number",
-                errorMessage:
-                    "Geben Sie bitte Ihren Vornamen ein",
-                label: "Flugnummer",
-                pattern: "^[A-Za-z0-9]{3,16}$",
-                required: true,
-            }
         ]
     });
 
     useEffect(() =>
-        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guest-information`)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/form/guestInfo`)
             .then(res => res.json())
-            .then(data => setGuestInformation(data.forms[0]))
+            .then(data => setGuestInformation(data))
         , []);
 
 
@@ -114,11 +116,11 @@ const BookingProcess = () => {
     const { values, setValues } = useContext(FormContext);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
 
         if (userID.length < 2) {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
                 first_name: values.first_name,
                 last_name: values.last_name,
                 address: values.address,
@@ -134,41 +136,20 @@ const BookingProcess = () => {
         }
 
         console.log(values);
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userId: userID })
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/bookings`, { ...values, userID })
             .then(res => {
                 console.log(res.data);
                 setResponse(res.data);
-                setValues({
-                    start_address: "",
-                    destination_01: "",
-                    destination_02: "",
-                    destination_03: "",
-                    destination_04: "",
-                    destination_05: "",
-                    time_pickup: "",
-                    date_pickup: "",
-                    flight_number: "",
-                    total_people: 1,
-                    luggage_weight: "",
-                    first_name: "",
-                    last_name: "",
-                    address: "",
-                    city: "",
-                    postal_code: "",
-                    country: "",
-                    phone: "",
-                    email: "",
-                });
+                setValues(defultData);
+                setEmail(
+                    {
+                        from: "FlughafenChauffeur <postmaster@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
+                        to: ["sajidmahamud835@gmail.com"],
+                        subject: "New booking has been created!",
+                        text: "Testing some Mailgun awesomness!",
+                    }
+                );
             });
-
-        setEmail(
-            {
-                from: "Mailgun Sandbox <postmaster@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
-                to: ["sajidmahamud835@gmail.com"],
-                subject: "Hello",
-                text: "Testing some Mailgun awesomness!",
-            }
-        );
 
     };
 
@@ -231,22 +212,27 @@ const BookingProcess = () => {
         <section id='booking_from' className='p-3'>
             <form onSubmit={handleSubmit} className="box px-5 py-3 m-2 shadow rounded">
                 <h2 className='text-center text-dark mb-3'>buchen Sie Ihre Reise</h2>
-                <div style={display1}>
-                    <Step1
-                        key={forms[step].key}
-                        forms={forms}
-                    />
-                </div>
-                <div style={display2}>
-                    <Step2
-                        key={forms[step].key}
-                        forms={forms}
-                        values={values}
-                        setValues={setValues}
-                        userData={userData}
-                        setUserData={setUserData}
-                    />
-                </div>
+                {forms &&
+                    <div style={display1}>
+                        <Step1
+                            key={forms[step].key}
+                            forms={forms}
+                        />
+                    </div>
+                }
+
+                {forms &&
+                    <div style={display2}>
+                        <Step2
+                            key={forms[step].key}
+                            forms={forms}
+                            values={values}
+                            setValues={setValues}
+                            userData={userData}
+                            setUserData={setUserData}
+                        />
+                    </div>
+                }
 
                 {/* <!-- Button trigger modal --> */}
                 <div className='d-flex justify-content-between'>
@@ -276,11 +262,3 @@ const BookingProcess = () => {
 };
 
 export default BookingProcess;
-
-// const inputNameGen = (name) => {
-    //     num++;
-    //     return {
-    //         id: name.toLowerCase() + '_' + num,
-    //         name: name + ' ' + num
-    //     }
-    // }
