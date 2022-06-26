@@ -68,7 +68,6 @@ const BookingProcess = (props) => {
         fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
             .then(res => res.json())
             .then(data => setTripInformation(data))
-            .then(() => setLoading(false))
         , []);
 
     const [guestInformation, setGuestInformation] = useState({
