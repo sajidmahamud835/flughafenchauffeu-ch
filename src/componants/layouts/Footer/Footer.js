@@ -12,10 +12,10 @@ const Footer = () => {
                     <span className='ico ico-logo'></span>
                 </li>
                 <li>
-                    <a href='/'>Bedingungen</a>
+                    <a href='/page5.html'>Bedingungen</a>
                 </li>
                 <li>
-                    <a href='/'>Datenschutz-Bestimmungen</a>
+                    <a href='/page8.html'>Impressum</a>
                 </li>
                 <br />
                 <ul className='ms-auto d-lg-flex'>
