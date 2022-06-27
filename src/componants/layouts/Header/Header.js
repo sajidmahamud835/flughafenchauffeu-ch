@@ -25,7 +25,16 @@ const Header = () => {
                                 <Link className="nav-link active" aria-current="page" to="//flughafenchauffeur.ch/">Home</Link>
                             </li>
                             <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page" href="//flughafenchauffeur.ch/page2.html">Info</NavLink>
+                            </li>
+                            <li className="nav-item">
                                 <NavLink className="nav-link active" aria-current="page" href="//flughafenchauffeur.ch/page3.html">Sachentransporte</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page" href="//flughafenchauffeur.ch/page4.html">AGB´s</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link active" aria-current="page" href="//flughafenchauffeur.ch/page5.html">Bilder</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link active" aria-current="page" href="//flughafenchauffeur.ch/index.html#content2-11#">Kontakt</NavLink>
