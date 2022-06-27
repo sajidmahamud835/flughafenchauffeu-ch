@@ -1,0 +1,187 @@
+[
+    {
+        "_id": {
+            "$oid": "626634a61f845dd45de6ed10"
+        },
+        "start_address": "",
+        "destination_01": "",
+        "destination_02": "",
+        "destination_03": "",
+        "destination_04": "",
+        "destination_05": "",
+        "time_pickup": "",
+        "date_pickup": "",
+        "flight_number": "",
+        "total_people": {
+            "$numberInt": "1"
+        },
+        "luggage_weight": "",
+        "first_name": "",
+        "last_name": "",
+        "address": "",
+        "city": "",
+        "postal_code": "",
+        "country": "",
+        "phone": "",
+        "email": ""
+    },
+    {
+        "_id": {
+            "$oid": "62671d132c254186f07f737f"
+        },
+        "id": {
+            "$numberInt": "1"
+        },
+        "title": "persönliche Informationen",
+        "inputs": [
+            {
+                "id": {
+                    "$numberInt": "1"
+                },
+                "name": "first_name",
+                "type": "text",
+                "placeholder": "Your First Name",
+                "errorMessage": "Please enter your first name!",
+                "label": "First Name",
+                "pattern": "^[A-Za-z0-9]{3,16}$",
+                "required": true
+            },
+            {
+                "id": {
+                    "$numberInt": "2"
+                },
+                "name": "last_name",
+                "type": "text",
+                "placeholder": "Your Last Name",
+                "errorMessage": "Please enter your last name!",
+                "label": "Last Name",
+                "pattern": "^[A-Za-z0-9]{3,16}$",
+                "required": true
+            },
+            {
+                "id": {
+                    "$numberInt": "3"
+                },
+                "name": "address",
+                "type": "text",
+                "placeholder": "Your Street Address",
+                "errorMessage": "It should be address!",
+                "label": "Street Address"
+            },
+            {
+                "id": {
+                    "$numberInt": "4"
+                },
+                "name": "city",
+                "type": "text",
+                "placeholder": "Your City",
+                "errorMessage": "Please enter a valid postal code!",
+                "label": "City"
+            },
+            {
+                "id": {
+                    "$numberInt": "5"
+                },
+                "name": "postal_code",
+                "type": "number",
+                "placeholder": "Postal code",
+                "errorMessage": "Please enter a valid postal code!",
+                "label": "Postal code"
+            },
+            {
+                "id": {
+                    "$numberInt": "6"
+                },
+                "name": "country",
+                "type": "text",
+                "placeholder": "Your Country",
+                "errorMessage": "Please enter a valid postal code!",
+                "label": "Country"
+            },
+            {
+                "id": {
+                    "$numberInt": "7"
+                },
+                "name": "phone",
+                "type": "phone",
+                "placeholder": "Your Phone Number",
+                "label": "Phone Nubmer",
+                "required": true
+            },
+            {
+                "id": {
+                    "$numberInt": "8"
+                },
+                "name": "email",
+                "type": "email",
+                "placeholder": "Your Email Address",
+                "errorMessage": "It should be a valid email address!",
+                "label": "Email",
+                "required": true
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "62670ddc2c254186f07886a5"
+        },
+        "id": {
+            "$numberInt": "2"
+        },
+        "title": "Reiseinformationen",
+        "inputs": [
+            {
+                "id": {
+                    "$numberInt": "1"
+                },
+                "name": "time_pickup",
+                "type": "time",
+                "placeholder": "Time We Pick You",
+                "label": "Time We Pick You"
+            },
+            {
+                "id": {
+                    "$numberInt": "2"
+                },
+                "name": "date_pickup",
+                "type": "date",
+                "placeholder": "Date We Pick You",
+                "label": "Date We Pick You"
+            },
+            {
+                "id": {
+                    "$numberInt": "3"
+                },
+                "name": "flight_number",
+                "type": "text",
+                "placeholder": "Your Flight Number",
+                "errorMessage": "Please enter your first name!",
+                "label": "Flight Number",
+                "pattern": "^[A-Za-z0-9]{3,16}$",
+                "required": true
+            },
+            {
+                "id": {
+                    "$numberInt": "4"
+                },
+                "name": "total_people",
+                "type": "number",
+                "placeholder": "Number of People",
+                "errorMessage": "Please enter the destination you want to go.",
+                "label": "People",
+                "required": true
+            },
+            {
+                "id": {
+                    "$numberInt": "5"
+                },
+                "name": "luggage_weight",
+                "type": "number",
+                "placeholder": "Luggage Weight ",
+                "errorMessage": "Please enter the destination you want to go.",
+                "label": "Luggage Weight",
+                "required": true
+            }
+        ]
+    }
+]

@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const FormsAdd = () => {
     const id = "015";
+    const [formData, setFormData] = useState({
+        name: "",
+        id: "",
+        type: "",
+        placeholder: "",
+        errorMessage: "",
+        regExCheck: "",
+        requried: "",
+        section: "",
+
+    });
     return (
 
         <div className="card m-3 p-3 bg-light">
@@ -11,8 +22,13 @@ const FormsAdd = () => {
                     <label for={"name" + id} className="form-label">ID</label><input type="text" className="form-control" value={"field_0" + id} id={"name" + id} disabled />
                     <label for={"type" + id} className="form-label">Type</label><select name="type" className="form-control" id={"type" + id} >
                         <option value="text">text</option>
-                        <option value="phone">phone</option>
+                        <option value="tel">tel</option>
                         <option value="email">email</option>
+                        <option value="color">color</option>
+                        <option value="date">date</option>
+                        <option value="time">time</option>
+                        <option value="password">password</option>
+                        <option value="url">url</option>
                     </select>
                     <label for={"placeholder" + id} className="form-label">Placeholder</label><input type="text" className="form-control" id={"placeholder" + id} />
                 </div>
@@ -23,7 +39,7 @@ const FormsAdd = () => {
                         <option value="false">No</option>
                         <option value="true">Yes</option>
                     </select>
-                    <label for={"required" + id} className="form-label">Abschnitt</label><select name="required" type="text" className="form-control" id={"required" + id} >
+                    <label for={"section" + id} className="form-label">Abschnitt</label><select name="section" type="text" className="form-control" id={"section" + id} >
                         <option value="false">Reiseinformationen</option>
                         <option value="true">persönliche Informationen</option>
                     </select>

@@ -1,8 +1,9 @@
-import React from 'react';
+import { React } from 'react';
 import BookingCostCalculator from '../../componants/BookingCostCalculator/BookingCostCalculator';
 import BookingProcess from '../../componants/BookingProcess/BookingProcess';
 
 const BookASchedule = () => {
+
     return (
         <div className='container'>
             <div className="row">
