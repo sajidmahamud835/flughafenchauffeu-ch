@@ -16,7 +16,7 @@ function App() {
   const [values, setValues] = useState({});
   const [suggestions, setSuggestions] = useState({});
   const [userID, setUserID] = useState("");
-  const [noFooter, setNoFooter] = useState(false);
+  const [noFooter, setNoFooter] = useState(true);
   useEffect(() =>
     fetch(`${process.env.REACT_APP_SERVER_URL}/default-values`)
       .then(res => res.json())
