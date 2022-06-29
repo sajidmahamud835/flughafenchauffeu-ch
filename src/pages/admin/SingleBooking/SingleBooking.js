@@ -489,7 +489,7 @@ const ThankYou = () => {
                                         </section>
                                     </div>
                                     <div className='d-flex justify-content-between mt-5'>  <button onClick={() => handleDelete(booking._id)} type="button" className="btn btn-danger"><i className="far fa-trash-alt"></i> Delete</button> <Link to="/" type="button" className="btn btn-primary">
-                                        <i className="fas fa-done"></i>Confirm Booking</Link></div>
+                                        <i className="fas fa-done"></i>Send Reminder</Link></div>
                                 </div>
                             );
                         } else {

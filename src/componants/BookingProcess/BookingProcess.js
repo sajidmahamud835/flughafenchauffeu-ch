@@ -64,6 +64,49 @@ const BookingProcess = (props) => {
         email: "",
     };
 
+    //email sender
+    const sendEmail = () => {
+
+        console.log('send mail')
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/send-mail`, {
+            from: '"FlughafenChauffeur" <no-reply@flughafenchauffeur.ch>',
+            to: ["sajidmahamud835@gmail.com"],
+            subject: "New booking has been created!",
+            text: `
+                A new booking has been created.
+
+                >> Booking Details <<
+
+                start_address: ${values.start_address},
+                destination_01:  ${values.destination_01},
+                destination_02:  ${values.destination_02},
+                destination_03:  ${values.destination_03},
+                destination_04:  ${values.destination_04},
+                destination_05:  ${values.destination_05},
+                time_pickup:  ${values.time_pickup},
+                date_pickup:  ${values.date_pickup},
+                flight_number:  ${values.flight_number},
+                total_people: ${values.total_people},
+                luggage_weight:  ${values.luggage_weight},
+
+                >> User Details <<
+
+                first_name: ${values.first_name},
+                last_name: ${values.last_name},
+                address: ${values.address},
+                city: ${values.city},
+                postal_code: ${values.postal_code},
+                country: ${values.country},
+                phone: ${values.phone},
+                email: ${values.email},
+            `,
+        })
+            .then(res => {
+                console.log(res.data);
+            });
+
+    }
+
     useEffect(() =>
         fetch(`${process.env.REACT_APP_SERVER_URL}/form/tripInfo`)
             .then(res => res.json())
@@ -140,33 +183,18 @@ const BookingProcess = (props) => {
                 console.log(res.data);
                 setResponse(res.data);
                 setValues(defultData);
-                setEmail(
-                    {
-                        from: "FlughafenChauffeur <postmaster@sandbox7655551c2ecd4f4e9579f5ad6a7a936e.mailgun.org>",
-                        to: ["sajidmahamud835@gmail.com"],
-                        subject: "New booking has been created!",
-                        text: "Testing some Mailgun awesomness!",
-                    }
-                );
             });
 
     };
 
-    //email sender
-    useEffect(() => {
-        if (email.text) {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/send-mail`, email)
-                .then(res => {
-                    console.log(res.data);
-                });
-        }
-    }, [email]);
+
 
     useEffect(() => {
         if (response.acknowledged) {
+            sendEmail()
             navigate(`/confirm/${response.insertedId}`, { replace: true });
         }
-    }, [navigate, response.acknowledged, response.insertedId]);
+    }, [email, navigate, response.acknowledged, response.insertedId]);
 
     // Back Button
     const [btnBackStyle, setBtnBackStyle] = useState({ display: "none" });
