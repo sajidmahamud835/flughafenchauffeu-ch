@@ -41,13 +41,13 @@ const AppSettings = (props) => {
                 <input type="text" onChange={(e) => setGeneralSettings({ ...generalSetting, hqAddress: e.target.value })} defaultValue={generalSetting.hqAddress} className="form-control" id="hqAddress" />
             </div>
             <div className="col-md-6">
-                <label for="currencySymbole" className="form-label">E-Mail mit Buchungsbenachrichtigung</label>
-                <input type="email" onChange={(e) => setGeneralSettings({ ...generalSetting, bookingNotificationEmail: e.target.value })} defaultValue={generalSetting.bookingNotificationEmail} className="form-control" id="currencySymbole" />
+                <label for="orderEmail" className="form-label">E-Mail mit Buchungsbenachrichtigung</label>
+                <input type="email" onChange={(e) => setGeneralSettings({ ...generalSetting, bookingNotificationEmail: e.target.value })} defaultValue={generalSetting.bookingNotificationEmail} className="form-control" id="orderEmail" />
             </div>
             <div className="col-12">
                 <button onClick={(e) => saveSettings(e)} type="submit" className="btn btn-primary">Save</button>
             </div>
-        </div>
+        </div >
     );
 };
 
